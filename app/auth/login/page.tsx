@@ -1,291 +1,255 @@
 "use client"
 
 import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Shield, Phone, User } from "lucide-react"
+import { useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { useToast } from "@/hooks/use-toast"
+import { useAuth } from "@/components/providers/auth-provider"
 
 export default function LoginPage() {
-  const [phoneNumber, setPhoneNumber] = useState("")
-  const [otp, setOtp] = useState("")
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [userRole, setUserRole] = useState("")
-  const [otpSent, setOtpSent] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const { login } = useAuth()
   const router = useRouter()
-  const { toast } = useToast()
+  const searchParams = useSearchParams()
+  // Pre-select tab from URL: ?tab=citizen or ?tab=staff
+  const [tab, setTab] = useState<"citizen" | "staff">(
+    (searchParams.get("tab") === "staff" ? "staff" : "citizen") as "citizen" | "staff"
+  )
 
-  const handleSendOTP = async () => {
-    if (!phoneNumber || phoneNumber.length !== 10) {
-      toast({
-        title: "Invalid Phone Number",
-        description: "Please enter a valid 10-digit phone number",
-        variant: "destructive",
-      })
-      return
+  // Citizen OTP state
+  const [mobile, setMobile] = useState("")
+  const [otp, setOtp] = useState("")
+  const [otpSent, setOtpSent] = useState(false)
+  const [sendingOtp, setSendingOtp] = useState(false)
+  const [loggingIn, setLoggingIn] = useState(false)
+  const [error, setError] = useState("")
+  const [info, setInfo] = useState("")
+
+  // Staff state
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
+
+  const handleSendOtp = async () => {
+    if (!mobile || !/^[6-9]\d{9}$/.test(mobile)) {
+      setError("Please enter a valid 10-digit Indian mobile number"); return
     }
-
-    setLoading(true)
+    setSendingOtp(true); setError(""); setInfo("")
     try {
-      // Simulate OTP sending
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-      setOtpSent(true)
-      toast({
-        title: "OTP Sent",
-        description: "Please check your phone for the verification code",
+      const res = await fetch("/api/auth/send-otp", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ mobile }),
       })
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to send OTP. Please try again.",
-        variant: "destructive",
-      })
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const handleVerifyOTP = async () => {
-    if (!otp || otp.length !== 6) {
-      toast({
-        title: "Invalid OTP",
-        description: "Please enter a valid 6-digit OTP",
-        variant: "destructive",
-      })
-      return
-    }
-
-    setLoading(true)
-    try {
-      // Simulate OTP verification
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-
-      // Store user session
-      localStorage.setItem(
-        "user",
-        JSON.stringify({
-          phone: phoneNumber,
-          role: "citizen",
-          loginTime: new Date().toISOString(),
-        }),
-      )
-
-      toast({
-        title: "Login Successful",
-        description: "Welcome to DPAP!",
-      })
-
-      router.push("/citizen/dashboard")
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Invalid OTP. Please try again.",
-        variant: "destructive",
-      })
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const handleOfficerLogin = async () => {
-    if (!email || !password || !userRole) {
-      toast({
-        title: "Missing Information",
-        description: "Please fill in all required fields",
-        variant: "destructive",
-      })
-      return
-    }
-
-    setLoading(true)
-    try {
-      // Simulate officer login
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-
-      // Store user session
-      localStorage.setItem(
-        "user",
-        JSON.stringify({
-          email,
-          role: userRole,
-          loginTime: new Date().toISOString(),
-        }),
-      )
-
-      toast({
-        title: "Login Successful",
-        description: `Welcome, ${userRole}!`,
-      })
-
-      // Redirect based on role
-      const dashboardRoutes = {
-        "super-admin": "/admin/dashboard",
-        collector: "/collector/dashboard",
-        "department-officer": "/officer/dashboard",
-        clerk: "/clerk/dashboard",
-        helpdesk: "/helpdesk/dashboard",
+      const data = await res.json()
+      if (data.success) {
+        setOtpSent(true)
+        setInfo(data.dev ? "Dev mode: use OTP 123456" : "OTP sent to your mobile number")
+      } else {
+        setError(data.error || "Failed to send OTP")
       }
+    } catch { setError("Network error. Please try again.") }
+    finally { setSendingOtp(false) }
+  }
 
-      router.push(dashboardRoutes[userRole as keyof typeof dashboardRoutes] || "/dashboard")
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Invalid credentials. Please try again.",
-        variant: "destructive",
+  const handleCitizenLogin = async () => {
+    if (!otp) { setError("Please enter the OTP"); return }
+    setLoggingIn(true); setError("")
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ mobile, otp }),
       })
-    } finally {
-      setLoading(false)
-    }
+      const data = await res.json()
+      if (data.success && data.user) {
+        login(data.user)
+        router.push("/citizen/dashboard")
+      } else {
+        setError(data.error || "Invalid OTP")
+      }
+    } catch { setError("Network error") }
+    finally { setLoggingIn(false) }
+  }
+
+  const handleStaffLogin = async () => {
+    if (!username || !password) { setError("Enter username and password"); return }
+    setLoggingIn(true); setError("")
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      })
+      const data = await res.json()
+      if (data.success && data.user) {
+        login(data.user)
+        const dest: Record<string, string> = { superadmin: "/admin/dashboard", subadmin: "/subadmin/queue", officer: "/officer/inbox", bank_manager: "/bank/dashboard" }
+        router.push(dest[data.user.role] || "/")
+      } else {
+        setError(data.error || "Invalid credentials")
+      }
+    } catch { setError("Network error") }
+    finally { setLoggingIn(false) }
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <div className="flex items-center justify-center space-x-2 mb-4">
-            <Shield className="h-10 w-10 text-blue-600" />
-            <h1 className="text-3xl font-bold text-gray-900">DPAP</h1>
-          </div>
-          <p className="text-gray-600">District Problems & Action Portal</p>
-        </div>
+    <div className="flex flex-col min-h-screen bg-[#f4f7f9] font-inter">
+      {/* Tricolor */}
+      <div className="gov-banner" />
 
-        <Tabs defaultValue="citizen" className="w-full">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="citizen" className="flex items-center space-x-2">
-              <Phone className="h-4 w-4" />
-              <span>Citizen</span>
-            </TabsTrigger>
-            <TabsTrigger value="officer" className="flex items-center space-x-2">
-              <User className="h-4 w-4" />
-              <span>Officer</span>
-            </TabsTrigger>
-          </TabsList>
-
-          {/* Citizen Login */}
-          <TabsContent value="citizen">
-            <Card>
-              <CardHeader>
-                <CardTitle>Citizen Login</CardTitle>
-                <CardDescription>Login with your mobile number to submit and track complaints</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="phone">Mobile Number</Label>
-                  <Input
-                    id="phone"
-                    type="tel"
-                    placeholder="Enter 10-digit mobile number"
-                    value={phoneNumber}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
-                    maxLength={10}
-                    disabled={otpSent}
-                  />
-                </div>
-
-                {!otpSent ? (
-                  <Button onClick={handleSendOTP} className="w-full" disabled={loading}>
-                    {loading ? "Sending..." : "Send OTP"}
-                  </Button>
-                ) : (
-                  <>
-                    <div className="space-y-2">
-                      <Label htmlFor="otp">Enter OTP</Label>
-                      <Input
-                        id="otp"
-                        type="text"
-                        placeholder="Enter 6-digit OTP"
-                        value={otp}
-                        onChange={(e) => setOtp(e.target.value)}
-                        maxLength={6}
-                      />
-                    </div>
-                    <div className="flex space-x-2">
-                      <Button onClick={handleVerifyOTP} className="flex-1" disabled={loading}>
-                        {loading ? "Verifying..." : "Verify OTP"}
-                      </Button>
-                      <Button variant="outline" onClick={() => setOtpSent(false)} disabled={loading}>
-                        Change Number
-                      </Button>
-                    </div>
-                  </>
-                )}
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          {/* Officer Login */}
-          <TabsContent value="officer">
-            <Card>
-              <CardHeader>
-                <CardTitle>Officer Login</CardTitle>
-                <CardDescription>Login with your credentials to access the management dashboard</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="Enter your email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="password">Password</Label>
-                  <Input
-                    id="password"
-                    type="password"
-                    placeholder="Enter your password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="role">Role</Label>
-                  <Select value={userRole} onValueChange={setUserRole}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select your role" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="super-admin">Super Admin</SelectItem>
-                      <SelectItem value="collector">Collector/CEO ZP</SelectItem>
-                      <SelectItem value="department-officer">Department Officer</SelectItem>
-                      <SelectItem value="clerk">Clerk/Sub-Officer</SelectItem>
-                      <SelectItem value="helpdesk">Helpdesk</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <Button onClick={handleOfficerLogin} className="w-full" disabled={loading}>
-                  {loading ? "Logging in..." : "Login"}
-                </Button>
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
-
-        {/* Footer Links */}
-        <div className="text-center mt-6 space-y-2">
-          <Link href="/complaint/track" className="text-blue-600 hover:underline block">
-            Track Complaint Status
-          </Link>
-          <Link href="/" className="text-gray-500 hover:underline block">
-            Back to Home
-          </Link>
+      {/* Gov strip */}
+      <div className="bg-slate-100 border-b border-slate-200 text-[11px] py-1.5">
+        <div className="max-w-7xl mx-auto px-4 flex justify-between items-center">
+          <span className="text-slate-600 font-medium">GOVERNMENT OF JAMMU &amp; KASHMIR / <span className="text-slate-400">जम्मू और कश्मीर सरकार</span></span>
         </div>
       </div>
+
+      {/* Header */}
+      <header className="bg-white shadow-sm tricolor-border">
+        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-20">
+          <Link href="/" className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-gov-navy rounded-full flex items-center justify-center text-white text-xs font-black">J&K</div>
+            <div className="border-l border-slate-300 pl-4">
+              <h1 className="text-xl font-black tracking-tight text-gov-navy uppercase">E-ARZI ANANTNAG</h1>
+              <p className="text-[11px] font-semibold text-gov-green uppercase tracking-wide">District Grievance Redressal Portal</p>
+            </div>
+          </Link>
+          <Link href="/" className="text-sm font-bold text-slate-600 hover:text-gov-navy flex items-center gap-1">
+            <span className="material-symbols-outlined text-base">arrow_back</span> Back to Home
+          </Link>
+        </div>
+      </header>
+
+      {/* Content */}
+      <main className="flex-1 flex items-center justify-center py-16 px-4">
+        <div className="w-full max-w-md">
+          {/* Title */}
+          <div className="text-center mb-8">
+            <div className="w-16 h-16 bg-gov-navy rounded-full flex items-center justify-center mx-auto mb-4">
+              <span className="material-symbols-outlined text-white text-3xl">account_balance</span>
+            </div>
+            <h2 className="text-2xl font-black text-gov-navy">Sign in to E-Arzi</h2>
+            <p className="text-sm text-slate-500 mt-1">Anantnag District Grievance Portal</p>
+          </div>
+
+          {/* Tab switcher */}
+          <div className="flex bg-slate-200 rounded p-1 mb-6">
+            <button
+              onClick={() => { setTab("citizen"); setError(""); setInfo("") }}
+              className={`flex-1 flex items-center justify-center gap-2 py-2 text-sm font-bold rounded transition-all ${tab === "citizen" ? "bg-gov-navy text-white shadow-sm" : "text-slate-600 hover:text-slate-900"}`}
+            >
+              <span className="material-symbols-outlined text-base">phone_iphone</span>
+              Citizen (OTP)
+            </button>
+            <button
+              onClick={() => { setTab("staff"); setError(""); setInfo("") }}
+              className={`flex-1 flex items-center justify-center gap-2 py-2 text-sm font-bold rounded transition-all ${tab === "staff" ? "bg-gov-navy text-white shadow-sm" : "text-slate-600 hover:text-slate-900"}`}
+            >
+              <span className="material-symbols-outlined text-base">shield</span>
+              Staff Login
+            </button>
+          </div>
+
+          {/* Form card */}
+          <div className="bg-white border border-slate-200 rounded shadow-sm p-8">
+            {error && (
+              <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded text-sm text-red-700 flex items-center gap-2">
+                <span className="material-symbols-outlined text-base">error</span> {error}
+              </div>
+            )}
+            {info && (
+              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-700 flex items-center gap-2">
+                <span className="material-symbols-outlined text-base">info</span> {info}
+              </div>
+            )}
+
+            {tab === "citizen" ? (
+              <div className="space-y-4">
+                <div>
+                  <label className="text-xs font-bold text-slate-500 uppercase block mb-1.5">Mobile Number</label>
+                  <div className="flex">
+                    <span className="bg-slate-100 border border-r-0 border-slate-300 px-3 py-2.5 text-sm font-bold text-slate-600 rounded-l">+91</span>
+                    <input
+                      type="tel" maxLength={10}
+                      placeholder="9876543210"
+                      value={mobile} onChange={e => setMobile(e.target.value)}
+                      className="flex-1 border border-slate-300 px-3 py-2.5 text-sm rounded-r focus:outline-none focus:border-gov-saffron"
+                      disabled={otpSent}
+                    />
+                  </div>
+                </div>
+                {!otpSent ? (
+                  <button
+                    onClick={handleSendOtp}
+                    disabled={sendingOtp}
+                    className="w-full btn-navy py-3 text-base flex items-center justify-center gap-2"
+                  >
+                    {sendingOtp ? <span className="material-symbols-outlined animate-spin">progress_activity</span> : <span className="material-symbols-outlined">send</span>}
+                    {sendingOtp ? "Sending..." : "Send OTP"}
+                  </button>
+                ) : (
+                  <>
+                    <div>
+                      <label className="text-xs font-bold text-slate-500 uppercase block mb-1.5">Enter OTP</label>
+                      <input
+                        type="text" maxLength={6}
+                        placeholder="6-digit OTP"
+                        value={otp} onChange={e => setOtp(e.target.value)}
+                        className="w-full border border-slate-300 px-3 py-2.5 text-sm rounded focus:outline-none focus:border-gov-saffron text-center tracking-widest font-bold text-lg"
+                      />
+                    </div>
+                    <button
+                      onClick={handleCitizenLogin}
+                      disabled={loggingIn}
+                      className="w-full btn-navy py-3 text-base flex items-center justify-center gap-2"
+                    >
+                      {loggingIn ? <span className="material-symbols-outlined animate-spin">progress_activity</span> : <span className="material-symbols-outlined">login</span>}
+                      {loggingIn ? "Verifying..." : "Verify & Login"}
+                    </button>
+                    <button onClick={() => { setOtpSent(false); setOtp(""); setInfo("") }} className="w-full text-sm text-slate-500 hover:text-gov-navy font-medium">
+                      Change Mobile Number
+                    </button>
+                  </>
+                )}
+                <p className="text-center text-xs text-slate-500">
+                  New user?{" "}
+                  <Link href="/citizen/register" className="text-gov-navy font-bold hover:underline">Register here</Link>
+                </p>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div>
+                  <label className="text-xs font-bold text-slate-500 uppercase block mb-1.5">Username</label>
+                  <input
+                    type="text" placeholder="staff.username"
+                    value={username} onChange={e => setUsername(e.target.value)}
+                    className="w-full border border-slate-300 px-3 py-2.5 text-sm rounded focus:outline-none focus:border-gov-saffron"
+                  />
+                </div>
+                <div>
+                  <label className="text-xs font-bold text-slate-500 uppercase block mb-1.5">Password</label>
+                  <input
+                    type="password" placeholder="••••••••"
+                    value={password} onChange={e => setPassword(e.target.value)}
+                    onKeyDown={e => e.key === "Enter" && handleStaffLogin()}
+                    className="w-full border border-slate-300 px-3 py-2.5 text-sm rounded focus:outline-none focus:border-gov-saffron"
+                  />
+                </div>
+                <button
+                  onClick={handleStaffLogin}
+                  disabled={loggingIn}
+                  className="w-full btn-navy py-3 text-base flex items-center justify-center gap-2"
+                >
+                  {loggingIn ? <span className="material-symbols-outlined animate-spin">progress_activity</span> : <span className="material-symbols-outlined">login</span>}
+                  {loggingIn ? "Signing in..." : "Sign In"}
+                </button>
+                <p className="text-center text-xs text-slate-500">
+                  Contact your administrator for login credentials
+                </p>
+              </div>
+            )}
+          </div>
+
+          <p className="text-center text-[11px] text-slate-400 mt-6">
+            District Administration Anantnag · Government of J&K
+          </p>
+        </div>
+      </main>
     </div>
   )
 }

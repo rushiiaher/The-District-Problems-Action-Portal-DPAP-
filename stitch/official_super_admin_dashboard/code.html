@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>E-ARZI | Indian Government Oversight Hub</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ff9933", // Saffron
+                        "navy": "#000080", // Navy Blue (Ashoka Chakra color / Institutional)
+                        "government-green": "#138808", // India Green
+                        "background-light": "#f4f7f9",
+                        "background-dark": "#0f172a",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "sans": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "4px",
+                        "lg": "8px",
+                        "xl": "12px",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>body {
+    font-family: "Inter", sans-serif
+    }
+.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24
+    }
+.emblem-bg {
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuDdfIfqzvwvXp_5bwntA8RzTxjE8gXVNHLd665tEmMGOvZtGHz3lZeFZNw7B4Dz4WcMPSL77Ofiddg7eE0Va2c3o03EYyK4Q7CALH-5Igah-f7IztrZ7qpVN7ifoN6y6O7bm-w3IR-oQjptfWbQ_00ShuobEPN4qJryj7nzaP0yek-ZXzehw0DEBm7cDbqCkkQdkg-RKLoCkkrc3JD4YWKCge7eaE5RkRSELPU6a8yh6rRKJP2q_vrJzkTorM86fRDTE7ti4y6_1k7x);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    opacity: 0.05
+    }</style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 transition-colors duration-200">
+<div class="flex h-screen overflow-hidden">
+<!-- Institutional Sidebar Navigation -->
+<aside class="w-72 bg-navy dark:bg-slate-950 text-white flex flex-col shadow-2xl z-20">
+<div class="p-6 flex flex-col items-center gap-4 border-b border-white/10">
+<div class="size-16 p-1 bg-white rounded-sm">
+<img alt="State Emblem of India" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-uhMpJ_WSnoZjYsIKYGXwc1rnQlef982l6t_5yYjWcDR2DG2gpEWznDl5MsUXGZ33sJKSyA8uHvZM5s6iLYpkbiCRbO4ALInreIGLJu9wyGJpWrQN2NwmlEBA9ijPbsmLQQMaqph-mSktP0ZOEoIv-HRDJJlv5WLnoOlcZm2jC8LHYwNK-I5y7AoJjqN8ZrQqADZCHciNqyiuj1y2k3935LknBjeHxFEornI8TUpke8mN-N9TZ8Okmv3CV6IJ4c6QrbQT1G69clMN"/>
+</div>
+<div class="text-center">
+<h2 class="text-lg font-extrabold tracking-widest uppercase">E-ARZI</h2>
+<p class="text-[10px] text-white/60 font-medium tracking-tighter uppercase">Government of India Oversight Hub</p>
+</div>
+</div>
+<div class="px-4 py-6 flex-1 overflow-y-auto">
+<div class="flex items-center gap-3 px-3 py-4 bg-white/5 rounded mb-6 border border-white/10">
+<div class="size-10 rounded bg-white/20 flex items-center justify-center overflow-hidden border border-white/30 shadow-inner">
+<img class="w-full h-full object-cover" data-alt="Professional portrait of a high-ranking IAS officer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVZ4UkuAdPcphQEkCnDSa6Jh37R5b7ioZQZf6rWuo4iyxR8gO2STj4rDlKMjxZ7C6mxNkPxmcuGCne5bI6umO6vh31Jqmjp9i1W0m9x_MNiqhIcKgPxzKiF21bgUd0LET-IdrjN9ZpkbN0CciUoHM_53M80fxSzRJFuWKbsWpb-dcunxZfIYnuOcIdp0gG22y59Q1_ZVzcsJbqXSuJM-poG43ColoVCKCP00Zth-R4X1YywWTqumftlrTOtPZwkb3IhcYFNQw-xEKR"/>
+</div>
+<div class="flex flex-col">
+<h3 class="text-sm font-bold tracking-wide">SH. ABHISHEK SINGH</h3>
+<p class="text-[10px] text-white/50 font-medium uppercase">District Magistrate</p>
+</div>
+</div>
+<nav class="space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded bg-primary text-white font-bold shadow-md shadow-black/20" href="#">
+<span class="material-symbols-outlined text-xl">analytics</span>
+<span class="text-sm uppercase tracking-wider">National Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded hover:bg-white/10 text-white/80 font-semibold transition-all" href="#">
+<span class="material-symbols-outlined text-xl">account_balance</span>
+<span class="text-sm uppercase tracking-wider">Ministries &amp; Depts</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded hover:bg-white/10 text-white/80 font-semibold transition-all" href="#">
+<span class="material-symbols-outlined text-xl">fact_check</span>
+<span class="text-sm uppercase tracking-wider">Grievance Cell</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded hover:bg-white/10 text-white/80 font-semibold transition-all" href="#">
+<span class="material-symbols-outlined text-xl">gavel</span>
+<span class="text-sm uppercase tracking-wider text-primary">Priority Cases</span>
+<span class="ml-auto bg-primary text-white text-[10px] px-2 py-0.5 rounded font-black">24</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded hover:bg-white/10 text-white/80 font-semibold transition-all" href="#">
+<span class="material-symbols-outlined text-xl">monitoring</span>
+<span class="text-sm uppercase tracking-wider">Audit Reports</span>
+</a>
+<div class="pt-8 pb-2 px-4 text-[11px] font-black text-white/30 uppercase tracking-[0.2em]">Administration</div>
+<a class="flex items-center gap-3 px-4 py-3 rounded hover:bg-white/10 text-white/80 font-semibold transition-all" href="#">
+<span class="material-symbols-outlined text-xl">admin_panel_settings</span>
+<span class="text-sm uppercase tracking-wider">System Governance</span>
+</a>
+</nav>
+</div>
+<div class="p-4 border-t border-white/10">
+<button class="w-full flex items-center justify-center gap-2 py-3 rounded bg-white/5 border border-white/20 text-white/70 hover:bg-white/10 transition-colors uppercase text-xs font-bold tracking-widest">
+<span class="material-symbols-outlined text-sm">logout</span>
+                Secure Sign Out
+            </button>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto bg-background-light dark:bg-background-dark relative">
+<div class="absolute inset-0 emblem-bg pointer-events-none"></div>
+<!-- Institutional Header -->
+<header class="sticky top-0 z-10 bg-white dark:bg-slate-900 border-b-4 border-primary px-10 py-4 flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-6 flex-1">
+<div class="relative max-w-xl w-full">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="w-full pl-12 pr-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-sm focus:ring-1 focus:ring-navy transition-all italic" placeholder="Search by Complaint ID, Aadhaar, or Department Reference..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2 text-[11px] font-bold text-slate-500 uppercase tracking-widest">
+<span class="size-2 rounded-full bg-government-green animate-pulse"></span>
+                    Systems Operational
+                </div>
+<div class="h-10 w-px bg-slate-200 dark:bg-slate-700"></div>
+<button class="relative p-2 rounded hover:bg-slate-100 dark:hover:bg-slate-800 text-navy dark:text-slate-300">
+<span class="material-symbols-outlined">notifications_active</span>
+<span class="absolute top-1.5 right-1.5 size-2.5 bg-red-600 border-2 border-white dark:border-slate-900 rounded-full"></span>
+</button>
+<div class="flex items-center gap-4 pl-4">
+<div class="text-right hidden md:block">
+<span class="block text-xs font-black text-navy dark:text-white uppercase tracking-tighter">Office of District HQ</span>
+<span class="block text-[10px] text-slate-500 font-bold uppercase tracking-widest">Administrator</span>
+</div>
+<div class="size-10 rounded-full bg-navy text-white flex items-center justify-center font-bold text-sm border-2 border-white shadow-md">
+                        HQ
+                    </div>
+</div>
+</div>
+</header>
+<div class="p-10 max-w-7xl mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-end gap-6 mb-10 border-b border-slate-200 dark:border-slate-700 pb-8">
+<div>
+<h1 class="text-4xl font-black tracking-tight text-navy dark:text-white mb-2 uppercase">Executive Oversight Dashboard</h1>
+<div class="flex items-center gap-4">
+<p class="text-slate-600 dark:text-slate-400 font-medium">Real-time Performance Metrics &amp; Citizen Grievance Analytics</p>
+<span class="px-3 py-1 bg-navy/5 text-navy dark:text-slate-300 text-[10px] font-black rounded border border-navy/10 uppercase tracking-widest">Classified Access</span>
+</div>
+</div>
+<div class="flex gap-4">
+<button class="flex items-center gap-2 px-5 py-3 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded text-sm font-bold text-navy hover:shadow-md transition-all uppercase tracking-wider">
+<span class="material-symbols-outlined text-lg">calendar_month</span>
+                        Quarterly View
+                    </button>
+<button class="flex items-center gap-2 px-6 py-3 bg-navy text-white rounded text-sm font-bold hover:bg-slate-800 transition-all shadow-lg uppercase tracking-widest">
+<span class="material-symbols-outlined text-lg">print</span>
+                        Print Official Dossier
+                    </button>
+</div>
+</div>
+<!-- Stats Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
+<div class="bg-white dark:bg-slate-900 p-8 rounded border-t-4 border-t-navy border-x border-b border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex justify-between items-start mb-6">
+<div class="p-3 bg-navy/5 text-navy rounded">
+<span class="material-symbols-outlined text-3xl">inbox</span>
+</div>
+<span class="text-[11px] font-black text-navy bg-navy/10 px-2 py-1 rounded uppercase tracking-tighter">Active</span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-[11px] font-black uppercase tracking-[0.15em] mb-1">Total Open Files</p>
+<p class="text-4xl font-black text-navy dark:text-white">1,284</p>
+</div>
+<div class="bg-white dark:bg-slate-900 p-8 rounded border-t-4 border-t-red-600 border-x border-b border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex justify-between items-start mb-6">
+<div class="p-3 bg-red-50 text-red-600 rounded">
+<span class="material-symbols-outlined text-3xl">priority_high</span>
+</div>
+<span class="text-[11px] font-black text-red-600 bg-red-50 px-2 py-1 rounded uppercase tracking-tighter">+5.2% Trend</span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-[11px] font-black uppercase tracking-[0.15em] mb-1">High-Level Escalations</p>
+<p class="text-4xl font-black text-red-600">156</p>
+</div>
+<div class="bg-white dark:bg-slate-900 p-8 rounded border-t-4 border-t-government-green border-x border-b border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex justify-between items-start mb-6">
+<div class="p-3 bg-government-green/5 text-government-green rounded">
+<span class="material-symbols-outlined text-3xl">verified</span>
+</div>
+<span class="text-[11px] font-black text-government-green bg-government-green/10 px-2 py-1 rounded uppercase tracking-tighter">Resolved</span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-[11px] font-black uppercase tracking-[0.15em] mb-1">Total Disposals</p>
+<p class="text-4xl font-black text-government-green">928</p>
+</div>
+<div class="bg-white dark:bg-slate-900 p-8 rounded border-t-4 border-t-primary border-x border-b border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex justify-between items-start mb-6">
+<div class="p-3 bg-primary/5 text-primary rounded">
+<span class="material-symbols-outlined text-3xl">schedule</span>
+</div>
+<span class="text-[11px] font-black text-primary bg-primary/10 px-2 py-1 rounded uppercase tracking-tighter">-0.5 Days</span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-[11px] font-black uppercase tracking-[0.15em] mb-1">Avg Resolution SLA</p>
+<p class="text-4xl font-black text-primary">4.2 <span class="text-lg">Days</span></p>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-10 mb-10">
+<!-- Main Analytics Section -->
+<div class="lg:col-span-2 space-y-10">
+<!-- Chart Placeholder -->
+<div class="bg-white dark:bg-slate-900 p-8 rounded border border-slate-200 dark:border-slate-800 shadow-md">
+<div class="flex justify-between items-center mb-8">
+<h3 class="font-black text-navy dark:text-white uppercase tracking-wider text-sm flex items-center gap-2">
+<span class="w-1 h-5 bg-navy rounded-full"></span>
+                                Institutional Complaint Volume Trends
+                            </h3>
+<div class="flex gap-4">
+<span class="flex items-center gap-2 text-[10px] font-black text-slate-500 uppercase tracking-widest"><span class="size-2 rounded-sm bg-navy"></span> New Intake</span>
+<span class="flex items-center gap-2 text-[10px] font-black text-slate-500 uppercase tracking-widest"><span class="size-2 rounded-sm bg-government-green"></span> Final Resolution</span>
+<span class="flex items-center gap-2 text-[10px] font-black text-slate-500 uppercase tracking-widest"><span class="size-2 rounded-sm bg-primary"></span> Escalated</span>
+</div>
+</div>
+<div class="h-64 flex items-end justify-between gap-3 px-2 pb-2">
+<!-- Professional Styled Bar Chart -->
+<div class="w-full bg-slate-100 dark:bg-slate-800 rounded-t-sm relative h-[40%]">
+<div class="absolute inset-x-0 bottom-0 bg-navy rounded-t-sm h-[60%]"></div>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-800 rounded-t-sm relative h-[55%]">
+<div class="absolute inset-x-0 bottom-0 bg-navy rounded-t-sm h-[70%]"></div>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-800 rounded-t-sm relative h-[45%]">
+<div class="absolute inset-x-0 bottom-0 bg-navy rounded-t-sm h-[40%] shadow-sm"></div>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-800 rounded-t-sm relative h-[65%]">
+<div class="absolute inset-x-0 bottom-0 bg-navy rounded-t-sm h-[80%]"></div>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-800 rounded-t-sm relative h-[80%]">
+<div class="absolute inset-x-0 bottom-0 bg-government-green rounded-t-sm h-[50%]"></div>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-800 rounded-t-sm relative h-[70%]">
+<div class="absolute inset-x-0 bottom-0 bg-government-green rounded-t-sm h-[90%]"></div>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-800 rounded-t-sm relative h-[90%]">
+<div class="absolute inset-x-0 bottom-0 bg-primary rounded-t-sm h-[75%]"></div>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-800 rounded-t-sm relative h-[60%]">
+<div class="absolute inset-x-0 bottom-0 bg-navy rounded-t-sm h-[65%]"></div>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-800 rounded-t-sm relative h-[45%]">
+<div class="absolute inset-x-0 bottom-0 bg-navy rounded-t-sm h-[30%]"></div>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-800 rounded-t-sm relative h-[55%]">
+<div class="absolute inset-x-0 bottom-0 bg-navy rounded-t-sm h-[85%]"></div>
+</div>
+</div>
+<div class="flex justify-between mt-6 px-2 text-[10px] text-slate-400 font-black uppercase tracking-widest">
+<span>Reporting Week 01</span>
+<span>Reporting Week 02</span>
+<span>Reporting Week 03</span>
+<span>Reporting Week 04</span>
+</div>
+</div>
+<!-- Department Performance Table -->
+<div class="bg-white dark:bg-slate-900 rounded border border-slate-200 dark:border-slate-800 shadow-md overflow-hidden">
+<div class="p-8 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-800/20">
+<h3 class="font-black text-navy dark:text-white uppercase tracking-wider text-sm">Ministry &amp; Department Audit</h3>
+<button class="text-navy text-[11px] font-black uppercase tracking-widest border-b-2 border-navy hover:text-primary hover:border-primary transition-all">Full Performance Matrix</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-navy text-white">
+<th class="px-8 py-4 text-[10px] font-black uppercase tracking-[0.2em]">Departmental Entity</th>
+<th class="px-8 py-4 text-[10px] font-black uppercase tracking-[0.2em]">Open Files</th>
+<th class="px-8 py-4 text-[10px] font-black uppercase tracking-[0.2em]">Disposed</th>
+<th class="px-8 py-4 text-[10px] font-black uppercase tracking-[0.2em]">Overdue</th>
+<th class="px-8 py-4 text-[10px] font-black uppercase tracking-[0.2em]">Efficiency Index</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-8 py-5">
+<div class="font-black text-xs text-navy dark:text-white uppercase tracking-tighter">Revenue Department</div>
+<div class="text-[9px] text-slate-400 uppercase tracking-widest font-bold">Collectorate Offices</div>
+</td>
+<td class="px-8 py-5 text-sm font-bold text-slate-700 dark:text-slate-300">342</td>
+<td class="px-8 py-5 text-sm font-black text-government-green">892</td>
+<td class="px-8 py-5 text-sm font-black text-red-600">14</td>
+<td class="px-8 py-5">
+<div class="flex items-center gap-3">
+<div class="flex-1 min-w-[80px] bg-slate-100 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+<div class="bg-government-green h-full w-[85%]"></div>
+</div>
+<span class="text-xs font-black text-navy dark:text-white">85%</span>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-8 py-5 border-l-4 border-primary">
+<div class="font-black text-xs text-navy dark:text-white uppercase tracking-tighter">Urban Development</div>
+<div class="text-[9px] text-slate-400 uppercase tracking-widest font-bold">Municipal Corp</div>
+</td>
+<td class="px-8 py-5 text-sm font-bold text-slate-700 dark:text-slate-300">215</td>
+<td class="px-8 py-5 text-sm font-black text-government-green">451</td>
+<td class="px-8 py-5 text-sm font-black text-red-600">28</td>
+<td class="px-8 py-5">
+<div class="flex items-center gap-3">
+<div class="flex-1 min-w-[80px] bg-slate-100 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[65%]"></div>
+</div>
+<span class="text-xs font-black text-navy dark:text-white">65%</span>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-8 py-5">
+<div class="font-black text-xs text-navy dark:text-white uppercase tracking-tighter">Health Services</div>
+<div class="text-[9px] text-slate-400 uppercase tracking-widest font-bold">District Hospitals</div>
+</td>
+<td class="px-8 py-5 text-sm font-bold text-slate-700 dark:text-slate-300">128</td>
+<td class="px-8 py-5 text-sm font-black text-government-green">672</td>
+<td class="px-8 py-5 text-sm font-black text-red-600">05</td>
+<td class="px-8 py-5">
+<div class="flex items-center gap-3">
+<div class="flex-1 min-w-[80px] bg-slate-100 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+<div class="bg-government-green h-full w-[92%]"></div>
+</div>
+<span class="text-xs font-black text-navy dark:text-white">92%</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Right Side Panel - Escalations -->
+<div class="space-y-10">
+<div class="bg-white dark:bg-slate-900 p-8 rounded border border-slate-200 dark:border-slate-800 shadow-lg h-full">
+<div class="flex items-center justify-between mb-8 pb-4 border-b border-slate-100 dark:border-slate-800">
+<h3 class="font-black text-navy dark:text-white uppercase tracking-wider text-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-red-600">warning</span>
+                                Priority Mandates
+                            </h3>
+<span class="bg-red-600 text-white text-[9px] font-black px-3 py-1 rounded-sm uppercase tracking-widest">Urgent</span>
+</div>
+<div class="space-y-6">
+<!-- Escalation Item 1 -->
+<div class="p-6 bg-slate-50 dark:bg-slate-800/50 rounded border-l-4 border-red-600 border-r border-t border-b border-slate-200 dark:border-slate-700">
+<div class="flex justify-between items-start mb-3">
+<span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">FILE #EZ-9842</span>
+<span class="px-2 py-0.5 bg-red-100 text-red-600 text-[9px] font-black rounded uppercase">Tier 1</span>
+</div>
+<h4 class="text-sm font-black text-navy dark:text-white mb-2 uppercase tracking-tight">Land Correction Delay</h4>
+<p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed mb-4">Applicant waiting 15 days beyond SLA. Multiple departmental reminders ignored by Tehsildar.</p>
+<div class="flex items-center justify-between">
+<div class="flex -space-x-2">
+<div class="size-7 rounded-full border-2 border-white dark:border-slate-900 bg-slate-200 overflow-hidden shadow-sm">
+<img class="w-full h-full object-cover" data-alt="Official photo small" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-4c3fC8_sRAmQ-ZpMtLDBVKxmTMwyNXj52AIv_xOLk_caAeisEcvGsVJ1Euxt4nn0LaGw7zPBPwc69uoW-7sm2bISvIznbowGImn0MHJ_FfFTh_6G1p6jRCRlarxCuBWPXO612nowvoR65_i7ySxLv7o0ITUZ7dMXv8MTJSp0ykn07KV0SzZmK3IaWSxOM4_TI1SdIDBDqfa9Rd-0Sc4RXEf35vsUrdjLnXl-x7UEXkijxBAciIi--ILUxMURIfnFZsdaiN9j9nRy"/>
+</div>
+</div>
+<button class="text-[10px] font-black uppercase tracking-widest text-white bg-navy px-4 py-2 rounded shadow-md hover:bg-slate-800 transition-all">Direct Action</button>
+</div>
+</div>
+<!-- Escalation Item 2 -->
+<div class="p-6 bg-slate-50 dark:bg-slate-800/50 rounded border-l-4 border-primary border-r border-t border-b border-slate-200 dark:border-slate-700">
+<div class="flex justify-between items-start mb-3">
+<span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">FILE #EZ-7721</span>
+<span class="px-2 py-0.5 bg-primary/10 text-primary text-[9px] font-black rounded uppercase">Procurement</span>
+</div>
+<h4 class="text-sm font-black text-navy dark:text-white mb-2 uppercase tracking-tight">Sanitation Tender Stall</h4>
+<p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed mb-4">Tender process stalled at Municipal Corporation level for over 3 months. Fiscal impact significant.</p>
+<div class="flex items-center justify-between">
+<div class="flex -space-x-2">
+<div class="size-7 rounded-full border-2 border-white dark:border-slate-900 bg-slate-200 overflow-hidden shadow-sm">
+<img class="w-full h-full object-cover" data-alt="Official photo small" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5DKoG_MM0IIHzWdYghy5qCN9OtdaZhO0MujGc_2DpQ4-49ji7RB2muZvIdkvps0h8TJx6ZSMr3sNvd3XFoeAxyHmGH_JgOnc-HH744Xx6m677uP2nj4SHqN7TlqdD9vJpeEcn1RiLebMyWM4EBqzilPPhrC4wtTliVtowm_lcYkLaADav_3VPVdFoLIukMFjiQsYiDogaZB_eDNzt_kwy20kYejIDmbJPz7oJoNBQKQq4kznlBSvfD_WjUIfSS2g2DdaSMFVi7u-R"/>
+</div>
+</div>
+<button class="text-[10px] font-black uppercase tracking-widest text-navy bg-white border border-navy/20 px-4 py-2 rounded hover:bg-navy hover:text-white transition-all">Review File</button>
+</div>
+</div>
+</div>
+<button class="w-full mt-8 py-4 text-slate-500 dark:text-slate-400 text-[10px] font-black uppercase tracking-widest border-2 border-dashed border-slate-200 dark:border-slate-800 rounded hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-all">
+                            View All Active Mandates
+                        </button>
+</div>
+</div>
+</div>
+<!-- Bottom Insight Section -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+<div class="bg-navy rounded-sm p-10 text-white relative overflow-hidden shadow-2xl">
+<div class="relative z-10">
+<h3 class="text-2xl font-black mb-4 uppercase tracking-tighter">Administrative Intelligence Summary</h3>
+<p class="text-white/70 text-sm max-w-md mb-8 leading-relaxed">District resolution efficiency has exceeded the national average by <span class="text-primary font-black">14%</span>. Institutional bottlenecks identified in Urban Development sector require immediate secretary-level intervention.</p>
+<div class="flex gap-4">
+<button class="bg-primary text-white px-8 py-3 rounded text-[11px] font-black uppercase tracking-widest hover:bg-white hover:text-navy transition-all shadow-lg">
+                                Download Cabinet Brief
+                            </button>
+<button class="bg-white/10 text-white px-8 py-3 rounded text-[11px] font-black uppercase tracking-widest hover:bg-white/20 transition-all border border-white/20">
+                                Detailed Audit
+                            </button>
+</div>
+</div>
+<span class="material-symbols-outlined absolute -right-12 -bottom-12 text-[200px] text-white/5 select-none rotate-12">account_balance</span>
+</div>
+<div class="bg-white dark:bg-slate-900 p-10 rounded border border-slate-200 dark:border-slate-800 shadow-md">
+<h3 class="font-black text-navy dark:text-white uppercase tracking-wider text-sm mb-8 flex items-center gap-2">
+<span class="w-1 h-5 bg-government-green rounded-full"></span>
+                        Citizen Satisfaction Index (CSI)
+                    </h3>
+<div class="flex items-center gap-10">
+<div class="flex flex-col items-center">
+<div class="relative size-32 mb-4">
+<svg class="size-full" viewbox="0 0 36 36">
+<path class="stroke-current text-slate-100 dark:text-slate-800" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-width="4"></path>
+<path class="stroke-current text-government-green" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-dasharray="78, 100" stroke-linecap="butt" stroke-width="4"></path>
+</svg>
+<div class="absolute inset-0 flex items-center justify-center flex-col">
+<span class="font-black text-3xl text-navy dark:text-white">78%</span>
+<span class="text-[8px] font-black text-slate-400 uppercase tracking-widest">Index</span>
+</div>
+</div>
+</div>
+<div class="flex-1 space-y-6">
+<div class="space-y-2">
+<div class="flex justify-between text-[10px] font-black uppercase tracking-widest">
+<span class="text-slate-500">Quality of Redressal</span>
+<span class="text-navy dark:text-white">84%</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
+<div class="bg-navy h-full w-[84%]"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-[10px] font-black uppercase tracking-widest">
+<span class="text-slate-500">Officer Response Time</span>
+<span class="text-navy dark:text-white">62%</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[62%]"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-[10px] font-black uppercase tracking-widest">
+<span class="text-slate-500">System Ease of Use</span>
+<span class="text-navy dark:text-white">91%</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
+<div class="bg-government-green h-full w-[91%]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer class="mt-16 py-8 border-t border-slate-200 dark:border-slate-800 text-center">
+<p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">
+                    Digital India Initiative • Secure Portal • © 2024 National Informatics Centre (NIC)
+                </p>
+</footer>
+</div>
+</main>
+</div>
+</body></html>

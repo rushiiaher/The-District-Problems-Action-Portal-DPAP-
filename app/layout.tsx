@@ -1,16 +1,18 @@
 import type React from "react"
 import "./globals.css"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
 import { Toaster } from "@/components/ui/toaster"
 import { AuthProvider } from "@/components/providers/auth-provider"
 
-const inter = Inter({ subsets: ["latin"] })
-
 export const metadata: Metadata = {
-  title: "DPAP - District Problems & Action Portal",
-  description: "Citizen complaint management system for government departments",
-    generator: 'v0.dev'
+  title: "E-Arzi | Anantnag District Grievance Redressal System",
+  description: "Official digital grievance redressal platform for Anantnag District Administration, Jammu & Kashmir",
+  keywords: "Anantnag, grievance, complaint, district administration, J&K, government",
+  openGraph: {
+    title: "E-Arzi — Anantnag District Grievance Portal",
+    description: "Submit, track and resolve complaints with the Anantnag District Administration",
+    type: "website",
+  },
 }
 
 export default function RootLayout({
@@ -20,7 +22,24 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <head>
+        {/* Preconnect for faster font loading */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+
+        {/* Inter – body font */}
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet"
+        />
+
+        {/* Material Symbols Outlined – icon font (critical: must be loaded here) */}
+        <link
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+          rel="stylesheet"
+        />
+      </head>
+      <body className="font-sans antialiased">
         <AuthProvider>
           {children}
           <Toaster />

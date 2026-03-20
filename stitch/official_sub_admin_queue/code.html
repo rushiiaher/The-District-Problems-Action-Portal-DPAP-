@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>E-ARZI | Sub-Admin Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ff9933", // Theme 7 saffron
+                        "gov-navy": "#002147", // Official Navy Blue
+                        "gov-green": "#006400", // Official Green
+                        "background-light": "#f4f7f9",
+                        "background-dark": "#0f172a",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "sans": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.375rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .gov-sidebar-item.active {
+            border-left: 4px solid #ff9933;
+            background: rgba(255, 153, 51, 0.05);
+            color: #ff9933;
+        }
+        .data-table-bordered th, .data-table-bordered td {
+            border: 1px solid #e2e8f0;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar -->
+<aside class="w-64 flex-shrink-0 bg-white dark:bg-slate-900 border-r border-slate-300 dark:border-slate-800 flex flex-col shadow-sm">
+<div class="p-5 flex items-center gap-3 border-b border-slate-100">
+<div class="size-9 bg-gov-navy rounded flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-xl">account_balance</span>
+</div>
+<div>
+<h2 class="text-lg font-extrabold tracking-tight text-gov-navy dark:text-white leading-none">E-ARZI</h2>
+<span class="text-[10px] uppercase font-bold text-slate-400 tracking-widest">Govt. of India</span>
+</div>
+</div>
+<nav class="flex-1 px-0 space-y-0.5 mt-4">
+<div class="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest px-6 mb-2">Internal Management</div>
+<a class="gov-sidebar-item active flex items-center gap-3 px-6 py-3 text-sm font-semibold transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">inbox</span>
+<span>Unassigned Queue</span>
+</a>
+<a class="gov-sidebar-item flex items-center gap-3 px-6 py-3 text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all border-l-4 border-transparent" href="#">
+<span class="material-symbols-outlined text-[20px]">rebase_edit</span>
+<span>Reassignment Queue</span>
+</a>
+<a class="gov-sidebar-item flex items-center gap-3 px-6 py-3 text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all border-l-4 border-transparent" href="#">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+<span>Processed Today</span>
+</a>
+<div class="pt-6">
+<div class="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest px-6 mb-2">Administrative Reports</div>
+<a class="gov-sidebar-item flex items-center gap-3 px-6 py-3 text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all border-l-4 border-transparent" href="#">
+<span class="material-symbols-outlined text-[20px]">bar_chart</span>
+<span>Performance Analytics</span>
+</a>
+</div>
+</nav>
+<div class="p-4 border-t border-slate-200 dark:border-slate-800 bg-slate-50/50">
+<div class="flex items-center gap-3 px-2 py-1">
+<div class="size-9 rounded-lg bg-slate-200 dark:bg-slate-700 flex items-center justify-center overflow-hidden border border-slate-300">
+<img alt="Admin Profile" class="object-cover h-full w-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPGQX12nETPuT7u9huOY8zCDlUcRpDRqBdG_-J_R_U-cvb88Cjt4FCaPaz9O1JsekeVGgbQ-BWXFAFEI7-tEhiNjMJtAsTd9nZDgTIXXxS3aJxYmeSIGvUsatmIoforLfezG0H0sv4_ASRaIAZvFZ1sK-ovNd2SoG5ZG4PvlebUbsG7-KQY8RDN4rbkpS8RIwFjiNhhL1nw1tyyoWwQP_YKYEKz1c_JAnv4k-Eyu7Fx_t3PJruz8_D0cGJvRedza89xQaNwhkZvan9"/>
+</div>
+<div class="overflow-hidden">
+<p class="text-sm font-bold truncate text-gov-navy">James Wilson</p>
+<p class="text-[10px] text-slate-500 uppercase font-semibold">Senior Sub-Admin</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col min-w-0 bg-background-light dark:bg-background-dark overflow-y-auto">
+<!-- Official Header -->
+<header class="h-14 flex items-center justify-between px-8 bg-gov-navy dark:bg-slate-900 border-b border-gov-navy/20 sticky top-0 z-10 text-white">
+<div class="flex items-center flex-1 max-w-md">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-300 text-lg">search</span>
+<input class="w-full pl-10 pr-4 py-1.5 bg-white/10 dark:bg-slate-800 border-none rounded text-sm focus:bg-white focus:text-slate-900 transition-all outline-none placeholder:text-slate-300" placeholder="Search Application ID, Location, or Sub-Category..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<span class="text-[10px] font-bold uppercase tracking-widest text-slate-300">Session Security: Active</span>
+<div class="size-2 bg-emerald-400 rounded-full animate-pulse"></div>
+</div>
+<button class="relative p-1.5 hover:bg-white/10 rounded transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1.5 right-1.5 size-2 bg-primary rounded-full border border-gov-navy"></span>
+</button>
+<div class="h-6 w-px bg-white/20"></div>
+<button class="flex items-center gap-2 p-1.5 hover:bg-white/10 rounded transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</header>
+<div class="p-8">
+<!-- Page Title -->
+<div class="mb-8 flex items-end justify-between border-b border-slate-300 pb-4">
+<div>
+<h1 class="text-2xl font-black text-slate-900 dark:text-white uppercase tracking-tight">Public Grievance Redressal Queue</h1>
+<p class="text-slate-600 dark:text-slate-400 mt-1 text-sm font-medium italic">Internal distribution of unassigned applications to field officers for verification.</p>
+</div>
+<div class="flex gap-2">
+<button class="flex items-center gap-2 px-4 py-2 bg-white border border-slate-300 text-slate-700 text-xs font-bold rounded shadow-sm hover:bg-slate-50">
+<span class="material-symbols-outlined text-sm">download</span> EXPORT LIST
+                    </button>
+</div>
+</div>
+<!-- Metrics -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+<div class="bg-white dark:bg-slate-900 p-5 rounded border border-slate-300 dark:border-slate-800 shadow-sm border-l-4 border-l-amber-500">
+<p class="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Awaiting Initial Assignment</p>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="text-3xl font-black text-slate-900 dark:text-white">42</span>
+<span class="text-[11px] font-bold text-red-600 bg-red-50 px-1.5 py-0.5 rounded border border-red-100 flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span> 12%
+                        </span>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 p-5 rounded border border-slate-300 dark:border-slate-800 shadow-sm border-l-4 border-l-blue-500">
+<p class="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Pending Re-distribution</p>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="text-3xl font-black text-slate-900 dark:text-white">12</span>
+<span class="text-[11px] font-bold text-slate-500 uppercase">Steady State</span>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 p-5 rounded border border-slate-300 dark:border-slate-800 shadow-sm border-l-4 border-l-gov-green">
+<p class="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Disposed of Today</p>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="text-3xl font-black text-slate-900 dark:text-white">28</span>
+<span class="text-[11px] font-bold text-gov-green bg-green-50 px-1.5 py-0.5 rounded border border-green-100 flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span> 8%
+                        </span>
+</div>
+</div>
+</div>
+<!-- Data Table -->
+<div class="bg-white dark:bg-slate-900 rounded border border-slate-300 dark:border-slate-800 shadow-md overflow-hidden">
+<div class="px-6 py-4 bg-slate-50 dark:bg-slate-800/50 border-b border-slate-300 dark:border-slate-800 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<label class="text-[11px] font-bold uppercase text-slate-500">Filter By:</label>
+<select class="bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-700 text-[12px] font-semibold rounded py-1 px-3 focus:ring-primary/20">
+<option>All Grievance Categories</option>
+<option>Revenue / Land Dispute</option>
+<option>Public Health &amp; Sanitation</option>
+<option>Infrastructure / Roads</option>
+</select>
+<select class="bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-700 text-[12px] font-semibold rounded py-1 px-3 focus:ring-primary/20">
+<option>Priority: All</option>
+<option>Priority: Urgent (T+24h)</option>
+<option>Priority: Normal</option>
+</select>
+</div>
+<div class="text-[11px] font-bold text-slate-500 uppercase">
+                        Records <span class="text-slate-900 dark:text-white">1 - 5</span> of 42
+                    </div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse data-table-bordered">
+<thead>
+<tr class="bg-slate-100 dark:bg-slate-800/80">
+<th class="px-5 py-3 text-[11px] font-bold text-slate-600 dark:text-slate-300 uppercase tracking-widest bg-slate-100">Application ID</th>
+<th class="px-5 py-3 text-[11px] font-bold text-slate-600 dark:text-slate-300 uppercase tracking-widest bg-slate-100">Submission Date</th>
+<th class="px-5 py-3 text-[11px] font-bold text-slate-600 dark:text-slate-300 uppercase tracking-widest bg-slate-100">Category</th>
+<th class="px-5 py-3 text-[11px] font-bold text-slate-600 dark:text-slate-300 uppercase tracking-widest bg-slate-100 text-center">Taluka/Village</th>
+<th class="px-5 py-3 text-[11px] font-bold text-slate-600 dark:text-slate-300 uppercase tracking-widest bg-slate-100">Current Status</th>
+<th class="px-5 py-3 text-[11px] font-bold text-slate-600 dark:text-slate-300 uppercase tracking-widest bg-slate-100 text-right">Official Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-300 dark:divide-slate-800">
+<!-- Row 1 -->
+<tr class="hover:bg-amber-50/30 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-5 py-4 text-xs font-bold text-gov-navy dark:text-primary">ARZ/2026/0001</td>
+<td class="px-5 py-4 text-xs font-medium text-slate-600 dark:text-slate-400">27 Oct 2023, 10:45 AM</td>
+<td class="px-5 py-4">
+<span class="text-[10px] font-bold px-2 py-0.5 bg-slate-200 text-slate-700 uppercase rounded">Land Dispute</span>
+</td>
+<td class="px-5 py-4 text-xs font-medium text-slate-600 dark:text-slate-400 text-center">Block A, Village North</td>
+<td class="px-5 py-4">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 bg-amber-100 text-amber-800 text-[10px] font-black rounded border border-amber-200 uppercase">
+<span class="size-1.5 bg-amber-600 rounded-full"></span>
+                                        UNASSIGNED
+                                    </span>
+</td>
+<td class="px-5 py-4 text-right">
+<button class="px-3 py-1.5 bg-gov-navy text-white text-[11px] font-bold rounded hover:bg-slate-800 transition-all shadow-sm border border-slate-700 flex items-center gap-1 ml-auto">
+<span class="material-symbols-outlined text-[16px]">assignment_ind</span> ASSIGN OFFICER
+                                    </button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-amber-50/30 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-5 py-4 text-xs font-bold text-gov-navy dark:text-primary">ARZ/2026/0002</td>
+<td class="px-5 py-4 text-xs font-medium text-slate-600 dark:text-slate-400">27 Oct 2023, 09:12 AM</td>
+<td class="px-5 py-4">
+<span class="text-[10px] font-bold px-2 py-0.5 bg-slate-200 text-slate-700 uppercase rounded">Water Supply</span>
+</td>
+<td class="px-5 py-4 text-xs font-medium text-slate-600 dark:text-slate-400 text-center">Block C, Village South</td>
+<td class="px-5 py-4">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 bg-amber-100 text-amber-800 text-[10px] font-black rounded border border-amber-200 uppercase">
+<span class="size-1.5 bg-amber-600 rounded-full"></span>
+                                        UNASSIGNED
+                                    </span>
+</td>
+<td class="px-5 py-4 text-right">
+<button class="px-3 py-1.5 bg-gov-navy text-white text-[11px] font-bold rounded hover:bg-slate-800 transition-all shadow-sm border border-slate-700 flex items-center gap-1 ml-auto">
+<span class="material-symbols-outlined text-[16px]">assignment_ind</span> ASSIGN OFFICER
+                                    </button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-amber-50/30 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-5 py-4 text-xs font-bold text-gov-navy dark:text-primary">ARZ/2026/0003</td>
+<td class="px-5 py-4 text-xs font-medium text-slate-600 dark:text-slate-400">26 Oct 2023, 04:30 PM</td>
+<td class="px-5 py-4">
+<span class="text-[10px] font-bold px-2 py-0.5 bg-slate-200 text-slate-700 uppercase rounded">Infrastructure</span>
+</td>
+<td class="px-5 py-4 text-xs font-medium text-slate-600 dark:text-slate-400 text-center">Block B, Central</td>
+<td class="px-5 py-4">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 bg-amber-100 text-amber-800 text-[10px] font-black rounded border border-amber-200 uppercase">
+<span class="size-1.5 bg-amber-600 rounded-full"></span>
+                                        UNASSIGNED
+                                    </span>
+</td>
+<td class="px-5 py-4 text-right">
+<button class="px-3 py-1.5 bg-gov-navy text-white text-[11px] font-bold rounded hover:bg-slate-800 transition-all shadow-sm border border-slate-700 flex items-center gap-1 ml-auto">
+<span class="material-symbols-outlined text-[16px]">assignment_ind</span> ASSIGN OFFICER
+                                    </button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-amber-50/30 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-5 py-4 text-xs font-bold text-gov-navy dark:text-primary">ARZ/2026/0004</td>
+<td class="px-5 py-4 text-xs font-medium text-slate-600 dark:text-slate-400">26 Oct 2023, 11:15 AM</td>
+<td class="px-5 py-4">
+<span class="text-[10px] font-bold px-2 py-0.5 bg-slate-200 text-slate-700 uppercase rounded">Power / Electricity</span>
+</td>
+<td class="px-5 py-4 text-xs font-medium text-slate-600 dark:text-slate-400 text-center">Village East</td>
+<td class="px-5 py-4">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 bg-amber-100 text-amber-800 text-[10px] font-black rounded border border-amber-200 uppercase">
+<span class="size-1.5 bg-amber-600 rounded-full"></span>
+                                        UNASSIGNED
+                                    </span>
+</td>
+<td class="px-5 py-4 text-right">
+<button class="px-3 py-1.5 bg-gov-navy text-white text-[11px] font-bold rounded hover:bg-slate-800 transition-all shadow-sm border border-slate-700 flex items-center gap-1 ml-auto">
+<span class="material-symbols-outlined text-[16px]">assignment_ind</span> ASSIGN OFFICER
+                                    </button>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-amber-50/30 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-5 py-4 text-xs font-bold text-gov-navy dark:text-primary">ARZ/2026/0005</td>
+<td class="px-5 py-4 text-xs font-medium text-slate-600 dark:text-slate-400">25 Oct 2023, 02:45 PM</td>
+<td class="px-5 py-4">
+<span class="text-[10px] font-bold px-2 py-0.5 bg-slate-200 text-slate-700 uppercase rounded">Public Health</span>
+</td>
+<td class="px-5 py-4 text-xs font-medium text-slate-600 dark:text-slate-400 text-center">Block D, Village West</td>
+<td class="px-5 py-4">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 bg-amber-100 text-amber-800 text-[10px] font-black rounded border border-amber-200 uppercase">
+<span class="size-1.5 bg-amber-600 rounded-full"></span>
+                                        UNASSIGNED
+                                    </span>
+</td>
+<td class="px-5 py-4 text-right">
+<button class="px-3 py-1.5 bg-gov-navy text-white text-[11px] font-bold rounded hover:bg-slate-800 transition-all shadow-sm border border-slate-700 flex items-center gap-1 ml-auto">
+<span class="material-symbols-outlined text-[16px]">assignment_ind</span> ASSIGN OFFICER
+                                    </button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-6 py-4 bg-white dark:bg-slate-800 border-t border-slate-300 dark:border-slate-800 flex items-center justify-between">
+<button class="flex items-center gap-1 text-[11px] font-bold text-slate-500 uppercase hover:text-gov-navy transition-colors">
+<span class="material-symbols-outlined text-base">chevron_left</span> Previous Page
+                    </button>
+<div class="flex items-center gap-2">
+<button class="size-7 rounded bg-gov-navy text-white text-[11px] font-bold">1</button>
+<button class="size-7 rounded border border-slate-300 hover:bg-slate-100 text-[11px] font-bold">2</button>
+<button class="size-7 rounded border border-slate-300 hover:bg-slate-100 text-[11px] font-bold">3</button>
+<span class="px-2 text-slate-400 font-bold">...</span>
+<button class="size-7 rounded border border-slate-300 hover:bg-slate-100 text-[11px] font-bold">9</button>
+</div>
+<button class="flex items-center gap-1 text-[11px] font-bold text-slate-500 uppercase hover:text-gov-navy transition-colors">
+                        Next Page <span class="material-symbols-outlined text-base">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Operational Notice -->
+<div class="mt-6 bg-slate-100 border border-slate-300 p-3 rounded flex items-start gap-3">
+<span class="material-symbols-outlined text-gov-navy text-[20px] mt-0.5">info</span>
+<p class="text-[11px] font-medium text-slate-700 leading-relaxed uppercase tracking-tight">
+<span class="font-bold">Important Administrative Notice:</span> In accordance with Digital India guidelines, all unassigned grievances must be allocated to a field officer within 24 working hours of submission. High-priority cases marked in the automated sorting should be processed first.
+                </p>
+</div>
+</div>
+</main>
+</div>
+</body></html>

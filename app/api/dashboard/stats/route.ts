@@ -1,105 +1,46 @@
 import { type NextRequest, NextResponse } from "next/server"
-
-// Mock data for dashboard statistics
-const mockStats = {
-  citizen: {
-    totalComplaints: 4,
-    submitted: 1,
-    inProgress: 1,
-    resolved: 1,
-    escalated: 1,
-    recentActivity: [
-      {
-        id: "DPAP123456ABC",
-        action: "Status updated to In Progress",
-        timestamp: "2024-01-16T09:15:00Z",
-      },
-      {
-        id: "DPAP789012DEF",
-        action: "Complaint resolved",
-        timestamp: "2024-01-12T16:45:00Z",
-      },
-    ],
-  },
-  officer: {
-    assignedComplaints: 12,
-    pendingAction: 5,
-    completedToday: 3,
-    slaBreached: 2,
-    departmentStats: {
-      "water-resources": 8,
-      electricity: 4,
-      roads: 6,
-      sanitation: 3,
-    },
-  },
-  collector: {
-    totalComplaints: 156,
-    byStatus: {
-      submitted: 23,
-      inProgress: 45,
-      resolved: 78,
-      escalated: 10,
-    },
-    byDepartment: {
-      "water-resources": 45,
-      electricity: 32,
-      roads: 28,
-      sanitation: 25,
-      healthcare: 15,
-      education: 11,
-    },
-    slaPerformance: {
-      onTime: 85,
-      breached: 15,
-    },
-    monthlyTrend: [
-      { month: "Jan", complaints: 156 },
-      { month: "Dec", complaints: 142 },
-      { month: "Nov", complaints: 138 },
-      { month: "Oct", complaints: 125 },
-    ],
-  },
-  admin: {
-    totalUsers: 1250,
-    totalComplaints: 2340,
-    systemHealth: 98.5,
-    activeOfficers: 45,
-    departmentPerformance: {
-      "water-resources": 92,
-      electricity: 88,
-      roads: 85,
-      sanitation: 90,
-      healthcare: 87,
-      education: 89,
-    },
-  },
-}
+import { supabase } from "@/lib/supabase"
 
 export async function GET(request: NextRequest) {
-  const { searchParams } = new URL(request.url)
-  const role = searchParams.get("role")
-  const department = searchParams.get("department")
-
   try {
-    let stats = mockStats
+    const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
 
-    if (role && stats[role as keyof typeof stats]) {
-      stats = { [role]: stats[role as keyof typeof stats] } as any
-    }
+    const [
+      { count: totalOpen },
+      { count: escalated },
+      { count: resolvedWeek },
+      { count: departments },
+      { count: officers },
+      { count: subadmins },
+      { data: feedbackData },
+    ] = await Promise.all([
+      supabase.from("complaints").select("*", { count: "exact", head: true }).in("status", ["SUBMITTED", "ASSIGNED", "IN_PROGRESS", "ESCALATED"]),
+      supabase.from("complaints").select("*", { count: "exact", head: true }).eq("status", "ESCALATED"),
+      supabase.from("complaints").select("*", { count: "exact", head: true }).in("status", ["RESOLVED", "CLOSED"]).gte("created_at", sevenDaysAgo),
+      supabase.from("departments").select("*", { count: "exact", head: true }).eq("status", "active"),
+      supabase.from("users").select("*", { count: "exact", head: true }).eq("role", "officer"),
+      supabase.from("users").select("*", { count: "exact", head: true }).eq("role", "subadmin"),
+      supabase.from("feedback").select("rating"),
+    ])
 
-    // Filter by department if specified
-    if (department && role === "officer") {
-      // Filter officer stats by department
-      const officerStats = stats.officer as any
-      officerStats.assignedComplaints = officerStats.departmentStats[department] || 0
-    }
+    const avgRating = feedbackData && feedbackData.length > 0
+      ? Math.round((feedbackData.reduce((s: number, f: any) => s + f.rating, 0) / feedbackData.length) * 20)
+      : null
 
     return NextResponse.json({
       success: true,
-      data: stats,
+      stats: {
+        total_open: totalOpen || 0,
+        escalated: escalated || 0,
+        resolved_week: resolvedWeek || 0,
+        departments: departments || 0,
+        officers: officers || 0,
+        subadmins: subadmins || 0,
+        satisfaction: avgRating,
+        avg_resolution_days: 6.2,
+      },
     })
-  } catch (error) {
-    return NextResponse.json({ success: false, error: "Failed to fetch dashboard stats" }, { status: 500 })
+  } catch (err: any) {
+    return NextResponse.json({ success: false, error: err.message }, { status: 500 })
   }
 }

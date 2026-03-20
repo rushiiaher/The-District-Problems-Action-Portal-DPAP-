@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>E-ARZI | Public Grievance Redressal Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ff9933", // Saffron
+                        "secondary": "#138808", // Green
+                        "navy": "#000080", // Navy Blue
+                        "background-light": "#fcfcfc",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "sans": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "4px",
+                        "lg": "4px",
+                        "xl": "4px",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .gov-banner { background: linear-gradient(to right, #ff9933 33.33%, #ffffff 33.33%, #ffffff 66.66%, #138808 66.66%); height: 4px; }
+    </style>
+</head>
+<body class="bg-background-light text-slate-900 font-sans">
+<div class="gov-banner"></div>
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<header class="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
+<div class="max-w-[1200px] mx-auto px-6 py-3 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 pr-4 border-r border-slate-200">
+<img alt="Emblem of India" class="h-12 w-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYSzbQDFSp_zBA2NfvjALbs8Rg9cP4k6Us55na1W4nJv2IkXDt2UIW0pxwoNG5CA3fHLiJ_OV7tBba5gpiferxhQ8JwkWUYaDjllR5sDClM7HJPMl2DbUZDweZWSW9I1UnvdEKd8xNeGEl4sEUhmbHTOPeU7hkYWnzbfzwTsRuBBGN3cAO7ADLgvX3bS5QtHl8X8L1NO9JAIxXRjnYfDiKX40YpTQjMZ0oPJ8xu0dyN0jIU94TQHZdOFf5bQ3ZlNC-P-lnRh0tYWY0"/>
+<div class="flex flex-col">
+<span class="text-[10px] font-bold uppercase tracking-tight text-slate-600 leading-none">Government of India</span>
+<span class="text-xs font-medium text-slate-500 leading-none mt-1">Ministry of Public Grievances</span>
+</div>
+</div>
+<div class="flex items-center gap-2 pl-2">
+<div class="bg-navy p-1 rounded">
+<span class="material-symbols-outlined text-white text-xl">account_balance</span>
+</div>
+<h2 class="text-xl font-extrabold tracking-tighter text-navy italic">E-ARZI <span class="text-[10px] align-top font-bold not-italic ml-0.5 text-primary">v2.4</span></h2>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<nav class="hidden md:flex items-center gap-6 text-sm font-semibold text-slate-600">
+<a class="text-navy border-b-2 border-navy pb-1" href="#">Dashboard</a>
+<a class="hover:text-navy transition-colors" href="#">Services</a>
+<a class="hover:text-navy transition-colors" href="#">Track Status</a>
+<a class="hover:text-navy transition-colors" href="#">Helpdesk</a>
+</nav>
+<div class="flex items-center gap-3 border-l border-slate-200 pl-6">
+<button class="text-slate-500 hover:text-navy transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="flex items-center gap-2 cursor-pointer group">
+<div class="text-right hidden sm:block">
+<p class="text-xs font-bold text-slate-800">Arjun Sharma</p>
+<p class="text-[10px] text-slate-500 uppercase tracking-tighter">Verified Citizen</p>
+</div>
+<div class="h-9 w-9 rounded-full bg-slate-100 flex items-center justify-center border border-slate-200 overflow-hidden group-hover:border-navy transition-all">
+<img class="w-full h-full object-cover" data-alt="User profile avatar portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDruqqI19NpHtlkXnhhCqQ_KYZWryEQINdi18uy8H34zEmtiUZp6co0IEbuV77IhTro_85h-AxQgBCmJgzR4bRWVSf9JtH7rXX2aGoKIFPdd8siiOQ493LrfuqNmmKs17ofeWdoc_GGE5rywCmxxk8z6k8GOfZRPTAUiqNBGppNHAqKa0K8WYxHhOtpw7b1K2JclSz1d6WhsWFLa9F6mJQwUJ6ezqFbW-xKcwBJEufvGvnBtRx5CnHLL3C-YABI8wXXfspGgsLaq9SE"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-1 max-w-[1200px] mx-auto w-full px-6 py-10">
+<section class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<div class="flex items-center gap-2 mb-2">
+<span class="h-1 w-8 bg-primary"></span>
+<span class="text-xs font-bold text-primary uppercase tracking-[0.2em]">Citizen Portal</span>
+</div>
+<h1 class="text-3xl font-black text-navy leading-tight">Welcome, Arjun Sharma</h1>
+<p class="text-slate-500 mt-1 max-w-md">Your centralized portal for grievance reporting and service requests. Ensuring transparency and accountability.</p>
+</div>
+<div class="flex gap-2">
+<button class="bg-navy text-white px-5 py-2.5 rounded text-sm font-bold flex items-center gap-2 hover:bg-slate-800 transition-all shadow-md">
+<span class="material-symbols-outlined text-lg">add_circle</span>
+                        POST NEW GRIEVANCE
+                    </button>
+</div>
+</section>
+<section class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-12">
+<div class="bg-white p-6 rounded border-l-4 border-l-navy shadow-sm border border-slate-200">
+<p class="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-1">Total Filed</p>
+<div class="flex items-center justify-between">
+<span class="text-3xl font-black text-navy leading-none">03</span>
+<span class="material-symbols-outlined text-slate-200 text-4xl">description</span>
+</div>
+</div>
+<div class="bg-white p-6 rounded border-l-4 border-l-secondary shadow-sm border border-slate-200">
+<p class="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-1">Resolved</p>
+<div class="flex items-center justify-between">
+<span class="text-3xl font-black text-secondary leading-none">02</span>
+<span class="material-symbols-outlined text-secondary/20 text-4xl">task_alt</span>
+</div>
+</div>
+<div class="bg-white p-6 rounded border-l-4 border-l-primary shadow-sm border border-slate-200">
+<p class="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-1">Under Process</p>
+<div class="flex items-center justify-between">
+<span class="text-3xl font-black text-primary leading-none">01</span>
+<span class="material-symbols-outlined text-primary/20 text-4xl">pending</span>
+</div>
+</div>
+<div class="bg-white p-6 rounded border-l-4 border-l-slate-400 shadow-sm border border-slate-200">
+<p class="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-1">On Hold</p>
+<div class="flex items-center justify-between">
+<span class="text-3xl font-black text-slate-400 leading-none">00</span>
+<span class="material-symbols-outlined text-slate-100 text-4xl">hourglass_empty</span>
+</div>
+</div>
+</section>
+<section class="space-y-6">
+<div class="flex items-center justify-between border-b border-slate-200 pb-4">
+<h2 class="text-lg font-extrabold text-navy flex items-center gap-2">
+<span class="material-symbols-outlined">analytics</span>
+                        ACTIVE GRIEVANCES
+                    </h2>
+<div class="flex items-center gap-2 text-xs font-bold text-slate-500">
+<span>Sort by:</span>
+<select class="bg-transparent border-none p-0 text-navy font-bold focus:ring-0 cursor-pointer">
+<option>Latest First</option>
+<option>Priority</option>
+</select>
+</div>
+</div>
+<div class="bg-white rounded border border-slate-200 overflow-hidden shadow-sm">
+<!-- Grievance Card 1 -->
+<div class="p-6 border-b border-slate-100">
+<div class="flex flex-col md:flex-row md:items-start justify-between gap-6">
+<div class="flex items-start gap-5">
+<div class="bg-primary/5 text-primary p-3 rounded border border-primary/20">
+<span class="material-symbols-outlined text-2xl">water_drop</span>
+</div>
+<div class="space-y-1">
+<div class="flex items-center gap-3">
+<h3 class="font-bold text-lg text-slate-800">Water Leakage in Main Street</h3>
+<span class="bg-amber-50 text-amber-700 text-[10px] font-black px-2 py-0.5 rounded border border-amber-200 uppercase tracking-wider">Under Process</span>
+</div>
+<p class="text-xs text-slate-500 flex items-center gap-4">
+<span class="flex items-center gap-1"><span class="font-bold text-slate-700">ID:</span> ARZ-2024-0812</span>
+<span class="flex items-center gap-1"><span class="font-bold text-slate-700">Submitted:</span> 12 Oct 2023</span>
+<span class="flex items-center gap-1"><span class="font-bold text-slate-700">Dept:</span> Water Works</span>
+</p>
+</div>
+</div>
+<button class="text-navy text-xs font-bold flex items-center gap-1 hover:underline underline-offset-4">
+                                VIEW FULL TRACKING <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<div class="mt-8 bg-slate-50/50 p-6 rounded border border-slate-100 relative">
+<div class="absolute left-10 top-10 bottom-10 w-[1px] bg-slate-200"></div>
+<div class="space-y-6">
+<div class="relative pl-12">
+<div class="absolute left-[-5px] top-1 h-3 w-3 rounded-full bg-secondary ring-4 ring-white"></div>
+<div>
+<p class="text-sm font-bold text-slate-800">Grievance Submitted</p>
+<p class="text-[11px] text-slate-500">12 Oct 2023, 09:30 AM</p>
+<p class="text-xs mt-1 text-slate-600">Successfully recorded in the Centralized Grievance Redressal and Monitoring System (CPGRAMS).</p>
+</div>
+</div>
+<div class="relative pl-12">
+<div class="absolute left-[-5px] top-1 h-3 w-3 rounded-full bg-secondary ring-4 ring-white"></div>
+<div>
+<p class="text-sm font-bold text-slate-800">Assigned to Local Body</p>
+<p class="text-[11px] text-slate-500">12 Oct 2023, 02:15 PM</p>
+<p class="text-xs mt-1 text-slate-600">Forwarded to Nodal Officer: Water Works Maintenance Team B for immediate action.</p>
+</div>
+</div>
+<div class="relative pl-12">
+<div class="absolute left-[-5px] top-1 h-3 w-3 rounded-full bg-primary ring-4 ring-white animate-pulse"></div>
+<div>
+<p class="text-sm font-bold text-primary italic">Action In Progress</p>
+<p class="text-[11px] text-slate-500">13 Oct 2023, 10:00 AM</p>
+<p class="text-xs mt-1 text-slate-600">Site inspection completed. Repairs for the damaged pipeline are currently underway by the field team.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Grievance Card 2 (Resolved) -->
+<div class="p-6 border-b border-slate-100 hover:bg-slate-50 transition-colors">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="flex items-start gap-5">
+<div class="bg-secondary/5 text-secondary p-3 rounded border border-secondary/20">
+<span class="material-symbols-outlined text-2xl">lightbulb</span>
+</div>
+<div>
+<div class="flex items-center gap-3">
+<h3 class="font-bold text-slate-800">Street Light Malfunction</h3>
+<span class="bg-emerald-50 text-secondary text-[10px] font-black px-2 py-0.5 rounded border border-secondary/20 uppercase tracking-wider">Resolved</span>
+</div>
+<p class="text-xs text-slate-500 mt-1">ID: #ARZ-2024-0799 • Resolved on 08 Oct 2023</p>
+</div>
+</div>
+<button class="bg-slate-100 hover:bg-slate-200 text-slate-600 text-[10px] font-bold px-3 py-1.5 rounded transition-all">DOWNLOAD RECEIPT</button>
+</div>
+</div>
+<!-- Grievance Card 3 (Submitted) -->
+<div class="p-6 hover:bg-slate-50 transition-colors">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="flex items-start gap-5">
+<div class="bg-slate-100 text-slate-500 p-3 rounded border border-slate-200">
+<span class="material-symbols-outlined text-2xl">delete_outline</span>
+</div>
+<div>
+<div class="flex items-center gap-3">
+<h3 class="font-bold text-slate-800">Garbage Collection Delay</h3>
+<span class="bg-slate-100 text-slate-600 text-[10px] font-black px-2 py-0.5 rounded border border-slate-300 uppercase tracking-wider">Awaiting Verification</span>
+</div>
+<p class="text-xs text-slate-500 mt-1">ID: #ARZ-2024-0850 • Filed Today, 08:45 AM</p>
+</div>
+</div>
+<button class="text-navy text-xs font-bold hover:underline">VIEW DETAILS</button>
+</div>
+</div>
+</div>
+<!-- Official Footer Info -->
+<div class="bg-navy/5 border border-navy/10 p-6 rounded flex items-center gap-4">
+<span class="material-symbols-outlined text-navy">verified_user</span>
+<div>
+<p class="text-sm font-bold text-navy">Secure Transaction Environment</p>
+<p class="text-xs text-slate-600">Your grievance is protected by end-to-end encryption. Each submission is tracked by a unique Grievance ID for legal compliance.</p>
+</div>
+</div>
+</section>
+</main>
+<footer class="bg-white border-t border-slate-200 py-8 mt-12">
+<div class="max-w-[1200px] mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+<div>
+<h4 class="font-bold text-navy mb-3 uppercase text-xs tracking-widest">Support Helpline</h4>
+<p class="text-sm font-bold text-slate-800">1800-11-2024 (Toll Free)</p>
+<p class="text-xs text-slate-500">Available 24x7 for all citizens</p>
+</div>
+<div>
+<h4 class="font-bold text-navy mb-3 uppercase text-xs tracking-widest">Digital India</h4>
+<p class="text-xs text-slate-500 leading-relaxed">Website designed, developed and hosted by National Informatics Centre (NIC). Contents provided by Ministry of Personnel, Public Grievances and Pensions.</p>
+</div>
+<div class="flex justify-center md:justify-end gap-4 items-center">
+<img alt="Digital India" class="h-8 w-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUDrHRmN9-26HkjIluUyhXcANOxzn42bn1k5niMqQdvvKGgqGQAVOCURpkUiSVgp-JQNSC77rRRD0HYILYr0wa3-C8M4SFVcgfGH4cbYl3XMtkDuuPSFpbFVvEXSTHBDPtXuR9n3L-V8pV-Ljhf0WQKtyomfIgIP1HDXVJG3UmxP99xiWt3saHkkyFeUw4m8W7Ws2v10rjHhQ3KnIzirQYENGPKiRifR8MfGWV4NsbxSXzBTKxE0HCq6AkkmvYn9Iqca6rk21dI3EC"/>
+<img alt="G20 India" class="h-10 w-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaOGmD9EM_gR8fLMjuVbjb7HZlFF4YVdJHIUcdP6o1CuHKJGajhQ4beAxo3TvDl6AFZRySYxfWIQ8o9w7z5E0JzWgexxWXHuBvU5JYvFaSE2HEFBY-dZc4sC1mrhV-AUpwbHW6ncbPMphEJ-YFEH-8w386_2BYGMRxgBi2SHSxuOD_oech9Xv_wY5amRI2rGEKlbOP8rwnmdrheS5OcH0cYMd1oGvdsqs6V_JXyMBluOYViSn68lAFCa6CKqU49IswKlIeiA3QNcBO"/>
+</div>
+</div>
+</footer>
+<!-- Mobile Quick Actions -->
+<nav class="fixed bottom-0 left-0 right-0 md:hidden bg-white border-t border-slate-200 flex justify-around py-2 z-50">
+<button class="flex flex-col items-center gap-1 text-navy">
+<span class="material-symbols-outlined text-xl">home</span>
+<span class="text-[9px] font-bold">Home</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined text-xl">assignment</span>
+<span class="text-[9px] font-bold">Grievances</span>
+</button>
+<button class="bg-primary text-white h-10 w-10 rounded-full flex items-center justify-center -mt-6 shadow-lg">
+<span class="material-symbols-outlined">add</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined text-xl">help</span>
+<span class="text-[9px] font-bold">Help</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined text-xl">person</span>
+<span class="text-[9px] font-bold">Account</span>
+</button>
+</nav>
+</div>
+</body></html>

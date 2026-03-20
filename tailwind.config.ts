@@ -44,6 +44,12 @@ const config: Config = {
   			border: 'hsl(var(--border))',
   			input: 'hsl(var(--input))',
   			ring: 'hsl(var(--ring))',
+  			// === Official Government Colors ===
+  			'gov-navy':    '#000080',
+  			'gov-navy-dark': '#002147',
+  			'gov-saffron': '#ff9933',
+  			'gov-green':   '#138808',
+  			'gov-bg':      '#f4f7f9',
   			chart: {
   				'1': 'hsl(var(--chart-1))',
   				'2': 'hsl(var(--chart-2))',
@@ -63,9 +69,13 @@ const config: Config = {
   			}
   		},
   		borderRadius: {
-  			lg: 'var(--radius)',
-  			md: 'calc(var(--radius) - 2px)',
-  			sm: 'calc(var(--radius) - 4px)'
+  			DEFAULT: '4px',
+  			lg: '6px',
+  			md: '4px',
+  			sm: '2px',
+  			xl: '8px',
+  			'2xl': '10px',
+  			full: '9999px',
   		},
   		keyframes: {
   			'accordion-down': {

@@ -1,112 +1,102 @@
 import { type NextRequest, NextResponse } from "next/server"
-import jwt from "jsonwebtoken"
-
-// Mock users database
-const users = [
-  {
-    id: "1",
-    email: "admin@dpap.gov.in",
-    password: "admin123",
-    role: "super-admin",
-    name: "System Administrator",
-    department: "IT Department",
-  },
-  {
-    id: "2",
-    email: "collector@pune.gov.in",
-    password: "collector123",
-    role: "collector",
-    name: "District Collector",
-    department: "Collector Office",
-  },
-  {
-    id: "3",
-    email: "water.officer@pune.gov.in",
-    password: "water123",
-    role: "department-officer",
-    name: "Priya Sharma",
-    department: "Water Resources Department",
-  },
-  {
-    id: "4",
-    email: "clerk@pune.gov.in",
-    password: "clerk123",
-    role: "clerk",
-    name: "Amit Patel",
-    department: "Municipal Corporation",
-  },
-  {
-    id: "5",
-    email: "helpdesk@dpap.gov.in",
-    password: "help123",
-    role: "helpdesk",
-    name: "Support Team",
-    department: "Helpdesk",
-  },
-]
-
-const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key"
+import { supabase } from "@/lib/supabase"
+import { verifyOtp } from "@/lib/msg91"
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { email, password, phone, otp, loginType } = body
+    const { mobile, otp, username, password } = body
 
-    if (loginType === "citizen") {
-      // Handle citizen OTP login
-      if (!phone) {
-        return NextResponse.json({ success: false, error: "Phone number is required" }, { status: 400 })
+    // ── Citizen OTP login ──────────────────────────────────────
+    if (mobile && otp) {
+      const verification = await verifyOtp(mobile, otp)
+      if (!verification.success) {
+        return NextResponse.json({ success: false, error: verification.error }, { status: 400 })
       }
 
-      if (otp) {
-        // Verify OTP (mock verification)
-        if (otp === "123456") {
-          const citizenUser = {
-            id: phone,
-            phone,
-            role: "citizen",
-            loginTime: new Date().toISOString(),
-          }
+      // Find or create the citizen row
+      let { data: citizenUser } = await supabase
+        .from("users")
+        .select("id, name, mobile, role, gender, address, district, block, village, email, alt_mobile, verified")
+        .eq("mobile", mobile)
+        .eq("role", "citizen")
+        .maybeSingle()
 
-          const token = jwt.sign(citizenUser, JWT_SECRET, { expiresIn: "24h" })
-
-          return NextResponse.json({
-            success: true,
-            data: { user: citizenUser, token },
-            message: "Login successful",
-          })
-        } else {
-          return NextResponse.json({ success: false, error: "Invalid OTP" }, { status: 400 })
-        }
-      } else {
-        // Send OTP (mock)
-        return NextResponse.json({
-          success: true,
-          message: "OTP sent successfully",
-          otpSent: true,
-        })
-      }
-    } else {
-      // Handle officer login
-      if (!email || !password) {
-        return NextResponse.json({ success: false, error: "Email and password are required" }, { status: 400 })
+      if (!citizenUser) {
+        // First-time OTP login for a citizen who registered via the form
+        // (should not happen normally — register creates the row first)
+        const { data: newUser } = await supabase
+          .from("users")
+          .insert({ mobile, role: "citizen", verified: true, created_at: new Date().toISOString() })
+          .select("id, name, mobile, role, gender, address, district, block, village, email, alt_mobile, verified")
+          .single()
+        citizenUser = newUser
+      } else if (!citizenUser.verified) {
+        // Mark verified on first successful OTP
+        await supabase.from("users").update({ verified: true }).eq("id", citizenUser.id)
+        citizenUser = { ...citizenUser, verified: true }
       }
 
-      const user = users.find((u) => u.email === email && u.password === password)
-      if (!user) {
+      if (!citizenUser) {
+        return NextResponse.json({ success: false, error: "Could not create or find citizen record" }, { status: 500 })
+      }
+
+      // Return the full profile so auth context has address etc.
+      const user = {
+        id:         citizenUser.id,          // always the real UUID
+        mobile:     citizenUser.mobile,
+        name:       citizenUser.name || null,
+        role:       "citizen" as const,
+        gender:     citizenUser.gender || null,
+        address:    citizenUser.address || null,
+        district:   citizenUser.district || null,
+        block:      citizenUser.block || null,
+        village:    citizenUser.village || null,
+        email:      citizenUser.email || null,
+        alt_mobile: citizenUser.alt_mobile || null,
+        verified:   citizenUser.verified || false,
+      }
+      return NextResponse.json({ success: true, user })
+    }
+
+    // ── Staff login ────────────────────────────────────────────
+    if (username && password) {
+      const { data: staffUser, error } = await supabase
+        .from("users")
+        .select("id, name, role, mobile, department_id, employee_id, designation")
+        .eq("username", username)
+        .in("role", ["superadmin", "subadmin", "officer"])
+        .maybeSingle()
+
+      if (error || !staffUser) {
         return NextResponse.json({ success: false, error: "Invalid credentials" }, { status: 401 })
       }
 
-      const { password: _, ...userWithoutPassword } = user
-      const token = jwt.sign(userWithoutPassword, JWT_SECRET, { expiresIn: "24h" })
+      // Check password against password_hash field
+      const { data: pwdRow } = await supabase
+        .from("users")
+        .select("password_hash")
+        .eq("id", staffUser.id)
+        .single()
 
-      return NextResponse.json({
-        success: true,
-        data: { user: userWithoutPassword, token },
-        message: "Login successful",
-      })
+      // Simple comparison (production should use bcrypt)
+      if (!pwdRow || pwdRow.password_hash !== password) {
+        return NextResponse.json({ success: false, error: "Invalid credentials" }, { status: 401 })
+      }
+
+      // Fetch department name if officer
+      let department_name: string | undefined
+      if (staffUser.department_id) {
+        const { data: dept } = await supabase.from("departments").select("name").eq("id", staffUser.department_id).single()
+        department_name = dept?.name
+      }
+
+      const user = { ...staffUser, department_name }
+      return NextResponse.json({ success: true, user })
     }
-  } catch (error) {
-    return NextResponse.json({ success: false, error: "Internal server error" }, { status: 500 })
+
+    return NextResponse.json({ success: false, error: "Invalid login payload" }, { status: 400 })
+  } catch (err: any) {
+    return NextResponse.json({ success: false, error: err.message }, { status: 500 })
   }
 }

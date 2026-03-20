@@ -2,58 +2,245 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Fonts loaded via layout.tsx <head> for proper Next.js loading order */
+
+/* =================== BASE LAYER =================== */
+
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222.2 84% 4.9%;
-    --muted: 210 40% 96%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96%;
-    --accent-foreground: 222.2 84% 4.9%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
-    --radius: 0.5rem;
+    --background:    0 0% 96%;       /* #f5f5f5 — light grey govt page */
+    --foreground:    222 47% 11%;    /* slate-900 */
+    --card:          0 0% 100%;      /* white */
+    --card-foreground: 222 47% 11%;
+    --popover:       0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary:       33 100% 50%;    /* #ff9933 saffron */
+    --primary-foreground: 0 0% 100%;
+    --secondary:     134 52% 30%;    /* #138808 gov green */
+    --secondary-foreground: 0 0% 100%;
+    --muted:         210 40% 95%;
+    --muted-foreground: 215 16% 47%;
+    --accent:        33 100% 50%;
+    --accent-foreground: 0 0% 100%;
+    --destructive:   0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border:        214 32% 88%;
+    --input:         214 32% 88%;
+    --ring:          33 100% 50%;
+    --radius:        0.25rem;        /* square-ish, matches stitch */
+
+    /* Stitch custom tokens */
+    --gov-navy:      #000080;        /* classic Indian navy */
+    --gov-navy-dark: #002147;        /* sub-admin sidebar navy */
+    --gov-saffron:   #ff9933;        /* Indian saffron */
+    --gov-green:     #138808;        /* Indian green */
+    --gov-bg:        #f4f7f9;        /* stitch background */
   }
 
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 84% 4.9%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 94.1%;
-  }
-}
-
-@layer base {
   * {
     @apply border-border;
+    box-sizing: border-box;
   }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-[#f4f7f9] text-slate-900;
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
   }
 }
+
+/* =================== GOVERNMENT TRICOLOR BANNER =================== */
+
+.gov-banner {
+  height: 4px;
+  background: linear-gradient(to right, #ff9933 33.33%, #ffffff 33.33%, #ffffff 66.66%, #138808 66.66%);
+}
+
+/* =================== TRICOLOR BORDER (header) =================== */
+
+.tricolor-border {
+  border-top: 4px solid #ff9933;
+  position: relative;
+}
+.tricolor-border::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: 33.33%;
+  width: 33.33%;
+  height: 4px;
+  background: #ffffff;
+}
+.tricolor-border::after {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: 66.66%;
+  width: 33.34%;
+  height: 4px;
+  background: #138808;
+}
+
+/* =================== MATERIAL SYMBOLS =================== */
+
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  vertical-align: middle;
+  user-select: none;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* =================== GOV SIDEBAR =================== */
+
+.gov-sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #475569;
+  border-left: 4px solid transparent;
+  transition: all 0.15s;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.gov-sidebar-item:hover {
+  background: #f8fafc;
+  color: #000080;
+}
+
+.gov-sidebar-item.active {
+  border-left-color: #ff9933;
+  background: rgba(255, 153, 51, 0.05);
+  color: #ff9933;
+  font-weight: 600;
+}
+
+/* =================== STATUS BADGES =================== */
+
+@layer utilities {
+  .status-submitted    { @apply bg-slate-100 text-slate-700 border border-slate-300; }
+  .status-assigned     { @apply bg-blue-50 text-blue-800 border border-blue-200; }
+  .status-reassigned   { @apply bg-orange-50 text-orange-800 border border-orange-200; }
+  .status-in_progress  { @apply bg-amber-50 text-amber-800 border border-amber-200; }
+  .status-escalated    { @apply bg-red-50 text-red-800 border border-red-200; }
+  .status-resolved     { @apply bg-emerald-50 text-emerald-800 border border-emerald-200; }
+  .status-reopened     { @apply bg-orange-50 text-orange-800 border border-orange-200; }
+  .status-closed       { @apply bg-green-50 text-green-800 border border-green-200; }
+  .status-auto_closed  { @apply bg-gray-100 text-gray-600 border border-gray-200; }
+  .status-rejected     { @apply bg-red-50 text-red-900 border border-red-200; }
+
+  /* Priority */
+  .priority-emergency  { @apply bg-red-600 text-white text-[10px] font-black px-1.5 py-0.5 rounded uppercase; }
+  .priority-high       { @apply bg-orange-500 text-white text-[10px] font-black px-1.5 py-0.5 rounded uppercase; }
+  .priority-medium     { @apply bg-amber-400 text-white text-[10px] font-black px-1.5 py-0.5 rounded uppercase; }
+  .priority-low        { @apply bg-blue-400 text-white text-[10px] font-black px-1.5 py-0.5 rounded uppercase; }
+
+  /* SLA */
+  .sla-on-track { color: #138808; }
+  .sla-at-risk  { color: #d97706; }
+  .sla-overdue  { color: #dc2626; }
+
+  /* Card with navy left border */
+  .gov-card {
+    @apply bg-white border border-slate-200 shadow-sm rounded;
+  }
+  .gov-card-navy   { border-left: 4px solid #000080; }
+  .gov-card-saffron { border-left: 4px solid #ff9933; }
+  .gov-card-green  { border-left: 4px solid #138808; }
+  .gov-card-amber  { border-left: 4px solid #f59e0b; }
+  .gov-card-red    { border-left: 4px solid #ef4444; }
+  .gov-card-blue   { border-left: 4px solid #3b82f6; }
+
+  /* Table */
+  .gov-table th {
+    @apply px-5 py-3 text-[11px] font-bold text-slate-600 uppercase tracking-widest bg-slate-100;
+    border: 1px solid #e2e8f0;
+  }
+  .gov-table td {
+    @apply px-5 py-4 text-xs;
+    border: 1px solid #e2e8f0;
+  }
+
+  /* Buttons */
+  .btn-navy {
+    @apply bg-[#000080] text-white font-bold hover:bg-[#001a8c] transition-all shadow-sm;
+    border-radius: 4px;
+  }
+  .btn-saffron {
+    @apply bg-[#ff9933] text-white font-bold hover:bg-[#e68a2e] transition-all shadow-sm;
+    border-radius: 4px;
+  }
+  .btn-outline-saffron {
+    @apply border-2 border-[#ff9933] text-[#ff9933] font-bold hover:bg-[#ff9933] hover:text-white transition-all;
+    border-radius: 4px;
+  }
+  .btn-gov-green {
+    @apply bg-[#138808] text-white font-bold hover:bg-[#0e6606] transition-all shadow-sm;
+    border-radius: 4px;
+  }
+}
+
+/* =================== ANIMATIONS =================== */
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.6; }
+}
+
+.animate-fade-in-up   { animation: fadeInUp 0.4s ease-out forwards; }
+.animate-fade-in      { animation: fadeIn 0.3s ease-out forwards; }
+.animate-pulse-slow   { animation: pulse-slow 2s ease-in-out infinite; }
+
+.stagger-children > * { animation: fadeInUp 0.4s ease-out both; }
+.stagger-children > *:nth-child(1) { animation-delay: 0.04s; }
+.stagger-children > *:nth-child(2) { animation-delay: 0.08s; }
+.stagger-children > *:nth-child(3) { animation-delay: 0.12s; }
+.stagger-children > *:nth-child(4) { animation-delay: 0.16s; }
+.stagger-children > *:nth-child(5) { animation-delay: 0.20s; }
+.stagger-children > *:nth-child(6) { animation-delay: 0.24s; }
+.stagger-children > *:nth-child(7) { animation-delay: 0.28s; }
+.stagger-children > *:nth-child(8) { animation-delay: 0.32s; }
+
+/* =================== SCROLLBAR =================== */
+
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
