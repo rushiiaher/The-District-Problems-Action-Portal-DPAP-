@@ -65,7 +65,7 @@ export async function POST(request: NextRequest) {
         .from("users")
         .select("id, name, role, mobile, department_id, employee_id, designation")
         .eq("username", username)
-        .in("role", ["superadmin", "subadmin", "officer"])
+        .in("role", ["superadmin", "subadmin", "officer", "bank_manager"])
         .maybeSingle()
 
       if (error || !staffUser) {

@@ -1,11 +1,25 @@
 "use client"
 
-import { useState } from "react"
+import { useState, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
+
+export const dynamic = "force-dynamic"
 import Link from "next/link"
 import { useAuth } from "@/components/providers/auth-provider"
 
 export default function LoginPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex h-screen items-center justify-center bg-[#f4f7f9]">
+        <span className="material-symbols-outlined animate-spin text-4xl text-gov-navy">progress_activity</span>
+      </div>
+    }>
+      <LoginForm />
+    </Suspense>
+  )
+}
+
+function LoginForm() {
   const { login } = useAuth()
   const router = useRouter()
   const searchParams = useSearchParams()

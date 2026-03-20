@@ -223,7 +223,7 @@ export default function BankManagersAdminPage() {
                   <div key={m.id} className="px-6 py-4 flex items-center justify-between hover:bg-slate-50 transition-colors border-l-4 border-l-gov-saffron">
                     <div className="flex items-center gap-4">
                       <div className="w-10 h-10 rounded-full bg-amber-50 border border-amber-200 flex items-center justify-center text-gov-saffron font-black text-sm">
-                        {m.name[0].toUpperCase()}
+                        {(m.name?.[0] || 'B').toUpperCase()}
                       </div>
                       <div>
                         <p className="font-bold text-slate-800">{m.name}</p>

@@ -45,7 +45,6 @@ const NAV = {
     { group: "Administration", items: [
       { label: "Departments",       href: "/admin/departments", icon: "account_balance" },
       { label: "Citizens",          href: "/admin/citizens",    icon: "group" },
-      { label: "Officers",          href: "/admin/officers",    icon: "badge" },
       { label: "Sub-Admins",        href: "/admin/subadmins",   icon: "manage_accounts" },
       { label: "System Settings",   href: "/admin/settings",    icon: "admin_panel_settings" },
     ]},
@@ -55,6 +54,9 @@ const NAV = {
     { group: "Bank", items: [
       { label: "Bank Managers",     href: "/admin/bank-managers",  icon: "account_balance",    accent: "text-gov-saffron" },
     ]},
+  ],
+  bank_manager: [
+    { label: "Dashboard", href: "/bank/dashboard", icon: "dashboard" },
   ],
 }
 

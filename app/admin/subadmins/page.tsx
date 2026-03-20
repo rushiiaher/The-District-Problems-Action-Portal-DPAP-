@@ -229,7 +229,7 @@ export default function SubAdminsPage() {
                   <div key={m.id} className="px-6 py-4 flex items-center justify-between hover:bg-slate-50 transition-colors border-l-4 border-l-gov-navy">
                     <div className="flex items-center gap-4">
                       <div className="w-10 h-10 rounded-full bg-gov-navy/10 border border-gov-navy/20 flex items-center justify-center text-gov-navy font-black text-sm">
-                        {m.name[0].toUpperCase()}
+                        {(m.name?.[0] || 'S').toUpperCase()}
                       </div>
                       <div>
                         <p className="font-bold text-slate-800">{m.name}</p>

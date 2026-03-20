@@ -1,7 +1,9 @@
 "use client"
 
-import { useState } from "react"
+import { useState, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
+
+export const dynamic = "force-dynamic"
 import Link from "next/link"
 
 const STATUS_STEPS = ["SUBMITTED", "ASSIGNED", "IN_PROGRESS", "RESOLVED", "CLOSED"]
@@ -18,6 +20,18 @@ const STATUS_BADGE: Record<string, string> = {
 }
 
 export default function TrackPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex h-screen items-center justify-center bg-[#f4f7f9]">
+        <span className="material-symbols-outlined animate-spin text-4xl text-gov-navy">progress_activity</span>
+      </div>
+    }>
+      <TrackForm />
+    </Suspense>
+  )
+}
+
+function TrackForm() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const [complaintId, setComplaintId] = useState(searchParams.get("id") || "")
