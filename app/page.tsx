@@ -26,21 +26,7 @@ export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-screen bg-slate-50 font-inter text-slate-800">
       
-      {/* ─── GOV TOP STRIP ─── */}
-      <div className="bg-[#0f172a] text-slate-300 text-[11px] py-1 border-b border-[#1e293b]">
-        <div className="max-w-7xl mx-auto px-4 md:px-8 flex justify-between items-center">
-          <div className="flex items-center gap-3">
-            <span className="font-semibold uppercase tracking-wider text-white">Government of Jammu &amp; Kashmir</span>
-            <span className="hidden sm:inline border-l border-slate-600 pl-3">District Administration Anantnag</span>
-          </div>
-          <div className="flex items-center gap-4">
-            <span className="hidden sm:inline cursor-pointer hover:text-white">Skip to main content</span>
-            <span className="flex items-center gap-2 cursor-pointer hover:text-white">
-              <span className="material-symbols-outlined text-[14px]">translate</span> English
-            </span>
-          </div>
-        </div>
-      </div>
+      {/* Removed Gov Top Strip per user request */}
 
       {/* ─── HEADER ─── */}
       <header className="bg-white border-b-4 border-gov-saffron shadow-sm sticky top-0 z-50">
