@@ -34,12 +34,12 @@ export default function LandingPage() {
           <div className="flex items-center justify-between h-[88px]">
             {/* Logo area */}
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 md:w-16 md:h-16 flex items-center justify-center bg-white border-2 border-slate-200 flex-shrink-0 p-1">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg" alt="Emblem of India" className="w-full h-full object-contain" />
+              <div className="w-12 h-12 md:w-16 md:h-16 flex items-center justify-center flex-shrink-0">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg" alt="Emblem of India" className="w-full h-full object-contain mix-blend-multiply" />
               </div>
               <div>
-                <h1 className="text-xl md:text-2xl font-black text-gov-navy leading-tight uppercase tracking-tight">E-ARZI ANANTNAG</h1>
-                <p className="text-[10px] md:text-[11px] font-bold text-gov-green uppercase tracking-widest mt-0.5">District Public Service Portal</p>
+                <h1 className="text-xl md:text-2xl font-black text-black leading-tight uppercase tracking-tight">E-ARZI ANANTNAG</h1>
+                <p className="text-[10px] md:text-[11px] font-bold text-black uppercase tracking-widest mt-0.5">District Public Service Portal</p>
               </div>
             </div>
 
@@ -164,8 +164,8 @@ export default function LandingPage() {
           </div>
           
           {/* Ashoka Chakra decorative background */}
-          <div className="absolute right-[-10%] bottom-[-20%] opacity-5 pointer-events-none hidden md:block">
-            <svg width="600" height="600" viewBox="0 0 100 100" className="text-white fill-current animate-[spin_120s_linear_infinite]">
+          <div className="absolute right-[-40%] md:right-[-10%] bottom-[-10%] md:bottom-[-20%] opacity-10 md:opacity-5 pointer-events-none">
+            <svg viewBox="0 0 100 100" className="w-[350px] h-[350px] md:w-[600px] md:h-[600px] text-white fill-current animate-[spin_120s_linear_infinite]">
               <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" strokeWidth="1" />
               <circle cx="50" cy="50" r="15" fill="currentColor" />
               {Array.from({length: 24}).map((_, i) => (
