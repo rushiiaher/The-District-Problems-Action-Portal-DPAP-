@@ -58,8 +58,8 @@ export default function AdminLoginPage() {
       {/* Header strip */}
       <div className="bg-[#002147] border-b border-white/10 py-4 px-8 flex items-center justify-between flex-shrink-0">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-full bg-gov-saffron flex items-center justify-center">
-            <span className="text-white font-black text-[11px]">J&K</span>
+          <div className="w-9 h-9 rounded-full bg-white flex items-center justify-center overflow-hidden p-1">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg" alt="Emblem of India" className="w-full h-full object-contain" />
           </div>
           <div>
             <p className="text-white font-bold text-sm tracking-wide">E-ARZI ANANTNAG</p>

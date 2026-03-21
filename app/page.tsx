@@ -34,8 +34,8 @@ export default function LandingPage() {
           <div className="flex items-center justify-between h-[88px]">
             {/* Logo area */}
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 md:w-16 md:h-16 flex items-center justify-center bg-gov-navy text-white text-[12px] md:text-sm font-black border-2 border-slate-200">
-                J&amp;K
+              <div className="w-12 h-12 md:w-16 md:h-16 flex items-center justify-center bg-white border-2 border-slate-200 flex-shrink-0 p-1">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg" alt="Emblem of India" className="w-full h-full object-contain" />
               </div>
               <div>
                 <h1 className="text-xl md:text-2xl font-black text-gov-navy leading-tight uppercase tracking-tight">E-ARZI ANANTNAG</h1>
@@ -281,8 +281,8 @@ export default function LandingPage() {
             
             {/* Dept Info */}
             <div>
-              <div className="bg-white text-gov-navy w-16 h-16 flex items-center justify-center font-black text-sm border-2 border-slate-300 mb-6">
-                J&amp;K
+              <div className="bg-white w-16 h-16 flex items-center justify-center border-2 border-slate-300 mb-6 p-1.5">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg" alt="Emblem of India" className="w-full h-full object-contain" />
               </div>
               <p className="text-sm leading-relaxed mb-4 text-slate-400">
                 Official digital portal for public grievance redressal and public assistance. Designed for transparent and responsive administration in Anantnag District.

@@ -75,7 +75,7 @@ function TrackForm() {
       <header className="bg-white shadow-sm tricolor-border sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-20">
           <Link href="/" className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-gov-navy rounded-full flex items-center justify-center text-white text-xs font-black">J&K</div>
+            <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center border border-slate-200 flex-shrink-0 overflow-hidden p-1.5"><img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg" alt="Emblem of India" className="w-full h-full object-contain"/></div>
             <div className="border-l border-slate-300 pl-4">
               <h1 className="text-xl font-black tracking-tight text-gov-navy uppercase">E-ARZI ANANTNAG</h1>
               <p className="text-[11px] font-semibold text-gov-green uppercase tracking-wide">District Grievance Redressal Portal</p>
