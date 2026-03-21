@@ -2,14 +2,12 @@
 
 import Link from "next/link"
 import { useState, useRef, useEffect } from "react"
-import { useRouter } from "next/navigation"
 
 export default function LandingPage() {
   const [loginOpen, setLoginOpen] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const loginRef = useRef<HTMLDivElement>(null)
   const mobileMenuRef = useRef<HTMLDivElement>(null)
-  const router = useRouter()
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -26,82 +24,87 @@ export default function LandingPage() {
   }, [])
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#f8fafc] font-inter overflow-x-hidden">
-      {/* Tricolor banner */}
-      <div className="gov-banner flex-shrink-0" />
+    <div className="flex flex-col min-h-screen bg-slate-50 font-inter text-slate-800">
+      
+      {/* ─── GOV TOP STRIP ─── */}
+      <div className="bg-[#0f172a] text-slate-300 text-[11px] py-1 border-b border-[#1e293b]">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 flex justify-between items-center">
+          <div className="flex items-center gap-3">
+            <span className="font-semibold uppercase tracking-wider text-white">Government of Jammu &amp; Kashmir</span>
+            <span className="hidden sm:inline border-l border-slate-600 pl-3">District Administration Anantnag</span>
+          </div>
+          <div className="flex items-center gap-4">
+            <span className="hidden sm:inline cursor-pointer hover:text-white">Skip to main content</span>
+            <span className="flex items-center gap-2 cursor-pointer hover:text-white">
+              <span className="material-symbols-outlined text-[14px]">translate</span> English
+            </span>
+          </div>
+        </div>
+      </div>
 
-      {/* Main Header */}
-      <header className="bg-white shadow-md sticky top-0 z-50 tricolor-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="flex items-center justify-between h-20 md:h-24">
+      {/* ─── HEADER ─── */}
+      <header className="bg-white border-b-4 border-gov-saffron shadow-sm sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 md:px-8">
+          <div className="flex items-center justify-between h-[88px]">
             {/* Logo area */}
-            <div className="flex items-center gap-3 md:gap-4">
-              <div className="w-10 h-10 md:w-14 md:h-14 flex items-center justify-center bg-gov-navy rounded-full flex-shrink-0">
-                <span className="text-white text-[10px] md:text-xs font-black">J&amp;K</span>
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 md:w-16 md:h-16 flex items-center justify-center bg-gov-navy text-white text-[12px] md:text-sm font-black border-2 border-slate-200">
+                J&amp;K
               </div>
-              <div className="border-l border-slate-300 pl-3 md:pl-4">
-                <h1 className="text-xl md:text-2xl font-black tracking-tight text-gov-navy leading-tight uppercase">E-ARZI ANANTNAG</h1>
-                <p className="text-[10px] md:text-xs font-bold text-gov-green uppercase tracking-wide">District Administration Portal</p>
-                <p className="text-[9px] md:text-[11px] text-slate-500 hidden sm:block">Government of Jammu &amp; Kashmir</p>
+              <div>
+                <h1 className="text-xl md:text-2xl font-black text-gov-navy leading-tight uppercase tracking-tight">E-ARZI ANANTNAG</h1>
+                <p className="text-[10px] md:text-[11px] font-bold text-gov-green uppercase tracking-widest mt-0.5">District Public Service Portal</p>
               </div>
             </div>
 
             {/* Desktop Navigation */}
-            <nav className="hidden xl:flex items-center space-x-8">
-              {["Home", "Grievance", "Red Cross", "Contact"].map(item => (
-                <a key={item} href={`#${item.toLowerCase().replace(' ', '-')}`} className="text-sm font-extrabold text-slate-700 hover:text-gov-saffron transition-colors border-b-2 border-transparent hover:border-gov-saffron py-1 uppercase tracking-wide">
+            <nav className="hidden lg:flex items-center space-x-6">
+              {["Home", "Grievance Mechanism", "Red Cross Society", "Helpdesk"].map(item => (
+                <a key={item} href={`#${item.split(' ')[0].toLowerCase()}`} className="text-sm font-bold text-slate-700 hover:text-gov-navy transition-colors border-b-2 border-transparent hover:border-gov-saffron py-1 uppercase tracking-wider">
                   {item}
                 </a>
               ))}
             </nav>
 
             {/* Actions */}
-            <div className="hidden lg:flex items-center gap-4">
-              <Link href="/complaint/track" className="btn-outline-saffron px-5 py-2.5 text-sm font-bold flex items-center gap-2 rounded transition-colors bg-white hover:bg-gov-saffron hover:text-white">
-                <span className="material-symbols-outlined text-[18px]">find_in_page</span> Track Status
+            <div className="hidden md:flex items-center gap-3">
+              <Link href="/complaint/track" className="bg-slate-100 hover:bg-slate-200 text-gov-navy border border-slate-300 px-4 py-2 text-sm font-bold flex items-center gap-2 transition-colors">
+                <span className="material-symbols-outlined text-[18px]">search</span> Track Application
               </Link>
 
               {/* Login dropdown */}
               <div className="relative" ref={loginRef}>
                 <button
                   onClick={() => setLoginOpen(o => !o)}
-                  className="flex items-center gap-2 px-5 py-2.5 bg-gov-navy text-white font-bold text-sm hover:bg-[#001a40] transition-colors shadow-md rounded"
+                  className="flex items-center gap-2 px-6 py-2 bg-gov-navy text-white font-bold text-sm hover:bg-[#001a40] transition-colors"
                 >
-                  <span className="material-symbols-outlined text-[18px]">lock</span> Login
-                  <span className={`material-symbols-outlined text-[16px] transition-transform duration-200 ${loginOpen ? "rotate-180" : ""}`}>expand_more</span>
+                  <span className="material-symbols-outlined text-[18px]">person</span> Login
+                  <span className={`material-symbols-outlined text-[16px] transition-transform duration-200 ${loginOpen ? "rotate-180" : ""}`}>arrow_drop_down</span>
                 </button>
 
                 {loginOpen && (
-                  <div className="absolute right-0 top-full mt-2 w-64 bg-white border border-slate-200 shadow-xl rounded z-50 overflow-hidden">
-                    <div className="px-4 py-2.5 bg-gov-navy">
-                      <p className="text-[10px] font-bold text-slate-300 uppercase tracking-widest">Sign in as</p>
+                  <div className="absolute right-0 top-full mt-1 w-64 bg-white border border-slate-300 shadow-xl z-50">
+                    <div className="px-4 py-2 border-b border-slate-200 bg-slate-50">
+                      <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Select Login Type</p>
                     </div>
 
-                    {/* Citizen option */}
                     <Link href="/auth/login?tab=citizen" onClick={() => setLoginOpen(false)}>
-                      <div className="flex items-center gap-3 px-4 py-4 hover:bg-amber-50 transition-colors group border-b border-slate-100 cursor-pointer">
-                        <div className="w-9 h-9 rounded-full bg-gov-saffron/10 flex items-center justify-center flex-shrink-0 group-hover:bg-gov-saffron/20 transition-colors">
-                          <span className="material-symbols-outlined text-gov-saffron text-[20px]">person_pin</span>
-                        </div>
+                      <div className="flex items-center gap-3 px-4 py-3 hover:bg-gov-saffron/10 transition-colors border-b border-slate-100 cursor-pointer">
+                        <span className="material-symbols-outlined text-gov-saffron">badge</span>
                         <div>
-                          <p className="font-bold text-slate-800 text-sm group-hover:text-gov-saffron transition-colors">Citizen Login</p>
-                          <p className="text-[11px] text-slate-500">OTP on registered mobile</p>
+                          <p className="font-bold text-slate-800 text-sm">Citizen Portal</p>
+                          <p className="text-[11px] text-slate-500">Register or Track</p>
                         </div>
-                        <span className="material-symbols-outlined text-slate-300 text-[18px] ml-auto group-hover:text-gov-saffron">arrow_forward</span>
                       </div>
                     </Link>
 
-                    {/* Officer / Staff option */}
                     <Link href="/auth/login?tab=staff" onClick={() => setLoginOpen(false)}>
-                      <div className="flex items-center gap-3 px-4 py-4 hover:bg-blue-50 transition-colors group cursor-pointer">
-                        <div className="w-9 h-9 rounded-full bg-gov-navy/10 flex items-center justify-center flex-shrink-0 group-hover:bg-gov-navy/20 transition-colors">
-                          <span className="material-symbols-outlined text-gov-navy text-[20px]">shield_person</span>
-                        </div>
+                      <div className="flex items-center gap-3 px-4 py-3 hover:bg-gov-navy/10 transition-colors cursor-pointer">
+                        <span className="material-symbols-outlined text-gov-navy">admin_panel_settings</span>
                         <div>
-                          <p className="font-bold text-slate-800 text-sm group-hover:text-gov-navy transition-colors">Staff Login</p>
-                          <p className="text-[11px] text-slate-500">Username &amp; password</p>
+                          <p className="font-bold text-slate-800 text-sm">Official / Staff</p>
+                          <p className="text-[11px] text-slate-500">Department Access</p>
                         </div>
-                        <span className="material-symbols-outlined text-slate-300 text-[18px] ml-auto group-hover:text-gov-navy">arrow_forward</span>
                       </div>
                     </Link>
                   </div>
@@ -112,27 +115,27 @@ export default function LandingPage() {
             {/* Mobile Toggle */}
             <button 
               id="mobile-toggle"
-              className="lg:hidden text-gov-navy p-2 bg-slate-100 rounded focus:outline-none focus:ring-2 focus:ring-gov-saffron"
+              className="lg:hidden text-gov-navy p-2 border border-slate-300 hover:bg-slate-50 focus:outline-none"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
-              <span className="material-symbols-outlined text-2xl">{mobileMenuOpen ? "close" : "menu"}</span>
+              <span className="material-symbols-outlined">{mobileMenuOpen ? "close" : "menu"}</span>
             </button>
           </div>
         </div>
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div ref={mobileMenuRef} className="lg:hidden absolute top-full left-0 right-0 bg-white border-b border-slate-200 shadow-xl flex flex-col p-4 space-y-2 z-50">
-            {["Home", "Grievance", "Red Cross", "Contact"].map(item => (
-              <a key={item} href={`#${item.toLowerCase().replace(' ', '-')}`} className="text-sm font-bold text-slate-700 p-3 bg-slate-50 hover:bg-slate-100 rounded uppercase tracking-wide border border-slate-100" onClick={() => setMobileMenuOpen(false)}>
+          <div ref={mobileMenuRef} className="lg:hidden absolute top-full left-0 right-0 bg-white border-b border-slate-300 shadow-xl flex flex-col p-4 space-y-1 z-50">
+            {["Home", "Grievance Mechanism", "Red Cross Society", "Helpdesk"].map(item => (
+              <a key={item} href={`#${item.split(' ')[0].toLowerCase()}`} className="text-sm font-bold text-slate-700 p-3 hover:bg-slate-50 uppercase tracking-wide border-b border-slate-100 block" onClick={() => setMobileMenuOpen(false)}>
                 {item}
               </a>
             ))}
-            <div className="grid grid-cols-2 gap-3 pt-4 border-t border-slate-200 mt-2">
-               <Link href="/auth/login?tab=citizen" className="bg-gov-saffron text-white text-center font-bold py-3 rounded shadow text-sm hover:bg-[#e68a2e]" onClick={() => setMobileMenuOpen(false)}>Citizen Login</Link>
-               <Link href="/auth/login?tab=staff" className="bg-gov-navy text-white text-center font-bold py-3 rounded shadow text-sm hover:bg-[#001a40]" onClick={() => setMobileMenuOpen(false)}>Staff Login</Link>
+            <div className="grid grid-cols-2 gap-3 pt-4">
+               <Link href="/auth/login?tab=citizen" className="bg-gov-saffron text-white text-center font-bold py-3 text-sm border border-[#e68a2e]" onClick={() => setMobileMenuOpen(false)}>Citizen Login</Link>
+               <Link href="/auth/login?tab=staff" className="bg-gov-navy text-white text-center font-bold py-3 text-sm border border-[#001a40]" onClick={() => setMobileMenuOpen(false)}>Staff Login</Link>
             </div>
-            <Link href="/complaint/track" className="border-2 border-slate-200 text-slate-700 text-center font-bold py-3 rounded text-sm w-full mt-3 bg-white hover:bg-slate-50" onClick={() => setMobileMenuOpen(false)}>
+            <Link href="/complaint/track" className="bg-slate-100 text-slate-800 border border-slate-300 text-center font-bold py-3 text-sm w-full mt-3 block" onClick={() => setMobileMenuOpen(false)}>
                Track Application Status
             </Link>
           </div>
@@ -140,169 +143,137 @@ export default function LandingPage() {
       </header>
 
       <main className="flex-grow">
+        
         {/* ─── HERO SECTION ─── */}
-        <section id="home" className="relative lg:h-[600px] w-full overflow-hidden bg-[#001a40] flex items-center py-20 lg:py-0">
-          <div
-            className="absolute inset-0 opacity-40 bg-cover bg-center"
-            style={{ backgroundImage: "url('https://images.unsplash.com/photo-1544256718-3bcf237f3974?w=1600&q=80')" }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#001a40] via-[#001a40]/80 to-transparent" />
+        <section id="home" className="bg-[#0e1f37] border-b border-[#091526] relative overflow-hidden">
+          {/* Subtle pattern instead of giant gradients */}
+          <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'20\' height=\'20\' viewBox=\'0 0 20 20\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath fill=\'%23ffffff\' fill-opacity=\'1\' fill-rule=\'evenodd\' d=\'M0 0h20v20H0V0zm10 17a7 7 0 1 0 0-14 7 7 0 0 0 0 14z\'/%3E%3C/svg%3E")' }}></div>
           
-          <div className="relative max-w-7xl mx-auto px-6 h-full flex flex-col justify-center w-full">
-            <div className="max-w-2xl space-y-6 lg:space-y-8 z-10">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/10 backdrop-blur border border-white/20 text-white text-[10px] md:text-[11px] font-bold uppercase tracking-widest rounded shadow-lg">
-                <span className="w-2 h-2 rounded-full bg-gov-green animate-pulse" />
-                Digital India Initiative · Anantnag District
-              </div>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-[1.1]">
-                Empowering Citizens, <br />
-                <span className="text-gov-saffron">Accelerating Relief.</span>
+          <div className="max-w-7xl mx-auto px-4 md:px-8 py-12 md:py-20 flex flex-col md:flex-row items-center gap-10 position-relative z-10">
+            
+            <div className="w-full md:w-3/5 text-white max-w-2xl">
+              <span className="inline-block border border-gov-saffron/50 text-gov-saffron text-[10px] md:text-xs font-bold uppercase tracking-widest px-3 py-1 bg-gov-saffron/10 mb-4">
+                Citizen-Centric E-Governance
+              </span>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-black leading-tight mb-5 uppercase tracking-wide">
+                Unified Portal for Public Grievances &amp; Relief
               </h2>
-              <p className="text-lg md:text-xl text-slate-300 leading-relaxed font-medium">
-                The unified portal for registering grievances with local departments and applying for emergency financial aid from the District Red Cross Society.
+              <p className="text-slate-300 text-base md:text-lg mb-8 leading-relaxed font-medium">
+                An initiative by the District Administration Anantnag to provide transparent, accountable, and responsive governance. Lodge complaints online or apply for emergency Red Cross financial aid directly through this official portal.
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Link href="/auth/login?tab=citizen" className="bg-gov-saffron text-white px-8 py-4 text-center text-base md:text-lg rounded shadow-lg flex items-center justify-center gap-2 hover:bg-[#e68a2e] transition-colors font-black">
-                   <span className="material-symbols-outlined">how_to_reg</span> Register / Apply Here
+              <div className="flex flex-col sm:flex-row gap-4 border-l-4 border-gov-saffron pl-4">
+                <Link href="/auth/login?tab=citizen" className="bg-gov-saffron hover:bg-[#e68a2e] text-white font-bold py-3.5 px-6 flex items-center justify-center gap-2 transition-colors border border-[#d68028] text-sm uppercase tracking-wide">
+                   <span className="material-symbols-outlined text-[18px]">how_to_reg</span> Register Complaint
                 </Link>
-                <Link href="/complaint/track" className="bg-white/10 backdrop-blur text-white font-bold px-8 py-4 text-center text-base md:text-lg hover:bg-white/20 transition-all border border-white/30 rounded flex items-center justify-center gap-2">
-                   <span className="material-symbols-outlined">track_changes</span> Track Status
+                <Link href="/complaint/track" className="bg-white/10 hover:bg-white/20 border border-white/30 text-white font-bold py-3.5 px-6 flex items-center justify-center gap-2 transition-colors text-sm uppercase tracking-wide">
+                   <span className="material-symbols-outlined text-[18px]">search</span> Track Status
                 </Link>
               </div>
             </div>
-          </div>
-          
-          {/* Ashoka Chakra decorative background */}
-          <div className="absolute right-[-10%] bottom-[-20%] opacity-5 pointer-events-none hidden md:block">
-            <svg width="600" height="600" viewBox="0 0 100 100" className="text-white fill-current animate-[spin_120s_linear_infinite]">
-              <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" strokeWidth="1" />
-              <circle cx="50" cy="50" r="15" fill="currentColor" />
-              {Array.from({length: 24}).map((_, i) => (
-                <line key={i} x1="50" y1="50" x2="50" y2="5" stroke="currentColor" strokeWidth="1" transform={`rotate(${i * 15} 50 50)`} />
-              ))}
-            </svg>
+
+            <div className="w-full md:w-2/5 flex justify-center md:justify-end">
+              <div className="bg-white p-2 border border-slate-300 shadow-2xl relative">
+                 <img src="https://images.unsplash.com/photo-1544256718-3bcf237f3974?w=800&q=80" alt="District Administration" className="w-full h-[250px] md:h-[350px] object-cover border border-slate-200" />
+                 <div className="absolute -bottom-4 -left-4 bg-white border-2 border-gov-saffron px-4 py-2 font-bold text-gov-navy text-sm uppercase tracking-widest shadow-lg">
+                   District Anantnag
+                 </div>
+              </div>
+            </div>
+
           </div>
         </section>
 
-        {/* ─── QUICK STATS ─── */}
-        <section className="bg-white border-b border-slate-200 relative z-20 shadow-sm">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-slate-100">
-              {[
-                { label: "Grievances Addressed", value: "24,500+", icon: "fact_check", color: "text-gov-navy", bg: "bg-gov-navy/10" },
-                { label: "Red Cross Aid Released", value: "₹4.2 Cr+", icon: "volunteer_activism", color: "text-red-600", bg: "bg-red-50" },
-                { label: "Average Resolution", value: "6.5 Days", icon: "update", color: "text-gov-saffron", bg: "bg-amber-50" },
-                { label: "Active Departments", value: "45", icon: "account_balance", color: "text-gov-green", bg: "bg-green-50" },
-              ].map((stat, i) => (
-                <div key={i} className="p-6 md:p-8 text-center flex flex-col items-center">
-                  <span className={`material-symbols-outlined text-3xl md:text-3xl mb-4 ${stat.color} ${stat.bg} w-14 h-14 flex items-center justify-center rounded-full`}>{stat.icon}</span>
-                  <p className="text-2xl md:text-3xl font-black text-slate-800">{stat.value}</p>
-                  <p className="text-[10px] md:text-[11px] font-bold uppercase tracking-wider text-slate-500 mt-1">{stat.label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ─── GRIEVANCE SECTION ─── */}
-        <section id="grievance" className="py-20 md:py-28 bg-[#f4f7f9]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <div className="text-center max-w-3xl mx-auto mb-16">
-              <span className="text-gov-navy font-bold tracking-widest uppercase text-xs md:text-[11px] bg-gov-navy/10 px-3 py-1 rounded-full inline-block mb-4">Grievance Redressal</span>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-slate-900 uppercase tracking-tight mb-6 mt-2">Raise your Concerns <br/>Seamlessly</h2>
-              <p className="text-slate-600 text-base md:text-lg">Experience a streamlined, accountable, and transparent system designed to escalate and resolve your district-level grievances with strict SLA monitoring.</p>
+        {/* ─── GRIEVANCE MECHANISM SECTION ─── */}
+        <section id="grievance" className="py-16 md:py-24 bg-white border-b border-slate-200">
+          <div className="max-w-7xl mx-auto px-4 md:px-8">
+            <div className="mb-12 border-b-2 border-slate-100 pb-4">
+              <h2 className="text-2xl md:text-3xl font-black text-gov-navy uppercase tracking-tight">Public Grievance Redressal</h2>
+              <p className="text-slate-600 mt-2 font-medium">Lodge an administrative complaint securely and track its escalation to the concerned departments.</p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8 relative max-w-5xl mx-auto">
-              {/* Desktop Connecting Line */}
-              <div className="hidden md:block absolute top-[44px] left-[15%] right-[15%] h-1 bg-slate-200 z-0 border-t border-b border-white"></div>
-
+            <div className="grid md:grid-cols-3 gap-6">
               {[
-                { step: "01", title: "Register Account", desc: "Create a citizen profile online securely using your mobile number and an OTP.", icon: "how_to_reg" },
-                { step: "02", title: "Submit Details", desc: "Select the appropriate department, describe your issue, and attach any photo/video proof.", icon: "post_add" },
-                { step: "03", title: "Track Progress", desc: "Your issue is assigned to an officer. Track its exact status and timeline in real-time.", icon: "query_stats" },
+                { step: "Step 1", title: "Citizen Registration", desc: "Create your citizen profile online using your mobile number and an OTP. Aadhaar details are required for identification.", icon: "group_add" },
+                { step: "Step 2", title: "Lodge Complaint", desc: "Select the respective department, provide a detailed description of the issue, and attach photographic evidence or documents.", icon: "app_registration" },
+                { step: "Step 3", title: "Track & Resolve", desc: "A unique Grievance ID will be generated. Track the resolution process online. Cases exceeding SLAs are automatically escalated.", icon: "troubleshoot" },
               ].map((s, i) => (
-                <div key={i} className="relative z-10 flex flex-col items-center text-center group">
-                  <div className="w-20 h-20 md:w-24 md:h-24 bg-white border-4 border-[#f4f7f9] shadow-xl rounded-full flex items-center justify-center mb-6 relative group-hover:scale-110 transition-transform duration-300">
-                     <span className="material-symbols-outlined text-gov-navy text-3xl md:text-4xl">{s.icon}</span>
-                     <span className="absolute -top-1 -right-1 bg-gov-saffron text-white text-[11px] font-black w-7 h-7 flex items-center justify-center rounded-full border-2 border-[#f4f7f9] shadow-sm">{s.step}</span>
+                <div key={i} className="border border-slate-200 bg-slate-50 p-6 md:p-8 hover:border-gov-saffron hover:bg-white transition-colors duration-200 group">
+                  <div className="flex items-center gap-4 mb-4">
+                     <div className="bg-gov-navy text-white w-12 h-12 flex items-center justify-center border border-slate-300 group-hover:bg-gov-saffron transition-colors">
+                        <span className="material-symbols-outlined">{s.icon}</span>
+                     </div>
+                     <span className="text-xs font-bold uppercase tracking-widest text-slate-500">{s.step}</span>
                   </div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-3">{s.title}</h3>
-                  <p className="text-slate-600 leading-relaxed text-sm md:text-base px-2">{s.desc}</p>
+                  <h3 className="text-lg font-black text-slate-800 mb-2 uppercase">{s.title}</h3>
+                  <p className="text-slate-600 text-sm leading-relaxed">{s.desc}</p>
                 </div>
               ))}
             </div>
 
-            <div className="text-center mt-16">
-              <Link href="/auth/login?tab=citizen" className="inline-flex items-center gap-2 bg-gov-navy text-white font-bold px-8 py-4 rounded shadow-lg hover:bg-[#001a40] transition-transform hover:-translate-y-1 text-base md:text-lg">
-                File a Grievance Now <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
+            <div className="mt-8">
+              <Link href="/auth/login?tab=citizen" className="inline-flex items-center gap-2 bg-gov-navy hover:bg-[#061426] text-white font-bold px-6 py-3 border border-[#061426] text-sm uppercase tracking-wide">
+                Proceed to Grievance Portal <span className="material-symbols-outlined text-[16px]">chevron_right</span>
               </Link>
             </div>
           </div>
         </section>
 
-        {/* ─── RED CROSS SECTION ─── */}
-        <section id="red-cross" className="py-20 md:py-28 bg-white overflow-hidden border-t-4 border-red-600">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+        {/* ─── RED CROSS SOCIETY SECTION ─── */}
+        <section id="red" className="py-16 md:py-24 bg-slate-50 border-b border-slate-200">
+          <div className="max-w-7xl mx-auto px-4 md:px-8">
+            <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
               
-              {/* Image Side */}
-              <div className="w-full lg:w-1/2 relative order-last lg:order-first">
-                {/* Red Cross Deco */}
-                <div className="absolute -top-20 -left-20 w-64 h-64 bg-red-100 rounded-full blur-3xl opacity-60 z-0"></div>
-                <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
-                  <img src="https://images.unsplash.com/photo-1542884748-2b87b36c6b90?w=800&q=80" alt="District Red Cross Support" className="w-full h-[350px] md:h-[450px] object-cover" />
-                  
-                  {/* Overlay badge */}
-                  <div className="absolute bottom-6 left-6 bg-white/95 backdrop-blur-sm p-4 rounded-xl shadow-2xl border border-white flex items-center gap-4 max-w-sm">
-                    <div className="w-12 h-12 bg-red-600 rounded flex items-center justify-center flex-shrink-0 shadow-inner">
-                      <div className="relative w-6 h-6">
-                         <div className="absolute top-0 bottom-0 left-[9px] right-[9px] bg-white rounded-sm"></div>
-                         <div className="absolute left-0 right-0 top-[9px] bottom-[9px] bg-white rounded-sm"></div>
-                      </div>
-                    </div>
-                    <div>
-                      <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest leading-none mb-1.5">District Red Cross Society</p>
-                      <p className="text-sm font-black text-slate-900 leading-tight">Humanity, Impartiality, Neutrality</p>
-                    </div>
+              {/* Text Side */}
+              <div className="w-full lg:w-3/5">
+                <div className="mb-8 border-b-2 border-red-200 pb-4 flex items-center gap-4">
+                  <div className="w-10 h-10 bg-red-600 text-white flex items-center justify-center font-bold relative p-1">
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60%] h-[20%] bg-white rounded-sm" />
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[60%] w-[20%] bg-white rounded-sm" />
+                  </div>
+                  <div>
+                    <h2 className="text-2xl md:text-3xl font-black text-slate-900 uppercase tracking-tight">District Red Cross Aid</h2>
+                    <p className="text-slate-600 text-sm font-bold uppercase tracking-widest mt-1 text-red-700">Financial Assistance for Distressed Citizens</p>
                   </div>
                 </div>
-              </div>
 
-              {/* Text Side */}
-              <div className="w-full lg:w-1/2 space-y-6">
-                <span className="text-red-600 font-bold tracking-widest uppercase text-xs md:text-[11px] bg-red-50 border border-red-100 px-3 py-1 rounded-full inline-flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-red-500"></span>Emergency Relief Aid</span>
-                <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-slate-900 uppercase tracking-tight">Financial Aid for<br/><span className="text-red-600">Distressed Families</span></h2>
-                <p className="text-slate-600 text-base md:text-lg leading-relaxed">
-                  The District Administration, acting through the Indian Red Cross Society branch, provides emergency financial aid to citizens facing dire circumstances such as natural disasters, fire incidents, extreme medical emergencies, and accidents.
+                <p className="text-slate-700 text-base leading-relaxed mb-6">
+                  The District Red Cross Society provides direct emergency financial assistance to citizens facing catastrophic events. Aid is formally sanctioned for medical emergencies, natural disasters, fire incidents, and severe accidents.
                 </p>
                 
-                <div className="bg-slate-50 border border-slate-200 rounded-xl p-6 md:p-8 space-y-4 shadow-sm">
-                  <h3 className="font-extrabold text-slate-900 tracking-wide flex items-center gap-2 mb-4">
-                     <span className="material-symbols-outlined text-red-500">list_alt</span>
-                     How to apply for aid:
-                  </h3>
+                <div className="bg-white border border-slate-200 p-6 mb-8">
+                  <h3 className="font-bold text-slate-800 uppercase tracking-wider mb-4 border-b border-slate-100 pb-2 text-sm">Procedure for Application</h3>
                   <ul className="space-y-4">
                     {[
-                      { icon: "person_check", title: "1. Complete Profile", desc: "Register as a citizen and ensure your Aadhaar and location details are complete." },
-                      { icon: "note_add", title: "2. Submit Application", desc: "Go to the 'Red Cross' tab in your dashboard, declare the purpose, amount, and upload proofs (e.g., medical/fire reports)." },
-                      { icon: "done_all", title: "3. Review & Disbursal", desc: "Applications are vetted by the District Collector's office and disbursed securely via official Bank Managers." }
+                      { icon: "assignment_ind", text: "Register an account on the E-Arzi platform and ensure demographic details are fully verified." },
+                      { icon: "upload_file", text: "Submit an online aid request detailing the incident. Mandatory attachments include medical reports, FIRs, or fire department certificates." },
+                      { icon: "account_balance", text: "Approved funds are disbursed directly to verified accounts via authorized Bank Managers of the District." }
                     ].map((li, i) => (
-                      <li key={i} className="flex items-start gap-4">
-                        <div className="w-8 h-8 rounded-full bg-red-100 text-red-600 flex items-center justify-center flex-shrink-0 mt-0.5 shadow-sm">
-                           <span className="material-symbols-outlined text-[16px]">{li.icon}</span>
-                        </div>
-                        <p className="text-sm text-slate-700 leading-relaxed"><strong className="text-slate-900 block mb-0.5">{li.title}</strong> {li.desc}</p>
+                      <li key={i} className="flex items-start gap-3">
+                        <span className="material-symbols-outlined text-red-600 text-[18px] mt-0.5">{li.icon}</span>
+                        <p className="text-sm text-slate-700 leading-snug">{li.text}</p>
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                <div className="pt-4">
-                  <Link href="/auth/login?tab=citizen" className="inline-flex items-center justify-center md:justify-start gap-2 bg-red-600 text-white font-bold px-8 py-4 rounded shadow-lg hover:bg-red-700 transition-transform hover:-translate-y-1 text-base md:text-lg w-full md:w-auto">
-                    Apply for Financial Aid <span className="material-symbols-outlined text-[20px]">volunteer_activism</span>
-                  </Link>
+                <div className="flex flex-wrap gap-4">
+                   <Link href="/auth/login?tab=citizen" className="inline-flex items-center gap-2 bg-red-700 hover:bg-red-800 text-white font-bold px-6 py-3 border border-red-900 text-sm uppercase tracking-wide">
+                     Apply for Financial Aid <span className="material-symbols-outlined text-[16px]">chevron_right</span>
+                   </Link>
+                   <Link href="/citizen/red-cross/status" className="inline-flex items-center gap-2 bg-white text-slate-700 hover:bg-slate-50 border border-slate-300 font-bold px-6 py-3 text-sm uppercase tracking-wide">
+                     View Aid Status
+                   </Link>
+                </div>
+              </div>
+
+              {/* Image Side */}
+              <div className="w-full lg:w-2/5">
+                <div className="bg-white p-3 border border-slate-300 shadow-lg">
+                  <img src="https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?w=800&q=80" alt="Red Cross Support Services" className="w-full h-[300px] md:h-[400px] object-cover border border-slate-100" />
+                  <div className="p-4 bg-slate-50 border-t border-slate-200 text-center">
+                     <p className="text-[11px] font-bold uppercase tracking-widest text-slate-500">Humanity, Impartiality, Independence</p>
+                  </div>
                 </div>
               </div>
 
@@ -310,73 +281,73 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* ─── FOOTER ─── */}
-        <footer id="contact" className="bg-[#001530] text-slate-400 pt-16 md:pt-20 border-t-4 border-gov-saffron">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-12">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
-              <div className="space-y-6">
-                <div className="flex items-center gap-3 text-white">
-                  <div className="w-12 h-12 bg-gov-saffron rounded-full flex items-center justify-center text-xs font-black shadow-lg">J&amp;K</div>
-                  <div>
-                    <span className="text-2xl font-black tracking-tighter block leading-none">E-ARZI</span>
-                    <span className="text-[10px] uppercase font-bold text-slate-400 tracking-widest">Anantnag District</span>
-                  </div>
-                </div>
-                <p className="text-xs md:text-sm leading-relaxed border-l-2 border-slate-700 pl-4">Official digital portal of Anantnag District Administration. Designed for citizen-centric services, transparent grievance redressal, and rapid emergency aid response.</p>
-              </div>
-
-              <div>
-                <h4 className="text-white font-black text-sm uppercase tracking-widest mb-6 border-b border-slate-800 pb-3 flex items-center gap-2">
-                  <span className="material-symbols-outlined text-gov-saffron text-lg">link</span> Useful Links
-                </h4>
-                <ul className="space-y-3 text-sm">
-                  {["National Portal of India", "J&K Government Portal", "Digital India", "MyGov Portal"].map(l => (
-                    <li key={l}><a href="#" className="hover:text-gov-saffron transition-colors flex items-center gap-2 group"><span className="w-1 h-1 rounded-full bg-slate-600 group-hover:bg-gov-saffron" />{l}</a></li>
-                  ))}
-                </ul>
-              </div>
-
-              <div>
-                <h4 className="text-white font-black text-sm uppercase tracking-widest mb-6 border-b border-slate-800 pb-3 flex items-center gap-2">
-                  <span className="material-symbols-outlined text-gov-green text-lg">policy</span> Information
-                </h4>
-                <ul className="space-y-3 text-sm">
-                  {["Right to Information (RTI)", "Privacy Policy", "Terms & Conditions", "Accessibility Statement"].map(l => (
-                    <li key={l}><a href="#" className="hover:text-white transition-colors">{l}</a></li>
-                  ))}
-                </ul>
-              </div>
-
-              <div>
-                <h4 className="text-white font-black text-sm uppercase tracking-widest mb-6 border-b border-slate-800 pb-3 flex items-center gap-2">
-                  <span className="material-symbols-outlined text-blue-400 text-lg">contact_support</span> Contact Us
-                </h4>
-                <address className="not-italic text-sm space-y-4">
-                  <p className="flex items-start gap-3 bg-slate-800/50 p-3 rounded border border-slate-800">
-                    <span className="material-symbols-outlined text-gov-saffron">location_on</span>
-                    <span className="leading-snug">DC Office Complex,<br />Khanabal, Anantnag,<br />J&amp;K – 192101</span>
-                  </p>
-                  <p className="flex items-center gap-3 hover:text-white transition-colors cursor-pointer"><span className="material-symbols-outlined text-gov-saffron bg-slate-800/50 w-8 h-8 rounded flex items-center justify-center">phone</span> 1800-112-233</p>
-                  <p className="flex items-center gap-3 hover:text-white transition-colors cursor-pointer"><span className="material-symbols-outlined text-gov-saffron bg-slate-800/50 w-8 h-8 rounded flex items-center justify-center">mail</span> dc-anantnag@jk.gov.in</p>
-                </address>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-[#000d1f] border-t border-slate-800 py-6">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-              <p className="text-[10px] md:text-[11px] text-slate-500 text-center md:text-left leading-relaxed">
-                © 2026 District Administration Anantnag. All rights reserved.<br />
-                Content Owned, Maintained and Updated by District Administration, Anantnag. Designed and Hosted by National Informatics Centre (NIC).
-              </p>
-              <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest px-3 py-1.5 bg-slate-900 rounded border border-slate-800">
-                <span className="material-symbols-outlined text-gov-green text-sm">verified</span>
-                Govt. Portal
-              </div>
-            </div>
-          </div>
-        </footer>
       </main>
+
+      {/* ─── FOOTER ─── */}
+      <footer id="helpdesk" className="bg-[#0e223d] text-slate-300 pt-12 md:pt-16 border-t-8 border-gov-saffron">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 pb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+            
+            {/* Dept Info */}
+            <div>
+              <div className="bg-white text-gov-navy w-16 h-16 flex items-center justify-center font-black text-sm border-2 border-slate-300 mb-6">
+                J&amp;K
+              </div>
+              <p className="text-sm leading-relaxed mb-4 text-slate-400">
+                Official digital portal for public grievance redressal and public assistance. Designed for transparent and responsive administration in Anantnag District.
+              </p>
+            </div>
+
+            {/* Quick Links */}
+            <div>
+              <h4 className="text-white font-bold text-sm uppercase tracking-widest mb-6 border-b border-slate-700 pb-2">Important Links</h4>
+              <ul className="space-y-3 text-sm">
+                {["National Portal of India", "J&K Government Portal", "Digital India", "MyGov Platform", "District NIC Website"].map(l => (
+                  <li key={l}><a href="#" className="hover:text-gov-saffron transition-colors flex items-center gap-2"><span className="material-symbols-outlined text-[14px]">arrow_right</span>{l}</a></li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Legal */}
+            <div>
+              <h4 className="text-white font-bold text-sm uppercase tracking-widest mb-6 border-b border-slate-700 pb-2">Policies</h4>
+              <ul className="space-y-3 text-sm">
+                {["Right to Information (RTI)", "Privacy Policy", "Terms & Conditions", "Accessibility Statement", "Copyright Policy"].map(l => (
+                  <li key={l}><a href="#" className="hover:text-white transition-colors flex items-center gap-2"><span className="material-symbols-outlined text-[14px]">arrow_right</span>{l}</a></li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Contact */}
+            <div>
+              <h4 className="text-white font-bold text-sm uppercase tracking-widest mb-6 border-b border-slate-700 pb-2">Contact Administration</h4>
+              <address className="not-italic text-sm space-y-4">
+                <p className="flex items-start gap-3 text-slate-300">
+                  <span className="material-symbols-outlined text-gov-saffron text-[18px]">domain</span>
+                  <span>Office of the Deputy Commissioner,<br />DC Office Complex, Khanabal,<br />Anantnag, J&amp;K – 192101</span>
+                </p>
+                <p className="flex items-center gap-3"><span className="material-symbols-outlined text-gov-saffron text-[18px]">call</span> 1800-112-233 (Toll Free)</p>
+                <p className="flex items-center gap-3"><span className="material-symbols-outlined text-gov-saffron text-[18px]">mail</span> dc-anantnag@jk.gov.in</p>
+              </address>
+            </div>
+            
+          </div>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="bg-[#091526] py-6 border-t border-slate-800">
+          <div className="max-w-7xl mx-auto px-4 md:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-[11px] text-slate-500 text-center md:text-left leading-relaxed">
+               Content Owned, Maintained and Updated by District Administration, Anantnag.<br />
+               Designed, Developed and Hosted by National Informatics Centre (NIC), Ministry of Electronics &amp; Information Technology, Government of India.
+            </p>
+            <div className="flex items-center gap-4">
+              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-3 py-1.5 border border-slate-700">Govt. Certified Portal</span>
+            </div>
+          </div>
+        </div>
+      </footer>
+
     </div>
   )
 }
