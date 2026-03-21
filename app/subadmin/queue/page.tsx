@@ -132,7 +132,7 @@ export default function SubAdminQueuePage() {
         <div className="flex-1 overflow-y-auto p-6 space-y-5">
 
           {/* Stats strip */}
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
               { label: "Needs Assignment", value: unassigned, icon: "inbox",       color: "border-l-amber-400",   click: () => setStatusFilter("SUBMITTED") },
               { label: "Returned",         value: returned,  icon: "undo",         color: "border-l-orange-400",  click: () => setStatusFilter("REASSIGNED") },

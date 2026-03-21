@@ -113,7 +113,7 @@ export default function AdminAuditPage() {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-4 gap-4 mb-8">
+          <div className="grid grid-cols-1 min-[500px]:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
             {[
               { label: "Total Events", value: logs.length, icon: "receipt_long", color: "border-l-gov-navy text-gov-navy" },
               { label: "Today", value: logs.filter(l => new Date(l.timestamp).toDateString() === new Date().toDateString()).length, icon: "today", color: "border-l-gov-saffron text-gov-saffron" },

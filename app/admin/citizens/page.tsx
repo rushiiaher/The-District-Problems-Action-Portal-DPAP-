@@ -112,7 +112,7 @@ export default function AdminCitizensPage() {
           </div>
 
           {/* Stats strip */}
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[
               { label: "Total Registered",  value: total,                                                      icon: "group",       color: "border-l-gov-navy" },
               { label: "Filed Complaints",  value: citizens.filter(c => c.complaints_filed > 0).length,        icon: "description", color: "border-l-gov-saffron" },

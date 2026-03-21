@@ -73,7 +73,7 @@ export default function AdminPriorityCasesPage() {
           </div>
 
           {/* Summary cards */}
-          <div className="grid grid-cols-3 gap-4 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
             {tabConfig.map(t => (
               <button key={t.key} onClick={() => setTab(t.key as any)}
                 className={`gov-card border-l-4 p-5 text-left transition-all ${tab === t.key ? "border-l-gov-navy ring-2 ring-gov-navy/20" : "border-l-slate-200 hover:border-l-slate-400"}`}>

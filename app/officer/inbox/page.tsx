@@ -99,7 +99,7 @@ export default function OfficerInboxPage() {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-3 gap-4 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
             {[
               { label: "Active Cases", value: active.length, color: "border-l-gov-navy", textColor: "text-gov-navy", icon: "inbox" },
               { label: "Overdue", value: overdue, color: "border-l-red-500", textColor: "text-red-600", icon: "warning" },

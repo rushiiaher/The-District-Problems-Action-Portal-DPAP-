@@ -112,7 +112,7 @@ export default function AdminRedCrossPage() {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-5 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3">
             {(["PENDING","UNDER_REVIEW","APPROVED","REJECTED","PAID"]).map(s => (
               <button key={s} onClick={() => setStatusFilter(statusFilter === s ? "" : s)}
                 className={`gov-card border-l-4 p-4 text-left transition-all hover:shadow-md ${

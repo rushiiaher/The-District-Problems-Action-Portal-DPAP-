@@ -112,7 +112,7 @@ export default function BankDashboardPage() {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {[
             { label: "Pending Payment", value: pending.length, sub: `₹${totalPending.toLocaleString("en-IN")} to disburse`, color: "border-l-gov-saffron", icon: "payments" },
             { label: "Paid This Session", value: paid.length,  sub: `₹${totalPaid.toLocaleString("en-IN")} disbursed`,    color: "border-l-gov-green", icon: "check_circle" },
