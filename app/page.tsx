@@ -145,42 +145,47 @@ export default function LandingPage() {
       <main className="flex-grow">
         
         {/* ─── HERO SECTION ─── */}
-        <section id="home" className="bg-[#0e1f37] border-b border-[#091526] relative overflow-hidden">
-          {/* Subtle pattern instead of giant gradients */}
-          <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'20\' height=\'20\' viewBox=\'0 0 20 20\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath fill=\'%23ffffff\' fill-opacity=\'1\' fill-rule=\'evenodd\' d=\'M0 0h20v20H0V0zm10 17a7 7 0 1 0 0-14 7 7 0 0 0 0 14z\'/%3E%3C/svg%3E")' }}></div>
+        <section id="home" className="relative lg:h-[600px] w-full overflow-hidden bg-[#001a40] flex items-center py-20 lg:py-0">
+          <div
+            className="absolute inset-0 opacity-40 bg-cover bg-center"
+            style={{ backgroundImage: "url('https://images.unsplash.com/photo-1544256718-3bcf237f3974?w=1600&q=80')" }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#001a40] via-[#001a40]/80 to-transparent" />
           
-          <div className="max-w-7xl mx-auto px-4 md:px-8 py-12 md:py-20 flex flex-col md:flex-row items-center gap-10 position-relative z-10">
-            
-            <div className="w-full md:w-3/5 text-white max-w-2xl">
-              <span className="inline-block border border-gov-saffron/50 text-gov-saffron text-[10px] md:text-xs font-bold uppercase tracking-widest px-3 py-1 bg-gov-saffron/10 mb-4">
-                Citizen-Centric E-Governance
-              </span>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-black leading-tight mb-5 uppercase tracking-wide">
-                Unified Portal for Public Grievances &amp; Relief
+          <div className="relative max-w-7xl mx-auto px-6 h-full flex flex-col justify-center w-full">
+            <div className="max-w-2xl space-y-6 lg:space-y-8 z-10">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/10 backdrop-blur border border-white/20 text-white text-[10px] md:text-[11px] font-bold uppercase tracking-widest rounded shadow-lg">
+                <span className="w-2 h-2 rounded-full bg-gov-green animate-pulse" />
+                Digital India Initiative · Anantnag District
+              </div>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-[1.1]">
+                Empowering Citizens, <br />
+                <span className="text-gov-saffron">Accelerating Relief.</span>
               </h2>
-              <p className="text-slate-300 text-base md:text-lg mb-8 leading-relaxed font-medium">
-                An initiative by the District Administration Anantnag to provide transparent, accountable, and responsive governance. Lodge complaints online or apply for emergency Red Cross financial aid directly through this official portal.
+              <p className="text-lg md:text-xl text-slate-300 leading-relaxed font-medium">
+                The unified portal for registering grievances with local departments and applying for emergency financial aid from the District Red Cross Society.
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-4 border-l-4 border-gov-saffron pl-4">
-                <Link href="/auth/login?tab=citizen" className="bg-gov-saffron hover:bg-[#e68a2e] text-white font-bold py-3.5 px-6 flex items-center justify-center gap-2 transition-colors border border-[#d68028] text-sm uppercase tracking-wide">
-                   <span className="material-symbols-outlined text-[18px]">how_to_reg</span> Register Complaint
+              <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                <Link href="/auth/login?tab=citizen" className="bg-gov-saffron text-white px-8 py-4 text-center text-base md:text-lg rounded shadow-lg flex items-center justify-center gap-2 hover:bg-[#e68a2e] transition-colors font-black">
+                   <span className="material-symbols-outlined">how_to_reg</span> Register / Apply Here
                 </Link>
-                <Link href="/complaint/track" className="bg-white/10 hover:bg-white/20 border border-white/30 text-white font-bold py-3.5 px-6 flex items-center justify-center gap-2 transition-colors text-sm uppercase tracking-wide">
-                   <span className="material-symbols-outlined text-[18px]">search</span> Track Status
+                <Link href="/complaint/track" className="bg-white/10 backdrop-blur text-white font-bold px-8 py-4 text-center text-base md:text-lg hover:bg-white/20 transition-all border border-white/30 rounded flex items-center justify-center gap-2">
+                   <span className="material-symbols-outlined">track_changes</span> Track Status
                 </Link>
               </div>
             </div>
-
-            <div className="w-full md:w-2/5 flex justify-center md:justify-end">
-              <div className="bg-white p-2 border border-slate-300 shadow-2xl relative">
-                 <img src="https://images.unsplash.com/photo-1544256718-3bcf237f3974?w=800&q=80" alt="District Administration" className="w-full h-[250px] md:h-[350px] object-cover border border-slate-200" />
-                 <div className="absolute -bottom-4 -left-4 bg-white border-2 border-gov-saffron px-4 py-2 font-bold text-gov-navy text-sm uppercase tracking-widest shadow-lg">
-                   District Anantnag
-                 </div>
-              </div>
-            </div>
-
+          </div>
+          
+          {/* Ashoka Chakra decorative background */}
+          <div className="absolute right-[-10%] bottom-[-20%] opacity-5 pointer-events-none hidden md:block">
+            <svg width="600" height="600" viewBox="0 0 100 100" className="text-white fill-current animate-[spin_120s_linear_infinite]">
+              <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" strokeWidth="1" />
+              <circle cx="50" cy="50" r="15" fill="currentColor" />
+              {Array.from({length: 24}).map((_, i) => (
+                <line key={i} x1="50" y1="50" x2="50" y2="5" stroke="currentColor" strokeWidth="1" transform={`rotate(${i * 15} 50 50)`} />
+              ))}
+            </svg>
           </div>
         </section>
 
