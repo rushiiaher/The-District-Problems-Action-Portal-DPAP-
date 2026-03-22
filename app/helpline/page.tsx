@@ -25,6 +25,21 @@ const utilityServices = [
   { service: "Railways – Reservation Enquiry", number: "1345" },
 ]
 
+const nodalOfficers = [
+  { name: "Syeed Fakhrudin Hamid, IAS", post: "Deputy Commissioner", department: "District Administration", phone: "01932-222337", email: "dc-anantnagjk@gov.in" },
+  { name: "Mr. Sandeep Singh Bali (JKAS)", post: "Addl. Deputy Commr. Anantnag", department: "District Administration", phone: "9018991010", email: "-" },
+  { name: "Mr. Muzamil Maqbool Beigh (KAS)", post: "Addl. Deputy Commr. Anantnag", department: "District Administration", phone: "9484003002", email: "-" },
+  { name: "Mr. Tariq Ahmad Malik (JKAS)", post: "Assistant Commr. (R) Anantnag", department: "Revenue", phone: "9484003007", email: "-" },
+  { name: "Mr. Tawseef Ahmad Malik", post: "CPO, Anantnag", department: "Police", phone: "7780801298", email: "-" },
+  { name: "Mr. Umair Ahmad Beig", post: "Distt. Informatics Officer NIC", department: "NIC", phone: "7780983545", email: "anantnag@nic.in" },
+  { name: "Mr. Nisar Ahmad Wani", post: "Dy District Election Officer", department: "Election", phone: "7006835649", email: "-" },
+  { name: "Haji Reyaz Ahmad", post: "P.A. to D.C.", department: "DC Office", phone: "7006752095", email: "-" },
+  { name: "Mr. Qaiser Mehmood (JKAS)", post: "SDM PAHALGAM", department: "Sub-Division", phone: "9797620403", email: "-" },
+  { name: "Mr. Suheel Ahmad Lone (JKAS)", post: "SDM KOKERNAG", department: "Sub-Division", phone: "9906783807", email: "-" },
+  { name: "Mr. Parvaiz Rahim (JKAS)", post: "SDM DOORU", department: "Sub-Division", phone: "9622674175", email: "-" },
+  { name: "Mr. Tanveer Ahmad (JKAS)", post: "SDM BIJBEHARA", department: "Sub-Division", phone: "9419134556", email: "-" },
+]
+
 export default function HelplinePage() {
   return (
     <div className="min-h-screen bg-slate-50 font-inter flex flex-col">
@@ -103,7 +118,7 @@ export default function HelplinePage() {
         </div>
 
         {/* Public Utility Services Table */}
-        <div className="mb-12">
+        <div className="mb-16">
           <div className="flex items-center gap-3 mb-6 border-b-2 border-slate-200 pb-3">
             <div className="w-10 h-10 bg-gov-navy rounded flex items-center justify-center text-white">
               <span className="material-symbols-outlined">public</span>
@@ -124,6 +139,41 @@ export default function HelplinePage() {
                   <tr key={idx} className="hover:bg-slate-50 transition-colors">
                     <td className="py-4 px-6 text-sm font-semibold text-slate-800 border-r border-slate-100">{item.service}</td>
                     <td className="py-4 px-6 text-sm font-bold text-gov-green">{item.number}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* Nodal Officers Table */}
+        <div className="mb-12">
+          <div className="flex items-center gap-3 mb-6 border-b-2 border-slate-200 pb-3">
+            <div className="w-10 h-10 bg-gov-navy rounded flex items-center justify-center text-white">
+              <span className="material-symbols-outlined">badge</span>
+            </div>
+            <h3 className="text-2xl font-black text-slate-800 uppercase tracking-tight">Nodal Officers Directory</h3>
+          </div>
+          
+          <div className="bg-white border border-slate-300 shadow-sm overflow-x-auto">
+            <table className="w-full text-left border-collapse whitespace-nowrap lg:whitespace-normal">
+              <thead>
+                <tr className="bg-slate-100 border-b border-slate-300">
+                  <th className="py-4 px-6 font-bold text-gov-navy uppercase text-sm tracking-wider border-r border-slate-200 lg:w-1/4">Name</th>
+                  <th className="py-4 px-6 font-bold text-gov-navy uppercase text-sm tracking-wider border-r border-slate-200 lg:w-1/4">Post / Designation</th>
+                  <th className="py-4 px-6 font-bold text-gov-navy uppercase text-sm tracking-wider border-r border-slate-200 lg:w-1/4">Department</th>
+                  <th className="py-4 px-6 font-bold text-gov-navy uppercase text-sm tracking-wider border-r border-slate-200">Phone</th>
+                  <th className="py-4 px-6 font-bold text-gov-navy uppercase text-sm tracking-wider">Email</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-200">
+                {nodalOfficers.map((item, idx) => (
+                  <tr key={idx} className="hover:bg-slate-50 transition-colors">
+                    <td className="py-4 px-6 text-sm font-black text-slate-800 border-r border-slate-100 placeholder-slate-400">{item.name}</td>
+                    <td className="py-4 px-6 text-sm text-slate-700 border-r border-slate-100">{item.post}</td>
+                    <td className="py-4 px-6 text-sm text-slate-700 border-r border-slate-100 font-medium">{item.department}</td>
+                    <td className="py-4 px-6 text-sm font-bold text-gov-navy border-r border-slate-100">{item.phone}</td>
+                    <td className="py-4 px-6 text-sm text-slate-600">{item.email}</td>
                   </tr>
                 ))}
               </tbody>
