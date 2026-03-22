@@ -44,7 +44,7 @@ export default function HelplinePage() {
   return (
     <div className="min-h-screen bg-slate-50 font-inter flex flex-col">
       {/* HEADER */}
-      <header className="bg-white border-b-4 border-gov-saffron shadow-sm sticky top-0 z-50">
+      <header className="bg-white border-b-4 border-gov-navy shadow-sm sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <div className="flex items-center justify-between h-[88px]">
             <Link href="/" className="flex items-center gap-4">
@@ -70,7 +70,7 @@ export default function HelplinePage() {
       <main className="flex-grow max-w-5xl mx-auto w-full px-4 md:px-8 py-12">
         <div className="mb-10 text-center">
           <h2 className="text-3xl md:text-4xl font-black text-gov-navy uppercase tracking-tight mb-2">Important Helplines</h2>
-          <div className="h-1 w-24 bg-gov-saffron mx-auto mb-4" />
+          <div className="h-1 w-24 bg-gov-navy mx-auto mb-4" />
           <p className="text-slate-600 font-medium max-w-2xl mx-auto">
             Official emergency and public utility contact numbers for the citizens of District Anantnag. These lines are monitored by the respective departments.
           </p>
@@ -184,7 +184,7 @@ export default function HelplinePage() {
       </main>
       
       {/* FOOTER */}
-      <footer className="bg-[#0e223d] border-t-8 border-gov-saffron mt-auto">
+      <footer className="bg-[#0e223d] border-t-8 border-gov-navy mt-auto">
         <div className="bg-[#091526] py-6 border-t border-slate-800">
           <div className="max-w-7xl mx-auto px-4 md:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-[11px] text-slate-500 text-center md:text-left leading-relaxed">

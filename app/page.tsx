@@ -29,7 +29,7 @@ export default function LandingPage() {
       {/* Removed Gov Top Strip per user request */}
 
       {/* ─── HEADER ─── */}
-      <header className="bg-white border-b-4 border-gov-saffron shadow-sm sticky top-0 z-50">
+      <header className="bg-white border-b-4 border-gov-navy shadow-sm sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <div className="flex items-center justify-between h-[88px]">
             {/* Logo area */}
@@ -46,7 +46,7 @@ export default function LandingPage() {
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center space-x-6">
               {["Home", "Grievance Mechanism", "Red Cross Society", "Helplines"].map(item => (
-                <a key={item} href={item === "Helplines" ? "/helpline" : `#${item.split(' ')[0].toLowerCase()}`} className="text-sm font-bold text-slate-700 hover:text-gov-navy transition-colors border-b-2 border-transparent hover:border-gov-saffron py-1 uppercase tracking-wider">
+                <a key={item} href={item === "Helplines" ? "/helpline" : `#${item.split(' ')[0].toLowerCase()}`} className="text-sm font-bold text-slate-700 hover:text-gov-navy transition-colors border-b-2 border-transparent hover:border-gov-navy py-1 uppercase tracking-wider">
                   {item}
                 </a>
               ))}
@@ -75,8 +75,8 @@ export default function LandingPage() {
                     </div>
 
                     <Link href="/auth/login?tab=citizen" onClick={() => setLoginOpen(false)}>
-                      <div className="flex items-center gap-3 px-4 py-3 hover:bg-gov-saffron/10 transition-colors border-b border-slate-100 cursor-pointer">
-                        <span className="material-symbols-outlined text-gov-saffron">badge</span>
+                      <div className="flex items-center gap-3 px-4 py-3 hover:bg-gov-navy/10 transition-colors border-b border-slate-100 cursor-pointer">
+                        <span className="material-symbols-outlined text-gov-navy">badge</span>
                         <div>
                           <p className="font-bold text-slate-800 text-sm">Citizen Portal</p>
                           <p className="text-[11px] text-slate-500">Register or Track</p>
@@ -118,7 +118,7 @@ export default function LandingPage() {
               </a>
             ))}
             <div className="grid grid-cols-2 gap-3 pt-4">
-               <Link href="/auth/login?tab=citizen" className="bg-gov-saffron text-white text-center font-bold py-3 text-sm border border-[#e68a2e]" onClick={() => setMobileMenuOpen(false)}>Citizen Login</Link>
+               <Link href="/auth/login?tab=citizen" className="bg-gov-navy text-white text-center font-bold py-3 text-sm border border-[#001a40]" onClick={() => setMobileMenuOpen(false)}>Citizen Login</Link>
                <Link href="/auth/login?tab=staff" className="bg-gov-navy text-white text-center font-bold py-3 text-sm border border-[#001a40]" onClick={() => setMobileMenuOpen(false)}>Staff Login</Link>
             </div>
             <Link href="/complaint/track" className="bg-slate-100 text-slate-800 border border-slate-300 text-center font-bold py-3 text-sm w-full mt-3 block" onClick={() => setMobileMenuOpen(false)}>
@@ -146,14 +146,14 @@ export default function LandingPage() {
               </div>
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-[1.1]">
                 Empowering Citizens, <br />
-                <span className="text-gov-saffron">Accelerating Relief.</span>
+                <span className="text-gov-navy">Accelerating Relief.</span>
               </h2>
               <p className="text-lg md:text-xl text-slate-300 leading-relaxed font-medium">
                 The unified portal for registering grievances with local departments and applying for emergency financial aid from the District Red Cross Society.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Link href="/auth/login?tab=citizen" className="bg-gov-saffron text-white px-8 py-4 text-center text-base md:text-lg rounded shadow-lg flex items-center justify-center gap-2 hover:bg-[#e68a2e] transition-colors font-black">
+                <Link href="/auth/login?tab=citizen" className="bg-gov-navy text-white px-8 py-4 text-center text-base md:text-lg rounded shadow-lg flex items-center justify-center gap-2 hover:bg-[#001a40] transition-colors font-black">
                    <span className="material-symbols-outlined">how_to_reg</span> Register / Apply Here
                 </Link>
                 <Link href="/complaint/track" className="bg-white/10 backdrop-blur text-white font-bold px-8 py-4 text-center text-base md:text-lg hover:bg-white/20 transition-all border border-white/30 rounded flex items-center justify-center gap-2">
@@ -194,7 +194,7 @@ export default function LandingPage() {
                 <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-white shadow-xl mb-5 bg-white relative">
                    <img src="/Collector.jpeg" alt="Collector & District Magistrate" className="absolute inset-0 w-full h-full object-cover object-top" />
                 </div>
-                <h3 className="text-lg font-black text-gov-navy uppercase leading-tight">Dr. Bilal Mohiuddin Bhat <span className="block text-sm font-bold text-gov-saffron mt-1 font-inter tracking-widest">(IAS)</span></h3>
+                <h3 className="text-lg font-black text-gov-navy uppercase leading-tight">Dr. Bilal Mohiuddin Bhat <span className="block text-sm font-bold text-gov-navy mt-1 font-inter tracking-widest">(IAS)</span></h3>
                 <div className="text-[13px] font-bold text-slate-500 mt-2 uppercase tracking-wide border-t border-slate-200 pt-2 w-full space-y-0.5">
                    <p>Collector &amp; District Magistrate</p>
                    <p className="text-[11px]">DC / DDC / DM, Anantnag</p>
@@ -219,9 +219,9 @@ export default function LandingPage() {
                 { step: "Step 2", title: "Lodge Complaint", desc: "Select the respective department, provide a detailed description of the issue, and attach photographic evidence or documents.", icon: "app_registration" },
                 { step: "Step 3", title: "Track & Resolve", desc: "A unique Grievance ID will be generated. Track the resolution process online. Cases exceeding SLAs are automatically escalated.", icon: "troubleshoot" },
               ].map((s, i) => (
-                <div key={i} className="border border-slate-200 bg-slate-50 p-6 md:p-8 hover:border-gov-saffron hover:bg-white transition-colors duration-200 group">
+                <div key={i} className="border border-slate-200 bg-slate-50 p-6 md:p-8 hover:border-gov-navy hover:bg-white transition-colors duration-200 group">
                   <div className="flex items-center gap-4 mb-4">
-                     <div className="bg-gov-navy text-white w-12 h-12 flex items-center justify-center border border-slate-300 group-hover:bg-gov-saffron transition-colors">
+                     <div className="bg-gov-navy text-white w-12 h-12 flex items-center justify-center border border-slate-300 group-hover:bg-gov-navy transition-colors">
                         <span className="material-symbols-outlined">{s.icon}</span>
                      </div>
                      <span className="text-xs font-bold uppercase tracking-widest text-slate-500">{s.step}</span>
@@ -305,7 +305,7 @@ export default function LandingPage() {
       </main>
 
       {/* ─── FOOTER ─── */}
-      <footer id="helpdesk" className="bg-[#0e223d] text-slate-300 pt-12 md:pt-16 border-t-8 border-gov-saffron">
+      <footer id="helpdesk" className="bg-[#0e223d] text-slate-300 pt-12 md:pt-16 border-t-8 border-gov-navy">
         <div className="max-w-7xl mx-auto px-4 md:px-8 pb-12">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
             
@@ -324,7 +324,7 @@ export default function LandingPage() {
               <h4 className="text-white font-bold text-sm uppercase tracking-widest mb-6 border-b border-slate-700 pb-2">Important Links</h4>
               <ul className="space-y-3 text-sm">
                 {["National Portal of India", "J&K Government Portal", "Digital India", "MyGov Platform", "District NIC Website"].map(l => (
-                  <li key={l}><a href="#" className="hover:text-gov-saffron transition-colors flex items-center gap-2"><span className="material-symbols-outlined text-[14px]">arrow_right</span>{l}</a></li>
+                  <li key={l}><a href="#" className="hover:text-gov-navy transition-colors flex items-center gap-2"><span className="material-symbols-outlined text-[14px]">arrow_right</span>{l}</a></li>
                 ))}
               </ul>
             </div>
@@ -344,11 +344,11 @@ export default function LandingPage() {
               <h4 className="text-white font-bold text-sm uppercase tracking-widest mb-6 border-b border-slate-700 pb-2">Contact Administration</h4>
               <address className="not-italic text-sm space-y-4">
                 <p className="flex items-start gap-3 text-slate-300">
-                  <span className="material-symbols-outlined text-gov-saffron text-[18px]">domain</span>
+                  <span className="material-symbols-outlined text-gov-navy text-[18px]">domain</span>
                   <span>Office of the Deputy Commissioner,<br />DC Office Complex, Khanabal,<br />Anantnag, J&amp;K – 192101</span>
                 </p>
-                <p className="flex items-center gap-3"><span className="material-symbols-outlined text-gov-saffron text-[18px]">call</span> 1800-112-233 (Toll Free)</p>
-                <p className="flex items-center gap-3"><span className="material-symbols-outlined text-gov-saffron text-[18px]">mail</span> dc-anantnag@jk.gov.in</p>
+                <p className="flex items-center gap-3"><span className="material-symbols-outlined text-gov-navy text-[18px]">call</span> 1800-112-233 (Toll Free)</p>
+                <p className="flex items-center gap-3"><span className="material-symbols-outlined text-gov-navy text-[18px]">mail</span> dc-anantnag@jk.gov.in</p>
               </address>
             </div>
             
