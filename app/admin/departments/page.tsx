@@ -264,7 +264,7 @@ export default function DepartmentsPage() {
               <DialogTitle className="font-['Outfit']">{editDept ? "Edit Department" : "Create Department"}</DialogTitle>
             </DialogHeader>
             <div className="space-y-4 mt-2">
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid sm:grid-cols-2 gap-3">
                 <div>
                   <Label className="text-slate-400 text-xs mb-1.5 block">Department Name *</Label>
                   <Input className="bg-white/5 border-white/10 text-white" value={form.name} onChange={e => setForm(p => ({ ...p, name: e.target.value }))} />
@@ -280,7 +280,7 @@ export default function DepartmentsPage() {
               </div>
               <div>
                 <Label className="text-slate-400 text-xs mb-2 block">SLA Resolution Deadlines (hours)</Label>
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid sm:grid-cols-3 gap-2">
                   {[
                     { label: "High Priority", key: "sla_high", placeholder: "24" },
                     { label: "Medium", key: "sla_medium", placeholder: "48" },

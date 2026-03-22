@@ -97,8 +97,8 @@ export default function HelplinePage() {
             <h3 className="text-2xl font-black text-slate-800 uppercase tracking-tight">Emergency Services</h3>
           </div>
           
-          <div className="bg-white border border-slate-300 shadow-sm overflow-hidden">
-            <table className="w-full text-left border-collapse">
+          <div className="bg-white border border-slate-300 shadow-sm overflow-x-auto">
+            <table className="w-full text-left border-collapse whitespace-nowrap md:whitespace-normal">
               <thead>
                 <tr className="bg-slate-100 border-b border-slate-300">
                   <th className="py-4 px-6 font-bold text-gov-navy uppercase text-sm tracking-wider w-2/3 border-r border-slate-200">Helpline Service</th>
@@ -126,8 +126,8 @@ export default function HelplinePage() {
             <h3 className="text-2xl font-black text-slate-800 uppercase tracking-tight">Public Utility Services</h3>
           </div>
           
-          <div className="bg-white border border-slate-300 shadow-sm overflow-hidden">
-            <table className="w-full text-left border-collapse">
+          <div className="bg-white border border-slate-300 shadow-sm overflow-x-auto">
+            <table className="w-full text-left border-collapse whitespace-nowrap md:whitespace-normal">
               <thead>
                 <tr className="bg-slate-100 border-b border-slate-300">
                   <th className="py-4 px-6 font-bold text-gov-navy uppercase text-sm tracking-wider w-2/3 border-r border-slate-200">Helpline Service</th>

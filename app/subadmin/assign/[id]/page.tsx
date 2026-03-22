@@ -200,7 +200,7 @@ export default function AssignComplaintPage() {
                     <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Description</p>
                     <p className="text-slate-700 text-sm leading-relaxed">{complaint.description}</p>
                   </div>
-                  <div className="grid grid-cols-3 gap-4 pt-2 border-t border-slate-100">
+                  <div className="grid sm:grid-cols-3 gap-4 pt-2 border-t border-slate-100">
                     <div>
                       <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Location</p>
                       <p className="text-sm text-slate-700">{[complaint.village, complaint.block, complaint.district].filter(Boolean).join(", ")}</p>
@@ -251,7 +251,7 @@ export default function AssignComplaintPage() {
                     <span className="material-symbols-outlined text-gov-navy text-[18px]">person</span>
                     <h2 className="font-bold text-slate-800 text-sm uppercase tracking-wide">Citizen</h2>
                   </div>
-                  <div className="p-6 grid grid-cols-2 gap-4">
+                  <div className="p-6 grid sm:grid-cols-2 gap-4">
                     {[
                       { label: "Name",    value: citizen.name },
                       { label: "Mobile",  value: citizen.mobile ? `+91 ${citizen.mobile}` : null },
@@ -276,7 +276,7 @@ export default function AssignComplaintPage() {
                       Attachments <span className="text-slate-400 font-normal ml-1">({attachments.length})</span>
                     </h2>
                   </div>
-                  <div className="p-4 grid grid-cols-3 gap-3">
+                  <div className="p-4 grid grid-cols-2 sm:grid-cols-3 gap-3">
                     {attachments.map((att) => {
                       const isPdf = att.file_type === "application/pdf" || att.file_url.endsWith(".pdf")
                       const isImg = att.file_type?.startsWith("image/") || /\.(jpg|jpeg|png|webp|gif)$/i.test(att.file_url)

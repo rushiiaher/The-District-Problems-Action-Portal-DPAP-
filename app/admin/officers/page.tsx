@@ -136,12 +136,12 @@ export default function OfficersPage() {
           <DialogContent className="bg-slate-900 border-white/10 text-white sm:max-w-md">
             <DialogHeader><DialogTitle className="font-['Outfit']">Add New Officer</DialogTitle></DialogHeader>
             <div className="space-y-4 mt-2">
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid sm:grid-cols-2 gap-3">
                 <div><Label className="text-slate-400 text-xs mb-1.5 block">Full Name *</Label><Input className="bg-white/5 border-white/10 text-white" value={form.name} onChange={e => setForm(p => ({ ...p, name: e.target.value }))} /></div>
                 <div><Label className="text-slate-400 text-xs mb-1.5 block">Username *</Label><Input className="bg-white/5 border-white/10 text-white" value={form.username} onChange={e => setForm(p => ({ ...p, username: e.target.value }))} /></div>
               </div>
               <div><Label className="text-slate-400 text-xs mb-1.5 block">Password *</Label><Input type="password" className="bg-white/5 border-white/10 text-white" value={form.password} onChange={e => setForm(p => ({ ...p, password: e.target.value }))} /></div>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid sm:grid-cols-2 gap-3">
                 <div><Label className="text-slate-400 text-xs mb-1.5 block">Designation</Label><Input className="bg-white/5 border-white/10 text-white" placeholder="SDO, JE, etc." value={form.designation} onChange={e => setForm(p => ({ ...p, designation: e.target.value }))} /></div>
                 <div><Label className="text-slate-400 text-xs mb-1.5 block">Employee ID</Label><Input className="bg-white/5 border-white/10 text-white" value={form.employee_id} onChange={e => setForm(p => ({ ...p, employee_id: e.target.value }))} /></div>
               </div>

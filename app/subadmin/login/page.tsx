@@ -169,7 +169,7 @@ export default function SubAdminLoginPage() {
           </div>
 
           {/* Other portals */}
-          <div className="mt-6 grid grid-cols-2 gap-3">
+          <div className="mt-6 grid sm:grid-cols-2 gap-3">
             <Link href="/auth/login?tab=citizen"
               className="flex items-center justify-center gap-2 bg-white border border-slate-200 rounded px-4 py-3 text-[11px] font-bold text-slate-600 hover:bg-slate-50 hover:border-gov-navy/40 transition-all shadow-sm">
               <span className="material-symbols-outlined text-[16px] text-gov-green">phone_iphone</span>
