@@ -175,6 +175,36 @@ export default function LandingPage() {
           </div>
         </section>
 
+        {/* ─── LEADERSHIP SECTION ─── */}
+        <section className="bg-slate-50 py-12 md:py-16 border-b border-slate-200">
+          <div className="max-w-7xl mx-auto px-4 md:px-8">
+            <div className="flex flex-col md:flex-row justify-center items-start gap-12 md:gap-24">
+              
+              {/* Governor Profile */}
+              <div className="flex flex-col items-center text-center max-w-[280px]">
+                <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-white shadow-xl mb-5 bg-white relative">
+                   <img src="/Governor.jpg" alt="Hon'ble Lt. Governor" className="absolute inset-0 w-full h-full object-cover object-top" />
+                </div>
+                <h3 className="text-lg font-black text-gov-navy uppercase leading-tight">Hon'ble Lt. Governor</h3>
+                <p className="text-[13px] font-bold text-slate-500 mt-2 uppercase tracking-wide border-t border-slate-200 pt-2 w-full">Jammu and Kashmir</p>
+              </div>
+
+              {/* District Magistrate Profile */}
+              <div className="flex flex-col items-center text-center max-w-[280px]">
+                <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-white shadow-xl mb-5 bg-white relative">
+                   <img src="/Collector.jpeg" alt="Collector & District Magistrate" className="absolute inset-0 w-full h-full object-cover object-top" />
+                </div>
+                <h3 className="text-lg font-black text-gov-navy uppercase leading-tight">Dr. Bilal Mohiuddin Bhat <span className="block text-sm font-bold text-gov-saffron mt-1 font-inter tracking-widest">(IAS)</span></h3>
+                <div className="text-[13px] font-bold text-slate-500 mt-2 uppercase tracking-wide border-t border-slate-200 pt-2 w-full space-y-0.5">
+                   <p>Collector &amp; District Magistrate</p>
+                   <p className="text-[11px]">DC / DDC / DM, Anantnag</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
         {/* ─── GRIEVANCE MECHANISM SECTION ─── */}
         <section id="grievance" className="py-16 md:py-24 bg-white border-b border-slate-200">
           <div className="max-w-7xl mx-auto px-4 md:px-8">
