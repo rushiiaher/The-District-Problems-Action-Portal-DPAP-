@@ -14,7 +14,7 @@ const NAV = {
     { label: "My Profile",          href: "/citizen/profile",          icon: "manage_accounts" },
     { label: "Red Cross Application", href: "/citizen/red-cross",      icon: "volunteer_activism", accent: "text-red-600" },
     { label: "Aid Status",          href: "/citizen/red-cross/status", icon: "track_changes", accent: "text-red-600" },
-    { label: "Helpdesk",            href: "#",                         icon: "support_agent" },
+    { label: "Helpdesk",            href: "/helpline",                         icon: "support_agent" },
   ],
   subadmin: [
     { group: "Internal Management", items: [

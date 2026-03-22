@@ -45,8 +45,8 @@ export default function LandingPage() {
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center space-x-6">
-              {["Home", "Grievance Mechanism", "Red Cross Society", "Helpdesk"].map(item => (
-                <a key={item} href={`#${item.split(' ')[0].toLowerCase()}`} className="text-sm font-bold text-slate-700 hover:text-gov-navy transition-colors border-b-2 border-transparent hover:border-gov-saffron py-1 uppercase tracking-wider">
+              {["Home", "Grievance Mechanism", "Red Cross Society", "Helplines"].map(item => (
+                <a key={item} href={item === "Helplines" ? "/helpline" : `#${item.split(' ')[0].toLowerCase()}`} className="text-sm font-bold text-slate-700 hover:text-gov-navy transition-colors border-b-2 border-transparent hover:border-gov-saffron py-1 uppercase tracking-wider">
                   {item}
                 </a>
               ))}
@@ -112,8 +112,8 @@ export default function LandingPage() {
         {/* Mobile Menu */}
         {mobileMenuOpen && (
           <div ref={mobileMenuRef} className="lg:hidden absolute top-full left-0 right-0 bg-white border-b border-slate-300 shadow-xl flex flex-col p-4 space-y-1 z-50">
-            {["Home", "Grievance Mechanism", "Red Cross Society", "Helpdesk"].map(item => (
-              <a key={item} href={`#${item.split(' ')[0].toLowerCase()}`} className="text-sm font-bold text-slate-700 p-3 hover:bg-slate-50 uppercase tracking-wide border-b border-slate-100 block" onClick={() => setMobileMenuOpen(false)}>
+            {["Home", "Grievance Mechanism", "Red Cross Society", "Helplines"].map(item => (
+              <a key={item} href={item === "Helplines" ? "/helpline" : `#${item.split(' ')[0].toLowerCase()}`} className="text-sm font-bold text-slate-700 p-3 hover:bg-slate-50 uppercase tracking-wide border-b border-slate-100 block" onClick={() => setMobileMenuOpen(false)}>
                 {item}
               </a>
             ))}
