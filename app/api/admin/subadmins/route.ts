@@ -106,6 +106,47 @@ export async function POST(request: NextRequest) {
   }
 }
 
+// PATCH /api/admin/subadmins — reset staff password
+export async function PATCH(request: NextRequest) {
+  try {
+    const callerRole = request.headers.get("x-user-role")
+    if (callerRole !== "superadmin") {
+      return NextResponse.json({ success: false, error: "Unauthorized" }, { status: 403 })
+    }
+
+    const body = await request.json()
+    const { id, password } = body
+
+    if (!id) return NextResponse.json({ success: false, error: "Staff ID is required" }, { status: 400 })
+    if (!password || password.length < 6) {
+      return NextResponse.json({ success: false, error: "Password must be at least 6 characters" }, { status: 400 })
+    }
+
+    // Verify target is a valid staff member (not superadmin/citizen)
+    const { data: target } = await supabase
+      .from("users")
+      .select("id, role")
+      .eq("id", id)
+      .in("role", ALLOWED_ROLES)
+      .maybeSingle()
+
+    if (!target) {
+      return NextResponse.json({ success: false, error: "Staff member not found" }, { status: 404 })
+    }
+
+    const { error } = await supabase
+      .from("users")
+      .update({ password_hash: password })
+      .eq("id", id)
+
+    if (error) return NextResponse.json({ success: false, error: error.message }, { status: 500 })
+
+    return NextResponse.json({ success: true })
+  } catch (err: any) {
+    return NextResponse.json({ success: false, error: err.message }, { status: 500 })
+  }
+}
+
 // DELETE /api/admin/subadmins?id=...  — remove any staff (not superadmin, not citizen)
 export async function DELETE(request: NextRequest) {
   try {
