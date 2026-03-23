@@ -3,7 +3,19 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useAuth } from "@/components/providers/auth-provider"
-import { useState } from "react"
+import { useSidebar } from "@/components/sidebar-context"
+
+export function SidebarToggle() {
+  const { setOpen } = useSidebar()
+  return (
+    <button
+      className="md:hidden flex items-center justify-center w-10 h-10 -ml-2 hover:bg-white/10 rounded transition-colors text-white"
+      onClick={() => setOpen(true)}
+    >
+      <span className="material-symbols-outlined">menu</span>
+    </button>
+  )
+}
 
 // Nav items per role
 const NAV = {
@@ -63,7 +75,7 @@ const NAV = {
 export function AppSidebar() {
   const { user, logout } = useAuth()
   const pathname = usePathname()
-  const [mobileOpen, setMobileOpen] = useState(false)
+  const { open: mobileOpen, setOpen: setMobileOpen } = useSidebar()
 
   if (!user) return null
   const role = user.role as keyof typeof NAV
@@ -150,14 +162,6 @@ export function AppSidebar() {
       <div className="hidden md:flex h-screen sticky top-0">
         {sidebarContent}
       </div>
-
-      {/* Mobile toggle — flush with sticky header (h-14) */}
-      <button
-        className="md:hidden fixed top-0 left-0 z-30 h-14 w-14 flex items-center justify-center bg-gov-navy text-white"
-        onClick={() => setMobileOpen(true)}
-      >
-        <span className="material-symbols-outlined">menu</span>
-      </button>
 
       {/* Mobile drawer */}
       {mobileOpen && (

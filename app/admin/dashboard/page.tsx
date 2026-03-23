@@ -4,7 +4,8 @@ import { useEffect, useState } from "react"
 import { useAuth } from "@/components/providers/auth-provider"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
-import { AppSidebar } from "@/components/app-sidebar"
+import { AppSidebar, SidebarToggle } from "@/components/app-sidebar"
+import { SidebarProvider } from "@/components/sidebar-context"
 
 export default function AdminDashboard() {
   const { user, isLoading } = useAuth()
@@ -41,12 +42,14 @@ export default function AdminDashboard() {
   ]
 
   return (
+    <SidebarProvider>
     <div className="flex h-screen overflow-hidden bg-[#f4f7f9] font-inter">
       <AppSidebar />
 
       <main className="flex-1 flex flex-col min-w-0 overflow-y-auto">
         {/* Navy top bar */}
-        <header className="h-14 flex items-center justify-between pl-14 md:pl-8 pr-4 md:pr-8 bg-gov-navy text-white sticky top-0 z-10">
+        <header className="h-14 flex items-center justify-between px-4 md:px-8 bg-gov-navy text-white sticky top-0 z-10">
+          <SidebarToggle />
           <div className="hidden md:flex items-center flex-1 max-w-md">
             <div className="relative w-full">
               <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-300 text-lg">search</span>
@@ -194,5 +197,6 @@ export default function AdminDashboard() {
         </div>
       </main>
     </div>
+    </SidebarProvider>
   )
 }

@@ -4,7 +4,8 @@ import { useEffect, useState } from "react"
 import { useAuth } from "@/components/providers/auth-provider"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
-import { AppSidebar } from "@/components/app-sidebar"
+import { AppSidebar, SidebarToggle } from "@/components/app-sidebar"
+import { SidebarProvider } from "@/components/sidebar-context"
 
 const SLA_PCT = (created: string, deadline: string) => {
   if (!deadline || !created) return 0
@@ -50,14 +51,16 @@ export default function OfficerInboxPage() {
   if (isLoading || !user) return null
 
   return (
+    <SidebarProvider>
     <div className="flex h-screen overflow-hidden bg-[#f4f7f9] font-inter">
       <AppSidebar />
 
       <main className="flex-1 flex flex-col min-w-0 overflow-y-auto">
         {/* Navy header */}
-        <header className="h-14 flex items-center justify-between pl-14 md:pl-8 pr-4 md:pr-8 bg-gov-navy text-white sticky top-0 z-10">
-          <div>
-            <p className="text-[10px] font-bold uppercase tracking-widest text-slate-300">Officer Portal · E-ARZI</p>
+        <header className="h-14 flex items-center justify-between px-4 md:px-8 bg-gov-navy text-white sticky top-0 z-10">
+          <div className="flex items-center gap-2">
+            <SidebarToggle />
+            <p className="text-[10px] font-bold uppercase tracking-widest text-slate-300 hidden sm:block">Officer Portal · E-ARZI</p>
           </div>
           <div className="flex items-center gap-4">
             <button className="text-slate-300 hover:text-white">
@@ -190,5 +193,6 @@ export default function OfficerInboxPage() {
         </div>
       </main>
     </div>
+    </SidebarProvider>
   )
 }

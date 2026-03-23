@@ -4,7 +4,8 @@ import { useEffect, useState } from "react"
 import { useAuth } from "@/components/providers/auth-provider"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
-import { AppSidebar } from "@/components/app-sidebar"
+import { AppSidebar, SidebarToggle } from "@/components/app-sidebar"
+import { SidebarProvider } from "@/components/sidebar-context"
 
 const STATUS_BADGE: Record<string, string> = {
   SUBMITTED:   "bg-slate-100 text-slate-700 border-slate-300",
@@ -54,13 +55,17 @@ export default function CitizenDashboard() {
   if (isLoading || !user) return null
 
   return (
+    <SidebarProvider>
     <div className="flex min-h-screen bg-[#f4f7f9] font-inter">
       <AppSidebar />
 
       <div className="flex-1 flex flex-col min-w-0">
         {/* Standard slim header — consistent with all other pages */}
-        <header className="h-14 flex items-center justify-between pl-14 md:pl-8 pr-4 md:pr-8 bg-gov-navy text-white sticky top-0 z-10 flex-shrink-0">
-          <p className="text-[10px] font-bold uppercase tracking-widest text-slate-300">Citizen Portal · E-ARZI</p>
+        <header className="h-14 flex items-center justify-between px-4 md:px-8 bg-gov-navy text-white sticky top-0 z-10 flex-shrink-0">
+          <div className="flex items-center gap-2">
+            <SidebarToggle />
+            <p className="text-[10px] font-bold uppercase tracking-widest text-slate-300 hidden sm:block">Citizen Portal · E-ARZI</p>
+          </div>
           <div className="flex items-center gap-3">
             <button className="text-slate-300 hover:text-white transition-colors" title="Notifications">
               <span className="material-symbols-outlined text-[22px]">notifications</span>
@@ -216,5 +221,6 @@ export default function CitizenDashboard() {
         </footer>
       </div>
     </div>
+    </SidebarProvider>
   )
 }

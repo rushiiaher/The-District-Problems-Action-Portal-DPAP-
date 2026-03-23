@@ -4,7 +4,8 @@ import { useEffect, useState, useCallback } from "react"
 import { useAuth } from "@/components/providers/auth-provider"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
-import { AppSidebar } from "@/components/app-sidebar"
+import { AppSidebar, SidebarToggle } from "@/components/app-sidebar"
+import { SidebarProvider } from "@/components/sidebar-context"
 
 type Complaint = {
   id: string
@@ -106,13 +107,17 @@ export default function SubAdminQueuePage() {
   if (isLoading || !user) return null
 
   return (
+    <SidebarProvider>
     <div className="flex h-screen overflow-hidden bg-[#f4f7f9] font-inter">
       <AppSidebar />
 
       <main className="flex-1 flex flex-col overflow-hidden">
         {/* Header */}
-        <header className="h-14 flex items-center justify-between pl-14 md:pl-8 pr-2 md:pr-8 bg-gov-navy text-white flex-shrink-0">
-          <p className="text-[10px] font-bold uppercase tracking-widest text-slate-300 hidden sm:block">Sub Admin · Complaint Queue</p>
+        <header className="h-14 flex items-center justify-between px-4 md:px-8 bg-gov-navy text-white flex-shrink-0">
+          <div className="flex items-center gap-2">
+            <SidebarToggle />
+            <p className="text-[10px] font-bold uppercase tracking-widest text-slate-300 hidden sm:block">Sub Admin · Complaint Queue</p>
+          </div>
           <div className="flex items-center gap-2 md:gap-3">
             <div className="relative">
               <span className="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400 text-[16px]">search</span>
@@ -225,6 +230,7 @@ export default function SubAdminQueuePage() {
         </div>
       </main>
     </div>
+    </SidebarProvider>
   )
 }
 
