@@ -55,7 +55,7 @@ export default function OfficerInboxPage() {
 
       <main className="flex-1 flex flex-col min-w-0 overflow-y-auto">
         {/* Navy header */}
-        <header className="h-14 flex items-center justify-between px-8 bg-gov-navy text-white sticky top-0 z-10">
+        <header className="h-14 flex items-center justify-between pl-14 md:pl-8 pr-4 md:pr-8 bg-gov-navy text-white sticky top-0 z-10">
           <div>
             <p className="text-[10px] font-bold uppercase tracking-widest text-slate-300">Officer Portal · E-ARZI</p>
           </div>
@@ -75,9 +75,9 @@ export default function OfficerInboxPage() {
           </div>
         </header>
 
-        <div className="p-8 max-w-4xl">
+        <div className="p-4 md:p-8 max-w-4xl w-full">
           {/* Title */}
-          <div className="mb-8 flex items-end justify-between border-b border-slate-300 pb-4">
+          <div className="mb-6 md:mb-8 flex flex-wrap items-end justify-between gap-3 border-b border-slate-300 pb-4">
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <span className="h-1 w-8 bg-gov-saffron inline-block" />

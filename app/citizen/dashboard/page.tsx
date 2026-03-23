@@ -59,7 +59,7 @@ export default function CitizenDashboard() {
 
       <div className="flex-1 flex flex-col min-w-0">
         {/* Standard slim header — consistent with all other pages */}
-        <header className="h-14 flex items-center justify-between px-8 bg-gov-navy text-white sticky top-0 z-10 flex-shrink-0">
+        <header className="h-14 flex items-center justify-between pl-14 md:pl-8 pr-4 md:pr-8 bg-gov-navy text-white sticky top-0 z-10 flex-shrink-0">
           <p className="text-[10px] font-bold uppercase tracking-widest text-slate-300">Citizen Portal · E-ARZI</p>
           <div className="flex items-center gap-3">
             <button className="text-slate-300 hover:text-white transition-colors" title="Notifications">
@@ -78,9 +78,9 @@ export default function CitizenDashboard() {
           </div>
         </header>
 
-        <main className="flex-1 max-w-[1200px] mx-auto w-full px-6 py-10">
+        <main className="flex-1 max-w-[1200px] mx-auto w-full px-4 md:px-6 py-6 md:py-10">
           {/* Page heading */}
-          <section className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <section className="mb-6 md:mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <span className="h-1 w-8 bg-gov-saffron inline-block" />

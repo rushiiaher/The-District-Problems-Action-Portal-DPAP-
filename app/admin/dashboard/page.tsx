@@ -46,15 +46,15 @@ export default function AdminDashboard() {
 
       <main className="flex-1 flex flex-col min-w-0 overflow-y-auto">
         {/* Navy top bar */}
-        <header className="h-14 flex items-center justify-between px-8 bg-gov-navy text-white sticky top-0 z-10">
-          <div className="flex items-center flex-1 max-w-md">
+        <header className="h-14 flex items-center justify-between pl-14 md:pl-8 pr-4 md:pr-8 bg-gov-navy text-white sticky top-0 z-10">
+          <div className="hidden md:flex items-center flex-1 max-w-md">
             <div className="relative w-full">
               <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-300 text-lg">search</span>
               <input className="w-full pl-10 pr-4 py-1.5 bg-white/10 border-none rounded text-sm focus:bg-white focus:text-slate-900 outline-none placeholder:text-slate-300" placeholder="Search by Complaint ID, Aadhaar, or Name..." />
             </div>
           </div>
-          <div className="flex items-center gap-6">
-            <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 md:gap-6">
+            <div className="hidden md:flex items-center gap-2">
               <span className="size-2 bg-green-400 rounded-full animate-pulse" />
               <span className="text-[10px] font-bold uppercase tracking-widest text-slate-300">Systems Operational</span>
             </div>
@@ -62,8 +62,8 @@ export default function AdminDashboard() {
               <span className="material-symbols-outlined">notifications_active</span>
               <span className="absolute top-1 right-1 size-2 bg-gov-saffron rounded-full border border-gov-navy" />
             </button>
-            <div className="h-6 w-px bg-white/20" />
-            <div className="text-right">
+            <div className="hidden md:block h-6 w-px bg-white/20" />
+            <div className="hidden md:block text-right">
               <p className="text-[10px] font-bold uppercase tracking-widest">Office of District HQ</p>
               <p className="text-[10px] text-slate-400 uppercase">Administrator</p>
             </div>
@@ -73,24 +73,24 @@ export default function AdminDashboard() {
           </div>
         </header>
 
-        <div className="p-8">
+        <div className="p-4 md:p-8">
           {/* Title */}
-          <div className="mb-8 flex items-end justify-between">
+          <div className="mb-8 flex flex-col md:flex-row md:items-end gap-4">
             <div>
-              <h1 className="text-4xl font-black text-slate-900 uppercase tracking-tight leading-tight">
-                Executive<br />Oversight<br />Dashboard
+              <h1 className="text-2xl md:text-4xl font-black text-slate-900 uppercase tracking-tight leading-tight">
+                Executive Oversight Dashboard
               </h1>
               <p className="text-slate-500 mt-2 text-sm">Real-time Performance Metrics &amp; Citizen Grievance Analytics</p>
               <div className="flex items-center gap-3 mt-3">
                 <span className="text-[11px] font-bold px-2 py-1 bg-slate-200 text-slate-700 uppercase tracking-wider rounded">Classified Access</span>
               </div>
             </div>
-            <div className="flex gap-3">
-              <button className="flex items-center gap-2 px-5 py-2.5 border border-slate-300 bg-white font-bold text-sm rounded hover:bg-slate-50 transition-all text-gov-navy">
+            <div className="flex gap-3 flex-shrink-0">
+              <button className="hidden md:flex items-center gap-2 px-5 py-2.5 border border-slate-300 bg-white font-bold text-sm rounded hover:bg-slate-50 transition-all text-gov-navy">
                 <span className="material-symbols-outlined text-base">calendar_month</span> Quarterly View
               </button>
-              <button className="flex items-center gap-2 px-5 py-2.5 bg-gov-navy text-white font-bold text-sm rounded hover:bg-[#001a8c] transition-all">
-                <span className="material-symbols-outlined text-base">print</span> Print Official Dossier
+              <button className="flex items-center gap-2 px-4 md:px-5 py-2.5 bg-gov-navy text-white font-bold text-sm rounded hover:bg-[#001a8c] transition-all">
+                <span className="material-symbols-outlined text-base">print</span> <span className="hidden md:inline">Print Official Dossier</span><span className="md:hidden">Print</span>
               </button>
             </div>
           </div>

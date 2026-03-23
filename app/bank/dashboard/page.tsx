@@ -75,22 +75,22 @@ export default function BankDashboardPage() {
   return (
     <div className="flex flex-col min-h-screen bg-[#f4f7f9] font-inter">
       {/* Top bar */}
-      <header className="bg-gov-navy text-white px-8 py-0 flex items-center justify-between h-16 flex-shrink-0 shadow-lg">
-        <div className="flex items-center gap-4">
-          <div className="w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white font-black text-sm">JK</div>
+      <header className="bg-gov-navy text-white px-4 md:px-8 py-0 flex items-center justify-between h-16 flex-shrink-0 shadow-lg">
+        <div className="flex items-center gap-3 md:gap-4">
+          <div className="w-9 h-9 md:w-10 md:h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white font-black text-sm flex-shrink-0">JK</div>
           <div>
             <p className="font-black text-sm tracking-wide">E-ARZI ANANTNAG</p>
-            <p className="text-[10px] text-slate-400 uppercase tracking-widest">Bank Officer Dashboard</p>
+            <p className="text-[10px] text-slate-400 uppercase tracking-widest hidden sm:block">Bank Officer Dashboard</p>
           </div>
         </div>
-        <div className="flex items-center gap-4">
-          <div className="text-right">
+        <div className="flex items-center gap-2 md:gap-4">
+          <div className="hidden sm:block text-right">
             <p className="text-xs font-bold text-white">{(user as any).name || user.id}</p>
             <p className="text-[10px] text-slate-400 uppercase tracking-widest">Bank Manager</p>
           </div>
           <button onClick={() => { router.push("/auth/login") }}
-            className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-white border border-white/20 px-3 py-1.5 rounded hover:bg-white/10 transition-colors">
-            <span className="material-symbols-outlined text-[14px]">logout</span> Logout
+            className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-white border border-white/20 px-2 md:px-3 py-1.5 rounded hover:bg-white/10 transition-colors">
+            <span className="material-symbols-outlined text-[14px]">logout</span> <span className="hidden md:inline">Logout</span>
           </button>
         </div>
       </header>
@@ -100,14 +100,14 @@ export default function BankDashboardPage() {
         <div className="flex-1 bg-gov-saffron" /><div className="flex-1 bg-white border-y border-slate-200" /><div className="flex-1 bg-gov-green" />
       </div>
 
-      <main className="flex-1 overflow-y-auto p-8 max-w-[1000px] mx-auto w-full space-y-6">
+      <main className="flex-1 overflow-y-auto p-4 md:p-8 max-w-[1000px] mx-auto w-full space-y-5 md:space-y-6">
         {/* Title */}
         <div className="border-b border-slate-200 pb-4">
           <div className="flex items-center gap-2 mb-1">
             <span className="h-1 w-8 bg-gov-saffron inline-block" />
             <span className="text-xs font-bold text-gov-saffron uppercase tracking-[0.2em]">Bank Officer</span>
           </div>
-          <h1 className="text-2xl font-black text-slate-900 uppercase tracking-tight">Red Cross Payment Dashboard</h1>
+          <h1 className="text-xl md:text-2xl font-black text-slate-900 uppercase tracking-tight">Red Cross Payment Dashboard</h1>
           <p className="text-slate-500 text-sm mt-1">Process approved Red Cross aid disbursements</p>
         </div>
 

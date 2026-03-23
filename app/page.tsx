@@ -6,8 +6,21 @@ import { useState, useRef, useEffect } from "react"
 export default function LandingPage() {
   const [loginOpen, setLoginOpen] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [heroIndex, setHeroIndex] = useState(0)
   const loginRef = useRef<HTMLDivElement>(null)
   const mobileMenuRef = useRef<HTMLDivElement>(null)
+
+  const heroImages = [
+    "/Hero/20180331100-olw7xy1tr8tfpa90dzgjlm7r8lzs6phtii7d64upr4.jpg",
+    "/Hero/5e4e5159dc19d-Anantnag Package Tour.jpg",
+    "/Hero/Anantnag_Best_Time.avif",
+    "/Hero/the-ruins-of-martand-sun-temple-at-kherbal-420595.jpg",
+  ]
+
+  useEffect(() => {
+    const timer = setInterval(() => setHeroIndex(i => (i + 1) % heroImages.length), 4000)
+    return () => clearInterval(timer)
+  }, [])
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -29,7 +42,7 @@ export default function LandingPage() {
       {/* Removed Gov Top Strip per user request */}
 
       {/* ─── HEADER ─── */}
-      <header className="bg-white border-b-4 border-gov-navy shadow-sm sticky top-0 z-50">
+      <header className="bg-white shadow-sm sticky top-0 z-50 border-b border-black">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <div className="flex items-center justify-between h-[88px]">
             {/* Logo area */}
@@ -108,7 +121,6 @@ export default function LandingPage() {
             </button>
           </div>
         </div>
-
         {/* Mobile Menu */}
         {mobileMenuOpen && (
           <div ref={mobileMenuRef} className="lg:hidden absolute top-full left-0 right-0 bg-white border-b border-slate-300 shadow-xl flex flex-col p-4 space-y-1 z-50">
@@ -132,10 +144,30 @@ export default function LandingPage() {
         
         {/* ─── HERO SECTION ─── */}
         <section id="home" className="relative lg:h-[600px] w-full overflow-hidden bg-[#001a40] flex items-center py-20 lg:py-0">
+          {/* Hero background slideshow */}
+          {heroImages.map((src, i) => (
+            <div
+              key={src}
+              className="absolute inset-0 transition-opacity duration-1000"
+              style={{ opacity: i === heroIndex ? 0.4 : 0 }}
+            >
+              <img src={src} alt="" className="w-full h-full object-cover" />
+            </div>
+          ))}
+
+          {/* Tilted Indian Flag overlay */}
           <div
-            className="absolute inset-0 opacity-40 bg-cover bg-center"
-            style={{ backgroundImage: "url('https://images.unsplash.com/photo-1544256718-3bcf237f3974?w=1600&q=80')" }}
-          />
+            className="absolute inset-0 pointer-events-none overflow-hidden"
+            style={{ transform: "rotate(-12deg) scale(1.4)", transformOrigin: "center center" }}
+          >
+            {/* Saffron stripe */}
+            <div className="absolute inset-x-0" style={{ top: "20%", height: "20%", background: "rgba(255,153,51,0.18)" }} />
+            {/* White stripe */}
+            <div className="absolute inset-x-0" style={{ top: "40%", height: "20%", background: "rgba(255,255,255,0.10)" }} />
+            {/* Green stripe */}
+            <div className="absolute inset-x-0" style={{ top: "60%", height: "20%", background: "rgba(19,136,8,0.18)" }} />
+          </div>
+
           <div className="absolute inset-0 bg-gradient-to-r from-[#001a40] via-[#001a40]/80 to-transparent" />
           
           <div className="relative max-w-7xl mx-auto px-6 h-full flex flex-col justify-center w-full">
@@ -146,14 +178,14 @@ export default function LandingPage() {
               </div>
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-[1.1]">
                 Empowering Citizens, <br />
-                <span className="text-gov-navy">Accelerating Relief.</span>
+                <span className="text-yellow-300">Accelerating Relief.</span>
               </h2>
               <p className="text-lg md:text-xl text-slate-300 leading-relaxed font-medium">
                 The unified portal for registering grievances with local departments and applying for emergency financial aid from the District Red Cross Society.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Link href="/auth/login?tab=citizen" className="bg-gov-navy text-white px-8 py-4 text-center text-base md:text-lg rounded shadow-lg flex items-center justify-center gap-2 hover:bg-[#001a40] transition-colors font-black">
+                <Link href="/auth/login?tab=citizen" className="bg-white text-[#001a40] px-8 py-4 text-center text-base md:text-lg rounded shadow-lg flex items-center justify-center gap-2 hover:bg-slate-100 transition-colors font-black">
                    <span className="material-symbols-outlined">how_to_reg</span> Register / Apply Here
                 </Link>
                 <Link href="/complaint/track" className="bg-white/10 backdrop-blur text-white font-bold px-8 py-4 text-center text-base md:text-lg hover:bg-white/20 transition-all border border-white/30 rounded flex items-center justify-center gap-2">
@@ -172,36 +204,6 @@ export default function LandingPage() {
                 <line key={i} x1="50" y1="50" x2="50" y2="5" stroke="currentColor" strokeWidth="1" transform={`rotate(${i * 15} 50 50)`} />
               ))}
             </svg>
-          </div>
-        </section>
-
-        {/* ─── LEADERSHIP SECTION ─── */}
-        <section className="bg-slate-50 py-12 md:py-16 border-b border-slate-200">
-          <div className="max-w-7xl mx-auto px-4 md:px-8">
-            <div className="flex flex-col md:flex-row justify-center items-start gap-12 md:gap-24">
-              
-              {/* Governor Profile */}
-              <div className="flex flex-col items-center text-center max-w-[280px]">
-                <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-white shadow-xl mb-5 bg-white relative">
-                   <img src="/Governor.jpg" alt="Hon'ble Lt. Governor" className="absolute inset-0 w-full h-full object-cover object-top" />
-                </div>
-                <h3 className="text-lg font-black text-gov-navy uppercase leading-tight">Hon'ble Lt. Governor</h3>
-                <p className="text-[13px] font-bold text-slate-500 mt-2 uppercase tracking-wide border-t border-slate-200 pt-2 w-full">Jammu and Kashmir</p>
-              </div>
-
-              {/* District Magistrate Profile */}
-              <div className="flex flex-col items-center text-center max-w-[280px]">
-                <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-white shadow-xl mb-5 bg-white relative">
-                   <img src="/Collector.jpeg" alt="Collector & District Magistrate" className="absolute inset-0 w-full h-full object-cover object-top" />
-                </div>
-                <h3 className="text-lg font-black text-gov-navy uppercase leading-tight">Dr. Bilal Mohiuddin Bhat <span className="block text-sm font-bold text-gov-navy mt-1 font-inter tracking-widest">(IAS)</span></h3>
-                <div className="text-[13px] font-bold text-slate-500 mt-2 uppercase tracking-wide border-t border-slate-200 pt-2 w-full space-y-0.5">
-                   <p>Collector &amp; District Magistrate</p>
-                   <p className="text-[11px]">DC / DDC / DM, Anantnag</p>
-                </div>
-              </div>
-
-            </div>
           </div>
         </section>
 
@@ -304,9 +306,40 @@ export default function LandingPage() {
 
       </main>
 
+      {/* ─── LEADERSHIP SECTION ─── */}
+      <section className="bg-slate-50 py-12 md:py-16 border-b border-slate-200">
+          <div className="max-w-7xl mx-auto px-4 md:px-8">
+            <div className="flex flex-col md:flex-row justify-center items-start gap-12 md:gap-24">
+
+              {/* Governor Profile */}
+              <div className="flex flex-col items-center text-center max-w-[280px]">
+                <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-white shadow-xl mb-5 bg-white relative">
+                  <img src="/Governor.jpg" alt="Manoj Sinha" className="absolute inset-0 w-full h-full object-cover object-top" />
+                </div>
+                <h3 className="text-lg font-black text-gov-navy uppercase leading-tight">Manoj Sinha</h3>
+                <p className="text-[13px] font-bold text-slate-500 mt-1 uppercase tracking-wide">Hon'ble Lt. Governor</p>
+                <p className="text-[13px] font-bold text-slate-500 mt-2 uppercase tracking-wide border-t border-slate-200 pt-2 w-full">Jammu and Kashmir</p>
+              </div>
+
+              {/* District Magistrate Profile */}
+              <div className="flex flex-col items-center text-center max-w-[280px]">
+                <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-white shadow-xl mb-5 bg-white relative">
+                  <img src="/Collector.jpeg" alt="Collector & District Magistrate" className="absolute inset-0 w-full h-full object-cover object-top" />
+                </div>
+                <h3 className="text-lg font-black text-gov-navy uppercase leading-tight">Dr. Bilal Mohiuddin Bhat <span className="block text-sm font-bold text-gov-navy mt-1 font-inter tracking-widest">(IAS)</span></h3>
+                <div className="text-[13px] font-bold text-slate-500 mt-2 uppercase tracking-wide border-t border-slate-200 pt-2 w-full space-y-0.5">
+                  <p>Collector &amp; District Magistrate</p>
+                  <p className="text-[11px]">DC / DDC / DM, Anantnag</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+      </section>
+
       {/* ─── FOOTER ─── */}
-      <footer id="helpdesk" className="bg-[#0e223d] text-slate-300 pt-12 md:pt-16 border-t-8 border-gov-navy">
-        <div className="max-w-7xl mx-auto px-4 md:px-8 pb-12">
+      <footer id="helpdesk" className="bg-[#0e223d] text-slate-300 border-t-8 border-black">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 pt-12 md:pt-16 pb-12">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
             
             {/* Dept Info */}

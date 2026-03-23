@@ -111,25 +111,25 @@ export default function SubAdminQueuePage() {
 
       <main className="flex-1 flex flex-col overflow-hidden">
         {/* Header */}
-        <header className="h-14 flex items-center justify-between px-8 bg-gov-navy text-white flex-shrink-0">
-          <p className="text-[10px] font-bold uppercase tracking-widest text-slate-300">Sub Admin · Complaint Queue</p>
-          <div className="flex items-center gap-3">
+        <header className="h-14 flex items-center justify-between pl-14 md:pl-8 pr-2 md:pr-8 bg-gov-navy text-white flex-shrink-0">
+          <p className="text-[10px] font-bold uppercase tracking-widest text-slate-300 hidden sm:block">Sub Admin · Complaint Queue</p>
+          <div className="flex items-center gap-2 md:gap-3">
             <div className="relative">
               <span className="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400 text-[16px]">search</span>
               <input
                 type="text" value={search} onChange={e => setSearch(e.target.value)}
-                placeholder="Search ID, category, location…"
-                className="pl-8 pr-3 py-1.5 bg-white/10 border border-white/20 rounded text-sm text-white placeholder-slate-400 focus:outline-none focus:bg-white/20 w-56"
+                placeholder="Search…"
+                className="pl-8 pr-3 py-1.5 bg-white/10 border border-white/20 rounded text-sm text-white placeholder-slate-400 focus:outline-none focus:bg-white/20 w-32 md:w-56"
               />
             </div>
             <button onClick={fetchComplaints}
-              className="flex items-center gap-1.5 text-xs text-slate-300 hover:text-white border border-white/20 px-3 py-1.5 rounded hover:bg-white/10 transition-colors">
-              <span className="material-symbols-outlined text-[14px]">refresh</span> Refresh
+              className="flex items-center gap-1.5 text-xs text-slate-300 hover:text-white border border-white/20 px-2 md:px-3 py-1.5 rounded hover:bg-white/10 transition-colors">
+              <span className="material-symbols-outlined text-[14px]">refresh</span> <span className="hidden md:inline">Refresh</span>
             </button>
           </div>
         </header>
 
-        <div className="flex-1 overflow-y-auto p-6 space-y-5">
+        <div className="flex-1 overflow-y-auto p-3 md:p-6 space-y-4 md:space-y-5">
 
           {/* Stats strip */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
