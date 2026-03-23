@@ -12,7 +12,7 @@ export default function LandingPage() {
 
   const heroImages = [
     "/Hero/20180331100-olw7xy1tr8tfpa90dzgjlm7r8lzs6phtii7d64upr4.jpg",
-    "/Hero/5e4e5159dc19d-Anantnag Package Tour.jpg",
+    "/Hero/anantnag-package-tour.jpg",
     "/Hero/Anantnag_Best_Time.avif",
     "/Hero/the-ruins-of-martand-sun-temple-at-kherbal-420595.jpg",
   ]
