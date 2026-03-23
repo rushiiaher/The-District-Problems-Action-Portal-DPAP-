@@ -28,6 +28,13 @@ export default function BankManagersAdminPage() {
   const [formError, setFormError] = useState("")
   const [showPwd, setShowPwd]     = useState(false)
 
+  const [resetTarget, setResetTarget]   = useState<BankManager | null>(null)
+  const [resetPwd, setResetPwd]         = useState("")
+  const [resetSaving, setResetSaving]   = useState(false)
+  const [resetError, setResetError]     = useState("")
+  const [resetSuccess, setResetSuccess] = useState(false)
+  const [resetShowPwd, setResetShowPwd] = useState(false)
+
   useEffect(() => {
     if (!isLoading && (!user || user.role !== "superadmin")) router.push("/auth/login")
   }, [user, isLoading, router])
@@ -62,6 +69,30 @@ export default function BankManagersAdminPage() {
       setShowForm(false)
     } catch { setFormError("Network error. Please try again.") }
     finally { setSaving(false) }
+  }
+
+  const openReset = (member: BankManager) => {
+    setResetTarget(member)
+    setResetPwd("")
+    setResetError("")
+    setResetSuccess(false)
+    setResetShowPwd(false)
+  }
+
+  const handleResetPassword = async () => {
+    if (!resetTarget) return
+    setResetSaving(true); setResetError("")
+    try {
+      const res = await fetch("/api/admin/subadmins", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json", "x-user-id": user!.id, "x-user-role": user!.role },
+        body: JSON.stringify({ id: resetTarget.id, password: resetPwd }),
+      })
+      const data = await res.json()
+      if (!data.success) { setResetError(data.error); return }
+      setResetSuccess(true)
+    } catch { setResetError("Network error. Please try again.") }
+    finally { setResetSaving(false) }
   }
 
   const handleDelete = async (member: BankManager) => {
@@ -239,10 +270,16 @@ export default function BankManagersAdminPage() {
                         </div>
                       </div>
                     </div>
-                    <button onClick={() => setConfirmDel(m)} title="Remove"
-                      className="text-slate-300 hover:text-red-500 transition-colors p-2 rounded hover:bg-red-50">
-                      <span className="material-symbols-outlined text-[20px]">delete</span>
-                    </button>
+                    <div className="flex items-center gap-1">
+                      <button onClick={() => openReset(m)} title="Reset Password"
+                        className="text-slate-300 hover:text-gov-saffron transition-colors p-2 rounded hover:bg-amber-50">
+                        <span className="material-symbols-outlined text-[20px]">lock_reset</span>
+                      </button>
+                      <button onClick={() => setConfirmDel(m)} title="Remove"
+                        className="text-slate-300 hover:text-red-500 transition-colors p-2 rounded hover:bg-red-50">
+                        <span className="material-symbols-outlined text-[20px]">delete</span>
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -250,6 +287,72 @@ export default function BankManagersAdminPage() {
           </div>
         </div>
       </main>
+
+      {/* Reset Password modal */}
+      {resetTarget && (
+        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4" onClick={() => !resetSaving && setResetTarget(null)}>
+          <div className="bg-white rounded shadow-xl max-w-sm w-full p-6" onClick={e => e.stopPropagation()}>
+            <div className="flex items-center gap-3 mb-4">
+              <span className="material-symbols-outlined text-gov-saffron text-3xl">lock_reset</span>
+              <div>
+                <p className="font-black text-slate-900">Reset Password</p>
+                <p className="text-sm text-slate-500">Set a new password for this bank manager</p>
+              </div>
+            </div>
+            <div className="bg-slate-50 border border-slate-200 rounded p-3 mb-4">
+              <p className="text-sm font-bold text-slate-800">{resetTarget.name}</p>
+              <p className="text-xs text-slate-500 font-mono mt-0.5">@{resetTarget.username}</p>
+            </div>
+            {resetSuccess ? (
+              <div className="p-3 bg-green-50 border border-green-200 rounded flex items-center gap-2 text-sm text-green-700 mb-4">
+                <span className="material-symbols-outlined text-[18px]">check_circle</span>
+                Password reset successfully.
+              </div>
+            ) : (
+              <>
+                {resetError && (
+                  <div className="p-3 bg-red-50 border border-red-200 rounded flex items-center gap-2 text-sm text-red-700 mb-3">
+                    <span className="material-symbols-outlined text-[18px]">error</span> {resetError}
+                  </div>
+                )}
+                <div className="mb-4">
+                  <label className="text-[11px] font-bold text-slate-500 uppercase tracking-widest block mb-1.5">
+                    New Password <span className="text-red-500">*</span>
+                  </label>
+                  <div className="relative">
+                    <input
+                      type={resetShowPwd ? "text" : "password"}
+                      value={resetPwd}
+                      onChange={e => { setResetPwd(e.target.value); setResetError("") }}
+                      placeholder="Min. 6 characters"
+                      className={`${inputCls} pr-10`}
+                      autoFocus
+                    />
+                    <button type="button" onClick={() => setResetShowPwd(p => !p)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
+                      <span className="material-symbols-outlined text-[18px]">{resetShowPwd ? "visibility_off" : "visibility"}</span>
+                    </button>
+                  </div>
+                </div>
+              </>
+            )}
+            <div className="flex gap-3">
+              {!resetSuccess && (
+                <button onClick={handleResetPassword} disabled={resetSaving || resetPwd.length < 6}
+                  className="flex-1 bg-gov-saffron hover:bg-[#e68a2e] text-white font-black py-2.5 rounded text-sm flex items-center justify-center gap-2 disabled:opacity-60">
+                  {resetSaving
+                    ? <><span className="material-symbols-outlined animate-spin text-[16px]">progress_activity</span> Saving…</>
+                    : <><span className="material-symbols-outlined text-[16px]">lock_reset</span> Reset Password</>}
+                </button>
+              )}
+              <button onClick={() => setResetTarget(null)} disabled={resetSaving}
+                className="flex-1 border border-slate-200 text-slate-600 font-bold text-sm rounded hover:bg-slate-50 disabled:opacity-60">
+                {resetSuccess ? "Close" : "Cancel"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Delete confirm */}
       {confirmDel && (
