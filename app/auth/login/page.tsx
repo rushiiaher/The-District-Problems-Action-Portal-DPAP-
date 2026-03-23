@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, Suspense } from "react"
+import { useState, Suspense, useRef, useEffect } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 
 export const dynamic = "force-dynamic"
@@ -40,6 +40,20 @@ function LoginForm() {
   // Staff state
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
+
+  // Mobile nav
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const mobileMenuRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (mobileMenuRef.current && !mobileMenuRef.current.contains(e.target as Node) &&
+          !(e.target as Element).closest('#mobile-toggle-login')) {
+        setMobileMenuOpen(false)
+      }
+    }
+    document.addEventListener("mousedown", handler)
+    return () => document.removeEventListener("mousedown", handler)
+  }, [])
 
   const handleSendOtp = async () => {
     if (!mobile || !/^[6-9]\d{9}$/.test(mobile)) {
@@ -103,30 +117,76 @@ function LoginForm() {
 
   return (
     <div className="flex flex-col min-h-screen bg-[#f4f7f9] font-inter">
-      {/* Tricolor */}
-      <div className="gov-banner" />
 
-      {/* Gov strip */}
-      <div className="bg-slate-100 border-b border-slate-200 text-[11px] py-1.5">
-        <div className="max-w-7xl mx-auto px-4 flex justify-between items-center">
-          <span className="text-slate-600 font-medium">GOVERNMENT OF JAMMU &amp; KASHMIR / <span className="text-slate-400">जम्मू और कश्मीर सरकार</span></span>
-        </div>
-      </div>
+      {/* ─── HEADER (matches home page) ─── */}
+      <header className="bg-white border-b border-black shadow-sm sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 md:px-8">
+          <div className="flex items-center justify-between h-[88px]">
 
-      {/* Header */}
-      <header className="bg-white shadow-sm tricolor-border">
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-20">
-          <Link href="/" className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center border border-slate-200 flex-shrink-0 overflow-hidden p-1.5"><img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg" alt="Emblem of India" className="w-full h-full object-contain"/></div>
-            <div className="border-l border-slate-300 pl-4">
-              <h1 className="text-xl font-black tracking-tight text-gov-navy uppercase">E-ARZI ANANTNAG</h1>
-              <p className="text-[11px] font-semibold text-gov-green uppercase tracking-wide">District Grievance Redressal Portal</p>
+            {/* Logo */}
+            <Link href="/" className="flex items-center gap-4">
+              <div className="w-12 h-12 md:w-16 md:h-16 flex items-center justify-center flex-shrink-0">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg" alt="Emblem of India" className="w-full h-full object-contain mix-blend-multiply" />
+              </div>
+              <div>
+                <h1 className="text-xl md:text-2xl font-black text-black leading-tight uppercase tracking-tight">E-ARZI ANANTNAG</h1>
+                <p className="text-[10px] md:text-[11px] font-bold text-black uppercase tracking-widest mt-0.5">District Public Service Portal</p>
+              </div>
+            </Link>
+
+            {/* Desktop Nav */}
+            <nav className="hidden lg:flex items-center space-x-6">
+              {[
+                { label: "Home", href: "/" },
+                { label: "Grievance Mechanism", href: "/#grievance" },
+                { label: "Red Cross Society", href: "/#red" },
+                { label: "Helplines", href: "/helpline" },
+              ].map(item => (
+                <Link key={item.label} href={item.href} className="text-sm font-bold text-slate-700 hover:text-gov-navy transition-colors border-b-2 border-transparent hover:border-gov-navy py-1 uppercase tracking-wider">
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+
+            {/* Actions */}
+            <div className="hidden md:flex items-center gap-3">
+              <Link href="/complaint/track" className="bg-slate-100 hover:bg-slate-200 text-gov-navy border border-slate-300 px-4 py-2 text-sm font-bold flex items-center gap-2 transition-colors">
+                <span className="material-symbols-outlined text-[18px]">search</span> Track Application
+              </Link>
+              <Link href="/" className="flex items-center gap-2 px-6 py-2 bg-gov-navy text-white font-bold text-sm hover:bg-[#001a40] transition-colors">
+                <span className="material-symbols-outlined text-[18px]">arrow_back</span> Back to Home
+              </Link>
             </div>
-          </Link>
-          <Link href="/" className="text-sm font-bold text-slate-600 hover:text-gov-navy flex items-center gap-1">
-            <span className="material-symbols-outlined text-base">arrow_back</span> Back to Home
-          </Link>
+
+            {/* Mobile Toggle */}
+            <button
+              id="mobile-toggle-login"
+              className="lg:hidden text-gov-navy p-2 border border-slate-300 hover:bg-slate-50 focus:outline-none"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              <span className="material-symbols-outlined">{mobileMenuOpen ? "close" : "menu"}</span>
+            </button>
+          </div>
         </div>
+
+        {/* Mobile Menu */}
+        {mobileMenuOpen && (
+          <div ref={mobileMenuRef} className="lg:hidden absolute top-full left-0 right-0 bg-white border-b border-slate-300 shadow-xl flex flex-col p-4 space-y-1 z-50">
+            {[
+              { label: "Home", href: "/" },
+              { label: "Grievance Mechanism", href: "/#grievance" },
+              { label: "Red Cross Society", href: "/#red" },
+              { label: "Helplines", href: "/helpline" },
+            ].map(item => (
+              <Link key={item.label} href={item.href} className="text-sm font-bold text-slate-700 p-3 hover:bg-slate-50 uppercase tracking-wide border-b border-slate-100 block" onClick={() => setMobileMenuOpen(false)}>
+                {item.label}
+              </Link>
+            ))}
+            <Link href="/complaint/track" className="bg-slate-100 text-slate-800 border border-slate-300 text-center font-bold py-3 text-sm w-full mt-3 block" onClick={() => setMobileMenuOpen(false)}>
+              Track Application Status
+            </Link>
+          </div>
+        )}
       </header>
 
       {/* Content */}

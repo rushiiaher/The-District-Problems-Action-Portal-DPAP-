@@ -74,6 +74,7 @@ export function AppSidebar() {
       <Link
         key={item.href}
         href={item.href}
+        onClick={() => setMobileOpen(false)}
         className={`gov-sidebar-item ${pathname === item.href || (pathname?.startsWith(item.href.split("?")[0]) && item.href !== "#") ? "active" : ""}`}
       >
         <span className={`material-symbols-outlined text-[20px] ${item.accent || ""}`}>{item.icon}</span>
@@ -91,10 +92,16 @@ export function AppSidebar() {
         <div className="size-9 bg-gov-navy rounded flex items-center justify-center text-white flex-shrink-0">
           <span className="material-symbols-outlined text-xl">account_balance</span>
         </div>
-        <div>
+        <div className="flex-1">
           <h2 className="text-lg font-extrabold tracking-tight text-gov-navy leading-none">E-ARZI</h2>
           <span className="text-[10px] uppercase font-bold text-slate-400 tracking-widest">Govt. of India</span>
         </div>
+        <button
+          className="md:hidden text-slate-400 hover:text-slate-700 p-1"
+          onClick={() => setMobileOpen(false)}
+        >
+          <span className="material-symbols-outlined">close</span>
+        </button>
       </div>
 
       {/* Nav */}
@@ -144,9 +151,9 @@ export function AppSidebar() {
         {sidebarContent}
       </div>
 
-      {/* Mobile toggle */}
+      {/* Mobile toggle — flush with sticky header (h-14) */}
       <button
-        className="md:hidden fixed top-4 left-4 z-50 bg-gov-navy text-white p-2 rounded shadow-lg"
+        className="md:hidden fixed top-0 left-0 z-30 h-14 w-14 flex items-center justify-center bg-gov-navy text-white"
         onClick={() => setMobileOpen(true)}
       >
         <span className="material-symbols-outlined">menu</span>
