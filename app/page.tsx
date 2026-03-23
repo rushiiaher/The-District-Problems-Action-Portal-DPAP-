@@ -309,10 +309,10 @@ export default function LandingPage() {
       {/* ─── LEADERSHIP SECTION ─── */}
       <section className="bg-slate-50 py-12 md:py-16 border-b border-slate-200">
           <div className="max-w-7xl mx-auto px-4 md:px-8">
-            <div className="flex flex-col md:flex-row justify-center items-start gap-12 md:gap-24">
+            <div className="flex flex-col md:flex-row justify-center items-center md:items-start gap-12 md:gap-24">
 
               {/* Governor Profile */}
-              <div className="flex flex-col items-center text-center max-w-[280px]">
+              <div className="flex flex-col items-center text-center w-full max-w-[280px]">
                 <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-white shadow-xl mb-5 bg-white relative">
                   <img src="/Governor.jpg" alt="Manoj Sinha" className="absolute inset-0 w-full h-full object-cover object-top" />
                 </div>
@@ -322,7 +322,7 @@ export default function LandingPage() {
               </div>
 
               {/* District Magistrate Profile */}
-              <div className="flex flex-col items-center text-center max-w-[280px]">
+              <div className="flex flex-col items-center text-center w-full max-w-[280px]">
                 <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-white shadow-xl mb-5 bg-white relative">
                   <img src="/Collector.jpeg" alt="Collector & District Magistrate" className="absolute inset-0 w-full h-full object-cover object-top" />
                 </div>
