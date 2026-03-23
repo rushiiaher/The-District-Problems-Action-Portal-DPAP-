@@ -55,10 +55,11 @@ const NAV = {
       { label: "Audit Reports",       href: "/admin/audit",      icon: "monitoring" },
     ]},
     { group: "Administration", items: [
-      { label: "Departments",       href: "/admin/departments", icon: "account_balance" },
-      { label: "Citizens",          href: "/admin/citizens",    icon: "group" },
-      { label: "Sub-Admins",        href: "/admin/subadmins",   icon: "manage_accounts" },
-      { label: "System Settings",   href: "/admin/settings",    icon: "admin_panel_settings" },
+      { label: "Departments",       href: "/admin/departments",    icon: "account_balance" },
+      { label: "Field Officers",    href: "/admin/officers",       icon: "badge" },
+      { label: "Sub-Admins",        href: "/admin/subadmins",      icon: "manage_accounts" },
+      { label: "Citizens",          href: "/admin/citizens",       icon: "group" },
+      { label: "System Settings",   href: "/admin/settings",       icon: "admin_panel_settings" },
     ]},
     { group: "Red Cross", items: [
       { label: "Aid Applications",  href: "/admin/red-cross",      icon: "volunteer_activism", accent: "text-red-600" },
