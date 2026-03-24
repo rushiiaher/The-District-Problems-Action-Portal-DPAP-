@@ -23,12 +23,6 @@ const CATEGORIES = [
   "Other",
 ]
 
-const PRIORITY_OPTIONS = [
-  { value: "EMERGENCY", label: "Emergency",  color: "border-red-400 bg-red-50",    dot: "bg-red-500",    text: "text-red-700"    },
-  { value: "HIGH",      label: "High",       color: "border-orange-400 bg-orange-50", dot: "bg-orange-500", text: "text-orange-700" },
-  { value: "MEDIUM",    label: "Medium",     color: "border-amber-400 bg-amber-50",   dot: "bg-amber-400",  text: "text-amber-700"  },
-  { value: "LOW",       label: "Low",        color: "border-blue-300 bg-blue-50",    dot: "bg-blue-400",   text: "text-blue-700"   },
-]
 
 export default function SubmitComplaintPage() {
   const { user } = useAuth()
@@ -40,7 +34,7 @@ export default function SubmitComplaintPage() {
   }, [user, router])
 
   const [form, setForm] = useState({
-    category: "", priority: "MEDIUM", description: "",
+    category: "", description: "",
     district: "Anantnag", block: "", village: "",
   })
   const [files, setFiles]         = useState<FileList | null>(null)
@@ -271,25 +265,6 @@ export default function SubmitComplaintPage() {
                   </select>
                 </div>
 
-                {/* Priority */}
-                <div>
-                  <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest block mb-2">Priority</label>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                    {PRIORITY_OPTIONS.map(p => (
-                      <button
-                        key={p.value}
-                        type="button"
-                        onClick={() => set("priority", p.value)}
-                        className={`flex items-center gap-2 px-3 py-2.5 rounded border-2 text-sm font-bold transition-all ${
-                          form.priority === p.value ? `${p.color} border-current` : "border-slate-200 bg-white text-slate-500 hover:border-slate-300"
-                        } ${form.priority === p.value ? p.text : ""}`}
-                      >
-                        <span className={`w-2 h-2 rounded-full flex-shrink-0 ${form.priority === p.value ? p.dot : "bg-slate-300"}`} />
-                        {p.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
 
                 {/* Description */}
                 <div>

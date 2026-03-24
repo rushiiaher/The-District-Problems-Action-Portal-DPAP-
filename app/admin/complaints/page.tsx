@@ -16,15 +16,7 @@ const STATUS_STYLES: Record<string, string> = {
   REJECTED:    "bg-red-100 text-red-900 border-red-300",
   REOPENED:    "bg-orange-50 text-orange-800 border-orange-200",
 }
-const PRIORITY_STYLE: Record<string, string> = {
-  EMERGENCY: "bg-red-600 text-white",
-  HIGH:      "bg-orange-500 text-white",
-  MEDIUM:    "bg-amber-400 text-white",
-  LOW:       "bg-blue-400 text-white",
-}
-
 const STATUSES = ["ALL", "SUBMITTED", "ASSIGNED", "IN_PROGRESS", "ESCALATED", "RESOLVED", "CLOSED", "REJECTED"]
-const PRIORITIES = ["ALL", "EMERGENCY", "HIGH", "MEDIUM", "LOW"]
 
 export default function AdminComplaintsPage() {
   const { user, isLoading } = useAuth()
@@ -32,7 +24,6 @@ export default function AdminComplaintsPage() {
   const [complaints, setComplaints] = useState<any[]>([])
   const [fetching, setFetching] = useState(true)
   const [statusFilter, setStatusFilter] = useState("ALL")
-  const [priorityFilter, setPriorityFilter] = useState("ALL")
   const [search, setSearch] = useState("")
   const [page, setPage] = useState(1)
   const PER_PAGE = 20
@@ -52,7 +43,6 @@ export default function AdminComplaintsPage() {
 
   const filtered = complaints.filter(c => {
     if (statusFilter !== "ALL" && c.status !== statusFilter) return false
-    if (priorityFilter !== "ALL" && c.priority !== priorityFilter) return false
     if (search && !c.id?.toLowerCase().includes(search.toLowerCase()) &&
         !c.category?.toLowerCase().includes(search.toLowerCase()) &&
         !c.village?.toLowerCase().includes(search.toLowerCase())) return false
@@ -118,15 +108,8 @@ export default function AdminComplaintsPage() {
                 {STATUSES.map(s => <option key={s}>{s}</option>)}
               </select>
             </div>
-            <div>
-              <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 block mb-1">Priority</label>
-              <select value={priorityFilter} onChange={e => { setPriorityFilter(e.target.value); setPage(1) }}
-                className="border border-slate-200 px-3 py-2 text-sm rounded focus:outline-none focus:border-gov-navy">
-                {PRIORITIES.map(p => <option key={p}>{p}</option>)}
-              </select>
-            </div>
-            {(statusFilter !== "ALL" || priorityFilter !== "ALL" || search) && (
-              <button onClick={() => { setStatusFilter("ALL"); setPriorityFilter("ALL"); setSearch(""); setPage(1) }}
+            {(statusFilter !== "ALL" || search) && (
+              <button onClick={() => { setStatusFilter("ALL"); setSearch(""); setPage(1) }}
                 className="text-sm text-slate-500 hover:text-gov-navy flex items-center gap-1 font-bold">
                 <span className="material-symbols-outlined text-[16px]">clear</span> Clear filters
               </button>
@@ -154,7 +137,6 @@ export default function AdminComplaintsPage() {
                         <th>Complaint ID</th>
                         <th>Category</th>
                         <th>Village / Block</th>
-                        <th>Priority</th>
                         <th>Status</th>
                         <th>Department</th>
                         <th>Filed On</th>
@@ -167,11 +149,6 @@ export default function AdminComplaintsPage() {
                           <td className="font-mono text-xs font-bold text-gov-navy">{c.id}</td>
                           <td className="font-medium text-slate-800">{c.category}</td>
                           <td className="text-slate-600">{c.village}, {c.block}</td>
-                          <td>
-                            <span className={`text-[10px] font-black px-2 py-0.5 rounded uppercase ${PRIORITY_STYLE[c.priority] || "bg-slate-200 text-slate-700"}`}>
-                              {c.priority}
-                            </span>
-                          </td>
                           <td>
                             <span className={`text-[10px] font-bold px-2 py-0.5 rounded border uppercase ${STATUS_STYLES[c.status] || "bg-slate-100 text-slate-700 border-slate-200"}`}>
                               {c.status?.replace("_", " ")}

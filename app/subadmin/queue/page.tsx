@@ -11,7 +11,6 @@ type Complaint = {
   id: string
   category: string
   status: string
-  priority: string
   block: string
   village: string
   description: string
@@ -35,12 +34,6 @@ const STATUS_META: Record<string, { label: string; rowColor: string; badge: stri
   ESCALATED:   { label: "Escalated",    rowColor: "bg-purple-50/30",           badge: "bg-purple-100 text-purple-700 border-purple-200", dot: "bg-purple-500" },
 }
 
-const PRIORITY_META: Record<string, { color: string }> = {
-  EMERGENCY: { color: "bg-red-100 text-red-700 border-red-200" },
-  HIGH:      { color: "bg-orange-100 text-orange-700 border-orange-200" },
-  MEDIUM:    { color: "bg-amber-100 text-amber-700 border-amber-200" },
-  LOW:       { color: "bg-blue-100 text-blue-600 border-blue-200" },
-}
 
 const CATEGORIES = [
   "Water Supply & Sanitation", "Road Repair & Maintenance", "Electricity / Power Supply",
@@ -59,7 +52,6 @@ export default function SubAdminQueuePage() {
   // Filters
   const [statusFilter,   setStatusFilter]   = useState("")
   const [categoryFilter, setCategoryFilter] = useState("")
-  const [priorityFilter, setPriorityFilter] = useState("")
   const [search, setSearch] = useState("")
 
   // Auth guard
@@ -92,7 +84,6 @@ export default function SubAdminQueuePage() {
   const filtered = complaints.filter(c => {
     if (statusFilter   && c.status !== statusFilter)     return false
     if (categoryFilter && c.category !== categoryFilter) return false
-    if (priorityFilter && c.priority !== priorityFilter) return false
     if (search) {
       const q = search.toLowerCase()
       if (!c.id.toLowerCase().includes(q) && !c.category.toLowerCase().includes(q)
@@ -171,17 +162,8 @@ export default function SubAdminQueuePage() {
               {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
             </select>
 
-            <select value={priorityFilter} onChange={e => setPriorityFilter(e.target.value)}
-              className="border border-slate-200 text-xs font-semibold rounded py-1.5 px-3 text-slate-700 bg-white focus:outline-none focus:border-gov-navy">
-              <option value="">All Priorities</option>
-              <option value="EMERGENCY">Emergency</option>
-              <option value="HIGH">High</option>
-              <option value="MEDIUM">Medium</option>
-              <option value="LOW">Low</option>
-            </select>
-
-            {(statusFilter || categoryFilter || priorityFilter || search) && (
-              <button onClick={() => { setStatusFilter(""); setCategoryFilter(""); setPriorityFilter(""); setSearch("") }}
+            {(statusFilter || categoryFilter || search) && (
+              <button onClick={() => { setStatusFilter(""); setCategoryFilter(""); setSearch("") }}
                 className="text-[10px] text-red-500 font-bold hover:underline ml-1">
                 Clear all
               </button>
@@ -248,7 +230,6 @@ function ComplaintsTable({ complaints, type }: { complaints: Complaint[]; type: 
             <th className="px-5 py-3 text-left font-bold">ID</th>
             <th className="px-5 py-3 text-left font-bold">Category</th>
             <th className="px-5 py-3 text-left font-bold">Location</th>
-            <th className="px-5 py-3 text-left font-bold">Priority</th>
             <th className="px-5 py-3 text-left font-bold">Status</th>
             {type === "track" && <th className="px-5 py-3 text-left font-bold">Department</th>}
             <th className="px-5 py-3 text-left font-bold">Date</th>
@@ -258,7 +239,6 @@ function ComplaintsTable({ complaints, type }: { complaints: Complaint[]; type: 
         <tbody className="divide-y divide-slate-50">
           {complaints.map(c => {
             const sm = STATUS_META[c.status] || STATUS_META["SUBMITTED"]
-            const pm = PRIORITY_META[c.priority] || PRIORITY_META["MEDIUM"]
             const isOverdue = c.sla_deadline && new Date(c.sla_deadline) < new Date()
 
             return (
@@ -281,11 +261,6 @@ function ComplaintsTable({ complaints, type }: { complaints: Complaint[]; type: 
                 </td>
                 <td className="px-5 py-3.5 text-xs text-slate-600">
                   {c.village}, {c.block}
-                </td>
-                <td className="px-5 py-3.5">
-                  <span className={`text-[10px] font-black px-2 py-0.5 rounded-full border ${pm.color}`}>
-                    {c.priority}
-                  </span>
                 </td>
                 <td className="px-5 py-3.5">
                   <span className={`flex items-center gap-1.5 text-[10px] font-black px-2 py-0.5 rounded-full border w-fit ${sm.badge}`}>

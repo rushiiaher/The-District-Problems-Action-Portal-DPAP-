@@ -26,7 +26,6 @@ export default function SubmitComplaintPage() {
     department: "",
     subject: "",
     description: "",
-    priority: "medium",
   })
   const [files, setFiles] = useState<File[]>([])
   const [loading, setLoading] = useState(false)
@@ -312,20 +311,6 @@ export default function SubmitComplaintPage() {
                   </Select>
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="priority">Priority</Label>
-                  <Select value={formData.priority} onValueChange={(value) => handleInputChange("priority", value)}>
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="low">Low</SelectItem>
-                      <SelectItem value="medium">Medium</SelectItem>
-                      <SelectItem value="high">High</SelectItem>
-                      <SelectItem value="urgent">Urgent</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
               </CardContent>
             </Card>
           </div>

@@ -135,7 +135,7 @@ export default function CitizenDashboard() {
                 <span>Sort by:</span>
                 <select className="bg-transparent border-none p-0 text-gov-navy font-bold focus:ring-0 cursor-pointer text-xs">
                   <option>Latest First</option>
-                  <option>Priority</option>
+
                   <option>Status</option>
                 </select>
               </div>

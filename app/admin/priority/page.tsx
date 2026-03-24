@@ -10,7 +10,7 @@ export default function AdminPriorityCasesPage() {
   const router = useRouter()
   const [cases, setCases] = useState<any[]>([])
   const [fetching, setFetching] = useState(true)
-  const [tab, setTab] = useState<"EMERGENCY" | "ESCALATED" | "OVERDUE">("EMERGENCY")
+  const [tab, setTab] = useState<"ESCALATED" | "OVERDUE">("ESCALATED")
 
   useEffect(() => {
     if (!isLoading && (!user || user.role !== "superadmin")) router.push("/admin/login")
@@ -26,14 +26,12 @@ export default function AdminPriorityCasesPage() {
   }, [user])
 
   const now = Date.now()
-  const emergency  = cases.filter(c => c.priority === "EMERGENCY" && !["RESOLVED","CLOSED","AUTO_CLOSED"].includes(c.status))
   const escalated  = cases.filter(c => c.status === "ESCALATED")
   const overdue    = cases.filter(c => c.sla_deadline && new Date(c.sla_deadline).getTime() < now && !["RESOLVED","CLOSED","AUTO_CLOSED"].includes(c.status))
 
-  const displayed = tab === "EMERGENCY" ? emergency : tab === "ESCALATED" ? escalated : overdue
+  const displayed = tab === "ESCALATED" ? escalated : overdue
 
   const tabConfig = [
-    { key: "EMERGENCY", label: "Emergency", count: emergency.length, color: "text-red-600", bg: "bg-red-600", icon: "emergency", dotColor: "bg-red-500" },
     { key: "ESCALATED", label: "Escalated", count: escalated.length, color: "text-orange-600", bg: "bg-orange-500", icon: "escalator_warning", dotColor: "bg-orange-500" },
     { key: "OVERDUE",   label: "SLA Overdue", count: overdue.length, color: "text-amber-600", bg: "bg-amber-500", icon: "schedule", dotColor: "bg-amber-400" },
   ]
@@ -57,7 +55,7 @@ export default function AdminPriorityCasesPage() {
           <p className="text-[10px] font-bold uppercase tracking-widest text-slate-300">Super Admin · E-ARZI</p>
           <div className="flex items-center gap-2 text-xs text-red-400">
             <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-            {emergency.length + escalated.length + overdue.length} cases require attention
+            {escalated.length + overdue.length} cases require attention
           </div>
         </header>
 
@@ -121,9 +119,6 @@ export default function AdminPriorityCasesPage() {
                         <div className="flex flex-wrap items-center gap-2 mb-1">
                           <span className="font-mono text-xs font-bold text-gov-navy">{c.id}</span>
                           <span className="font-bold text-slate-800">{c.category}</span>
-                          <span className={`text-[10px] font-black px-2 py-0.5 rounded uppercase ${c.priority === "EMERGENCY" ? "bg-red-600 text-white" : c.priority === "HIGH" ? "bg-orange-500 text-white" : "bg-amber-400 text-white"}`}>
-                            {c.priority}
-                          </span>
                         </div>
                         <div className="flex items-center gap-4 text-xs text-slate-500">
                           <span className="flex items-center gap-1">

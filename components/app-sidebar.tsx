@@ -51,7 +51,6 @@ const NAV = {
     { group: "Overview", items: [
       { label: "Executive Dashboard", href: "/admin/dashboard",  icon: "analytics" },
       { label: "All Complaints",      href: "/admin/complaints", icon: "fact_check" },
-      { label: "Priority Cases",      href: "/admin/priority",   icon: "gavel", badge: "!" },
       { label: "Audit Reports",       href: "/admin/audit",      icon: "monitoring" },
     ]},
     { group: "Administration", items: [

@@ -429,7 +429,6 @@ export default function OfficerComplaintDetailPage() {
                   {[
                     { label: "Status",    value: sm?.label },
                     { label: "Category",  value: complaint?.category },
-                    { label: "Priority",  value: complaint?.priority },
                     { label: "Location",  value: complaint ? `${complaint.village}, ${complaint.block}` : "" },
                   ].map(row => (
                     <div key={row.label} className="px-5 py-2.5 flex items-center justify-between">

@@ -12,7 +12,6 @@ type Complaint = {
   category: string
   description: string
   status: string
-  priority: string
   block: string
   village: string
   district?: string
@@ -42,12 +41,6 @@ const STATUS_META: Record<string, { label: string; color: string; dot: string }>
   ESCALATED:   { label: "Escalated",   color: "bg-purple-50 text-purple-700 border-purple-200", dot: "bg-purple-500" },
 }
 
-const PRIORITY_META: Record<string, { label: string; color: string }> = {
-  EMERGENCY: { label: "Emergency", color: "bg-red-100 text-red-700 border-red-300" },
-  HIGH:      { label: "High",      color: "bg-orange-100 text-orange-700 border-orange-300" },
-  MEDIUM:    { label: "Medium",    color: "bg-amber-100 text-amber-700 border-amber-300" },
-  LOW:       { label: "Low",       color: "bg-blue-100 text-blue-600 border-blue-200" },
-}
 
 export default function AssignComplaintPage() {
   const { id } = useParams<{ id: string }>()
@@ -136,7 +129,6 @@ export default function AssignComplaintPage() {
   if (isLoading || !user) return null
 
   const sm = complaint ? (STATUS_META[complaint.status] || STATUS_META["SUBMITTED"]) : null
-  const pm = complaint ? (PRIORITY_META[complaint.priority] || PRIORITY_META["MEDIUM"]) : null
 
   const isAlreadyAssigned = complaint?.status === "ASSIGNED" || complaint?.status === "IN_PROGRESS"
 
@@ -183,9 +175,6 @@ export default function AssignComplaintPage() {
                   <span className="text-[10px] font-bold uppercase tracking-widest opacity-70">Current Status</span>
                   <p className="font-black text-base leading-tight">{sm?.label}</p>
                 </div>
-                <span className={`text-[10px] font-black px-2 py-0.5 rounded border ${pm?.color}`}>
-                  {pm?.label} Priority
-                </span>
               </div>
 
               {/* Complaint details card */}
@@ -462,7 +451,6 @@ export default function AssignComplaintPage() {
                 <div className="divide-y divide-slate-100">
                   {[
                     { label: "Status",   value: sm?.label },
-                    { label: "Priority", value: pm?.label },
                     { label: "Category", value: complaint.category },
                     { label: "Location", value: `${complaint.village}, ${complaint.block}` },
                     { label: "Attachments", value: attachments.length > 0 ? `${attachments.length} file(s)` : "None" },
