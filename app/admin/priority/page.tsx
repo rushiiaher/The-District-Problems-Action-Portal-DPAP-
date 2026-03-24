@@ -66,7 +66,7 @@ export default function AdminPriorityCasesPage() {
               <span className="h-1 w-8 bg-red-500 inline-block" />
               <span className="text-xs font-bold text-red-500 uppercase tracking-[0.2em]">Priority Cases</span>
             </div>
-            <h1 className="text-2xl font-black text-slate-900 uppercase tracking-tight">High-Attention Complaints</h1>
+            <h1 className="text-2xl font-black text-slate-900 uppercase tracking-tight">High-Attention Arzis</h1>
             <p className="text-slate-500 text-sm mt-1">Cases requiring immediate executive action</p>
           </div>
 

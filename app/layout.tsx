@@ -5,12 +5,12 @@ import { Toaster } from "@/components/ui/toaster"
 import { AuthProvider } from "@/components/providers/auth-provider"
 
 export const metadata: Metadata = {
-  title: "E-Arzi | Anantnag District Problem/Complaint Redressal System",
-  description: "Official digital problem and complaint redressal platform for Anantnag District Administration, Jammu & Kashmir",
-  keywords: "Anantnag, problem, complaint, district administration, J&K, government",
+  title: "E-Arzi | Anantnag District Arzi (Petition) Portal",
+  description: "Official digital arzi (petition/complaint) portal for Anantnag District Administration, Jammu & Kashmir",
+  keywords: "Anantnag, arzi, petition, complaint, district administration, J&K, government",
   openGraph: {
-    title: "E-Arzi — Anantnag District Problem/Complaint Portal",
-    description: "Submit, track and resolve problems/complaints with the Anantnag District Administration",
+    title: "E-Arzi — Anantnag District Arzi Portal",
+    description: "Submit, track and resolve arzis with the Anantnag District Administration",
     type: "website",
   },
 }

@@ -106,10 +106,10 @@ export default function RedCrossApplicationPage() {
               <div className="absolute w-12 h-4 bg-white rounded-sm" />
             </div>
           </div>
-          <h2 className="text-2xl font-black text-slate-900 uppercase tracking-tight mb-2">Application Submitted!</h2>
+          <h2 className="text-2xl font-black text-slate-900 uppercase tracking-tight mb-2">Arzi Submitted!</h2>
           <p className="text-slate-500 mb-4 text-sm">Your emergency financial aid application has been received and will be reviewed shortly.</p>
           <div className="bg-slate-100 border border-slate-200 rounded p-3 mb-6">
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Application ID</p>
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Arzi ID</p>
             <p className="font-mono font-black text-gov-navy text-sm mt-0.5">{appId}</p>
           </div>
           <div className="flex gap-3">
@@ -145,7 +145,7 @@ export default function RedCrossApplicationPage() {
             </p>
           </div>
           <Link href="/citizen/red-cross/status" className="text-xs font-bold text-red-200 hover:text-white flex items-center gap-1">
-            <span className="material-symbols-outlined text-[16px]">track_changes</span> Track My Applications
+            <span className="material-symbols-outlined text-[16px]">track_changes</span> Track My Arzis
           </Link>
         </header>
 
@@ -170,7 +170,7 @@ export default function RedCrossApplicationPage() {
             <div className="bg-red-50 border border-red-200 rounded p-3 flex items-start gap-2">
               <span className="material-symbols-outlined text-red-600 text-[18px] flex-shrink-0 mt-0.5">info</span>
               <p className="text-xs text-red-800 leading-relaxed">
-                This form is for applying for emergency financial assistance from the District Administration, Anantnag. Applications are reviewed and approved by the District Administration. Please ensure all information and documents are accurate.
+                This form is for applying for emergency financial assistance from the District Administration, Anantnag. Arzis are reviewed and approved by the District Administration. Please ensure all information and documents are accurate.
               </p>
             </div>
           </div>
@@ -281,7 +281,7 @@ export default function RedCrossApplicationPage() {
                 className="flex-1 bg-red-600 hover:bg-red-700 text-white font-black py-4 rounded text-sm flex items-center justify-center gap-2 transition-all disabled:opacity-60 shadow-lg">
                 {submitting
                   ? <><span className="material-symbols-outlined animate-spin text-[18px]">progress_activity</span> Submitting…</>
-                  : <><span className="material-symbols-outlined text-[18px]">send</span> Submit Application</>}
+                  : <><span className="material-symbols-outlined text-[18px]">send</span> Submit Arzi</>}
               </button>
               <Link href="/citizen/dashboard"
                 className="px-6 border border-slate-200 text-slate-600 font-bold text-sm rounded hover:bg-slate-50 flex items-center">

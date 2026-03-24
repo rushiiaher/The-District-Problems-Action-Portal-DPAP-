@@ -115,8 +115,8 @@ export default function AdminCitizensPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[
               { label: "Total Registered",  value: total,                                                      icon: "group",       color: "border-l-gov-navy" },
-              { label: "Filed Complaints",  value: citizens.filter(c => c.complaints_filed > 0).length,        icon: "description", color: "border-l-gov-saffron" },
-              { label: "No Complaints Yet", value: citizens.filter(c => c.complaints_filed === 0).length,       icon: "inbox",       color: "border-l-slate-300" },
+              { label: "Filed Arzis",  value: citizens.filter(c => c.complaints_filed > 0).length,        icon: "description", color: "border-l-gov-saffron" },
+              { label: "No Arzis Yet", value: citizens.filter(c => c.complaints_filed === 0).length,       icon: "inbox",       color: "border-l-slate-300" },
             ].map(s => (
               <div key={s.label} className={`gov-card border-l-4 ${s.color} p-5 flex items-center gap-4`}>
                 <span className={`material-symbols-outlined text-slate-300 text-4xl`}>{s.icon}</span>
@@ -208,7 +208,7 @@ export default function AdminCitizensPage() {
                       <th className="px-5 py-3 text-left font-bold">Name</th>
                       <th className="px-5 py-3 text-left font-bold">Mobile</th>
                       <th className="px-5 py-3 text-left font-bold">Location</th>
-                      <th className="px-5 py-3 text-left font-bold">Complaints</th>
+                      <th className="px-5 py-3 text-left font-bold">Arzis</th>
                       <th className="px-5 py-3 text-left font-bold">Registered</th>
                       <th className="px-5 py-3 text-left font-bold">Action</th>
                     </tr>
@@ -342,7 +342,7 @@ export default function AdminCitizensPage() {
                 { icon: "map",           label: "Block",         value: selected.block || null },
                 { icon: "villa",         label: "Village",       value: selected.village || null },
                 { icon: "calendar_today",label: "Registered",    value: new Date(selected.created_at).toLocaleDateString("en-IN", { day: "2-digit", month: "long", year: "numeric" }) },
-                { icon: "description",   label: "Complaints Filed", value: `${selected.complaints_filed} complaint${selected.complaints_filed !== 1 ? "s" : ""} filed` },
+                { icon: "description",   label: "Arzis Filed", value: `${selected.complaints_filed} arzi${selected.complaints_filed !== 1 ? "s" : ""} filed` },
               ].filter(f => f.value).map(f => (
                 <div key={f.label} className="px-6 py-3 flex items-start gap-3">
                   <span className="material-symbols-outlined text-slate-300 text-[18px] mt-0.5 flex-shrink-0">{f.icon}</span>

@@ -110,8 +110,8 @@ export default function ComplaintDetailPage() {
       <main className="flex-1 flex items-center justify-center p-6 text-white">
         <div className="text-center">
           <FileText className="w-12 h-12 text-slate-700 mx-auto mb-4" />
-          <h2 className="text-lg font-semibold text-white mb-2">Complaint not found</h2>
-          <p className="text-slate-400 text-sm mb-4">The complaint ID doesn't exist or you don't have access.</p>
+          <h2 className="text-lg font-semibold text-white mb-2">Arzi not found</h2>
+          <p className="text-slate-400 text-sm mb-4">The Arzi ID doesn't exist or you don't have access.</p>
           <Button onClick={() => router.back()}>Go Back</Button>
         </div>
       </main>

@@ -75,9 +75,9 @@ export default function AdminComplaintsPage() {
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <span className="h-1 w-8 bg-gov-saffron inline-block" />
-                <span className="text-xs font-bold text-gov-saffron uppercase tracking-[0.2em]">All Complaints</span>
+                <span className="text-xs font-bold text-gov-saffron uppercase tracking-[0.2em]">All Arzis</span>
               </div>
-              <h1 className="text-2xl font-black text-slate-900 uppercase tracking-tight">Complaint Registry</h1>
+              <h1 className="text-2xl font-black text-slate-900 uppercase tracking-tight">Arzi Registry</h1>
               <p className="text-slate-500 text-sm mt-1">
                 {fetching ? "Loading..." : `${filtered.length} of ${complaints.length} complaints`}
               </p>
@@ -134,7 +134,7 @@ export default function AdminComplaintsPage() {
                   <table className="gov-table w-full text-left">
                     <thead>
                       <tr>
-                        <th>Complaint ID</th>
+                        <th>Arzi ID</th>
                         <th>Category</th>
                         <th>Village / Block</th>
                         <th>Status</th>

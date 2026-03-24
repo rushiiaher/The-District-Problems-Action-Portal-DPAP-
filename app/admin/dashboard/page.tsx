@@ -53,7 +53,7 @@ export default function AdminDashboard() {
           <div className="hidden md:flex items-center flex-1 max-w-md">
             <div className="relative w-full">
               <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-300 text-lg">search</span>
-              <input className="w-full pl-10 pr-4 py-1.5 bg-white/10 border-none rounded text-sm focus:bg-white focus:text-slate-900 outline-none placeholder:text-slate-300" placeholder="Search by Complaint ID, Aadhaar, or Name..." />
+              <input className="w-full pl-10 pr-4 py-1.5 bg-white/10 border-none rounded text-sm focus:bg-white focus:text-slate-900 outline-none placeholder:text-slate-300" placeholder="Search by Arzi ID, Aadhaar, or Name..." />
             </div>
           </div>
           <div className="flex items-center gap-2 md:gap-6">
@@ -83,7 +83,7 @@ export default function AdminDashboard() {
               <h1 className="text-2xl md:text-4xl font-black text-slate-900 uppercase tracking-tight leading-tight">
                 Executive Oversight Dashboard
               </h1>
-              <p className="text-slate-500 mt-2 text-sm">Real-time Performance Metrics &amp; Citizen Problem/Complaint Analytics</p>
+              <p className="text-slate-500 mt-2 text-sm">Real-time Performance Metrics &amp; Citizen Arzi Analytics</p>
               <div className="flex items-center gap-3 mt-3">
                 <span className="text-[11px] font-bold px-2 py-1 bg-slate-200 text-slate-700 uppercase tracking-wider rounded">Classified Access</span>
               </div>
@@ -118,7 +118,7 @@ export default function AdminDashboard() {
               <div className="bg-white rounded border border-slate-300 shadow-sm overflow-hidden">
                 <div className="px-6 py-4 border-b border-slate-200 flex items-center gap-3">
                   <div className="h-5 w-1 bg-gov-navy" />
-                  <h2 className="font-extrabold text-slate-900 uppercase text-sm tracking-wider">Institutional Complaint Volume Trends</h2>
+                  <h2 className="font-extrabold text-slate-900 uppercase text-sm tracking-wider">Institutional Arzi Volume Trends</h2>
                 </div>
                 <div className="overflow-x-auto">
                   <table className="w-full text-left border-collapse">

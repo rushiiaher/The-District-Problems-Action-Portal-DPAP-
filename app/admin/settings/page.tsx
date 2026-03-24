@@ -28,7 +28,7 @@ const SETTINGS = [
     ],
   },
   {
-    group: "Grievance Rules",
+    group: "Arzi Rules",
     icon: "policy",
     items: [
       { key: "max_reopen",      label: "Max Reopen Attempts",  type: "number", value: "2" },

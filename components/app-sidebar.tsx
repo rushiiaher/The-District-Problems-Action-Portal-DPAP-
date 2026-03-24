@@ -21,7 +21,7 @@ export function SidebarToggle() {
 const NAV = {
   citizen: [
     { label: "Dashboard",           href: "/citizen/dashboard",        icon: "dashboard" },
-    { label: "Submit Problem/Complaint", href: "/citizen/submit",       icon: "add_task" },
+    { label: "Submit Arzi",              href: "/citizen/submit",       icon: "add_task" },
     { label: "Track Status",        href: "/complaint/track",          icon: "find_in_page" },
     { label: "My Profile",          href: "/citizen/profile",          icon: "manage_accounts" },
     { label: "Financial Help in Emergency", href: "/citizen/red-cross", icon: "volunteer_activism", accent: "text-red-600" },
@@ -50,7 +50,7 @@ const NAV = {
   superadmin: [
     { group: "Overview", items: [
       { label: "Executive Dashboard", href: "/admin/dashboard",  icon: "analytics" },
-      { label: "All Complaints",      href: "/admin/complaints", icon: "fact_check" },
+      { label: "All Arzis",           href: "/admin/complaints", icon: "fact_check" },
       { label: "Audit Reports",       href: "/admin/audit",      icon: "monitoring" },
     ]},
     { group: "Administration", items: [
@@ -61,7 +61,7 @@ const NAV = {
       { label: "System Settings",   href: "/admin/settings",       icon: "admin_panel_settings" },
     ]},
     { group: "Financial Help", items: [
-      { label: "Emergency Aid Applications", href: "/admin/red-cross", icon: "volunteer_activism", accent: "text-red-600" },
+      { label: "Emergency Aid Arzis", href: "/admin/red-cross", icon: "volunteer_activism", accent: "text-red-600" },
     ]},
     { group: "Bank", items: [
       { label: "Bank Managers",     href: "/admin/bank-managers",  icon: "account_balance",    accent: "text-gov-saffron" },

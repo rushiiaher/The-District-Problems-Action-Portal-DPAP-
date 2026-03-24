@@ -105,7 +105,7 @@ export default function SubmitComplaintPage() {
       setSubmitted(true)
 
       toast({
-        title: "Complaint Submitted Successfully",
+        title: "Arzi Submitted Successfully",
         description: `Your complaint ID is ${newComplaintId}`,
       })
     } catch (error) {
@@ -125,12 +125,12 @@ export default function SubmitComplaintPage() {
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
             <CheckCircle className="h-16 w-16 text-green-600 mx-auto mb-4" />
-            <CardTitle className="text-2xl text-green-800">Complaint Submitted!</CardTitle>
+            <CardTitle className="text-2xl text-green-800">Arzi Submitted!</CardTitle>
             <CardDescription>Your complaint has been successfully registered</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="text-center">
-              <Label className="text-sm font-medium">Your Complaint ID</Label>
+              <Label className="text-sm font-medium">Your Arzi ID</Label>
               <div className="mt-2 p-3 bg-gray-100 rounded-lg">
                 <code className="text-lg font-bold text-blue-600">{complaintId}</code>
               </div>
@@ -173,7 +173,7 @@ export default function SubmitComplaintPage() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Submit Complaint</h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Submit Arzi</h1>
           <p className="text-gray-600">Fill out the form below to register your complaint</p>
         </div>
 
@@ -275,7 +275,7 @@ export default function SubmitComplaintPage() {
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
                   <FileText className="h-5 w-5" />
-                  <span>Complaint Details</span>
+                  <span>Arzi Details</span>
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -400,7 +400,7 @@ export default function SubmitComplaintPage() {
               </Button>
             </Link>
             <Button type="submit" size="lg" disabled={loading}>
-              {loading ? "Submitting..." : "Submit Complaint"}
+              {loading ? "Submitting..." : "Submit Arzi"}
             </Button>
           </div>
         </form>

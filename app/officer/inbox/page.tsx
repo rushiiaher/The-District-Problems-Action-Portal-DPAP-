@@ -86,7 +86,7 @@ export default function OfficerInboxPage() {
                 <span className="h-1 w-8 bg-gov-saffron inline-block" />
                 <span className="text-xs font-bold text-gov-saffron uppercase tracking-[0.2em]">Officer Portal</span>
               </div>
-              <h1 className="text-2xl font-black text-slate-900 uppercase tracking-tight">My Complaint Inbox</h1>
+              <h1 className="text-2xl font-black text-slate-900 uppercase tracking-tight">My Arzi Inbox</h1>
               <p className="text-slate-500 text-sm mt-1">
                 <span className="font-bold text-gov-navy">{active.length}</span> active ·{" "}
                 <span className="font-bold text-red-600">{overdue}</span> overdue ·{" "}

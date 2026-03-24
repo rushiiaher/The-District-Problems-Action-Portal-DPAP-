@@ -141,7 +141,7 @@ export default function CitizenRegisterPage() {
             <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center border border-slate-200 flex-shrink-0 overflow-hidden p-1.5"><img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg" alt="Emblem of India" className="w-full h-full object-contain"/></div>
             <div className="border-l border-slate-300 pl-4">
               <h1 className="text-xl font-black tracking-tight text-gov-navy uppercase">E-ARZI ANANTNAG</h1>
-              <p className="text-[11px] font-semibold text-gov-green uppercase tracking-wide">District Problem/Complaint Portal</p>
+              <p className="text-[11px] font-semibold text-gov-green uppercase tracking-wide">District Arzi Portal</p>
             </div>
           </Link>
           <Link href="/auth/login" className="text-sm font-bold text-slate-600 hover:text-gov-navy flex items-center gap-1">

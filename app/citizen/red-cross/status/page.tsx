@@ -62,14 +62,14 @@ export default function RedCrossStatusPage() {
           <p className="text-[10px] font-bold uppercase tracking-widest text-red-200">Citizen Portal · Financial Help Status</p>
           <Link href="/citizen/red-cross"
             className="flex items-center gap-1.5 bg-white text-red-700 font-black text-xs px-3 py-1.5 rounded hover:bg-red-50 transition-colors">
-            <span className="material-symbols-outlined text-[16px]">add</span> New Application
+            <span className="material-symbols-outlined text-[16px]">add</span> New Arzi
           </Link>
         </header>
 
         <div className="p-8 max-w-3xl mx-auto space-y-5">
           {/* Title */}
           <div className="border-b border-slate-200 pb-4">
-            <h1 className="text-2xl font-black text-slate-900 uppercase tracking-tight">My Financial Help Applications</h1>
+            <h1 className="text-2xl font-black text-slate-900 uppercase tracking-tight">My Financial Help Arzis</h1>
             <p className="text-slate-500 text-sm mt-1">Track the status of your financial aid applications</p>
           </div>
 
@@ -171,7 +171,7 @@ export default function RedCrossStatusPage() {
                         <div className="bg-red-50 border border-red-200 rounded p-3 flex items-start gap-2">
                           <span className="material-symbols-outlined text-red-500 text-[16px] flex-shrink-0 mt-0.5">info</span>
                           <p className="text-xs text-red-700">
-                            <span className="font-bold">Application Rejected.</span> {app.admin_remarks || "Please contact the district office for more information."}
+                            <span className="font-bold">Arzi Rejected.</span> {app.admin_remarks || "Please contact the district office for more information."}
                             {" "}<Link href="/citizen/red-cross" className="font-bold underline">Apply again</Link>
                           </p>
                         </div>

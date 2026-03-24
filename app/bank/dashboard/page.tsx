@@ -116,7 +116,7 @@ export default function BankDashboardPage() {
           {[
             { label: "Pending Payment", value: pending.length, sub: `₹${totalPending.toLocaleString("en-IN")} to disburse`, color: "border-l-gov-saffron", icon: "payments" },
             { label: "Paid This Session", value: paid.length,  sub: `₹${totalPaid.toLocaleString("en-IN")} disbursed`,    color: "border-l-gov-green", icon: "check_circle" },
-            { label: "Total Applications", value: apps.length, sub: "Approved + Paid",                                      color: "border-l-gov-navy",  icon: "folder_open" },
+            { label: "Total Arzis", value: apps.length, sub: "Approved + Paid",                                      color: "border-l-gov-navy",  icon: "folder_open" },
           ].map(s => (
             <div key={s.label} className={`gov-card border-l-4 ${s.color} p-5 flex items-center gap-4`}>
               <span className="material-symbols-outlined text-3xl text-slate-300">{s.icon}</span>

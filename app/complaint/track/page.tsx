@@ -41,7 +41,7 @@ function TrackForm() {
 
   const handleTrack = async () => {
     const id = complaintId.trim().toUpperCase()
-    if (!id) { setError("Please enter your Complaint ID"); return }
+    if (!id) { setError("Please enter your Arzi ID"); return }
     setLoading(true); setError(""); setComplaint(null); setTimeline([])
     try {
       const res = await fetch(`/api/complaints/${id}?public=true`)
@@ -50,7 +50,7 @@ function TrackForm() {
         setComplaint(data.complaint)
         setTimeline(data.timeline || [])
       } else {
-        setError("Complaint not found. Please check your Complaint ID.")
+        setError("Arzi not found. Please check your Arzi ID.")
       }
     } catch { setError("Network error. Please try again.") }
     finally { setLoading(false) }
@@ -78,7 +78,7 @@ function TrackForm() {
             </Link>
             <Link href="/auth/login">
               <button className="btn-navy px-4 py-2 text-sm flex items-center gap-2">
-                <span className="material-symbols-outlined text-base">add_task</span> Submit Problem/Complaint
+                <span className="material-symbols-outlined text-base">add_task</span> Submit Arzi
               </button>
             </Link>
           </div>
@@ -91,13 +91,13 @@ function TrackForm() {
           <div className="w-16 h-16 bg-gov-navy rounded-full flex items-center justify-center mx-auto mb-5">
             <span className="material-symbols-outlined text-white text-3xl">find_in_page</span>
           </div>
-          <h2 className="text-3xl font-black text-gov-navy uppercase tracking-tight">Track Your Complaint</h2>
-          <p className="text-slate-500 mt-2">Enter your Complaint ID to see real-time status</p>
+          <h2 className="text-3xl font-black text-gov-navy uppercase tracking-tight">Track Your Arzi</h2>
+          <p className="text-slate-500 mt-2">Enter your Arzi ID to see real-time status</p>
         </div>
 
         {/* Search bar */}
         <div className="bg-white border border-slate-200 rounded shadow-sm p-6 mb-6">
-          <label className="text-xs font-bold text-slate-500 uppercase block mb-2">Complaint ID</label>
+          <label className="text-xs font-bold text-slate-500 uppercase block mb-2">Arzi ID</label>
           <div className="flex gap-3">
             <div className="relative flex-1">
               <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
@@ -132,7 +132,7 @@ function TrackForm() {
             {/* Progress steps */}
             <div className="bg-white border border-slate-200 rounded shadow-sm p-6 mb-4">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="font-extrabold text-gov-navy uppercase text-sm tracking-wider">Application Status</h3>
+                <h3 className="font-extrabold text-gov-navy uppercase text-sm tracking-wider">Arzi Status</h3>
                 <span className={`text-[10px] font-black px-2 py-0.5 rounded border uppercase tracking-wider ${STATUS_BADGE[complaint.status] || STATUS_BADGE.SUBMITTED}`}>
                   {complaint.status.replace("_", " ")}
                 </span>
@@ -160,7 +160,7 @@ function TrackForm() {
               {/* Complaint details */}
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4 border-t border-slate-100 pt-4">
                 <div>
-                  <p className="text-[10px] font-bold text-slate-400 uppercase">Complaint ID</p>
+                  <p className="text-[10px] font-bold text-slate-400 uppercase">Arzi ID</p>
                   <p className="text-sm font-bold text-gov-navy font-mono">{complaint.id}</p>
                 </div>
                 <div>
@@ -214,7 +214,7 @@ function TrackForm() {
             <div className="mt-4 bg-gov-navy/5 border border-gov-navy/10 p-4 rounded flex items-start gap-3">
               <span className="material-symbols-outlined text-gov-navy text-[18px] mt-0.5">verified_user</span>
               <p className="text-xs text-slate-600">
-                This information is real-time data from the E-ARZI Problem/Complaint System. For queries, contact the District Informatics Center at <span className="font-bold">01932-222333</span>.
+                This information is real-time data from the E-ARZI System. For queries, contact the District Informatics Center at <span className="font-bold">01932-222333</span>.
               </p>
             </div>
           </div>

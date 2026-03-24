@@ -60,7 +60,7 @@ export default function LandingPage() {
             <nav className="hidden lg:flex items-center space-x-6">
               {[
                 { label: "Home", href: "#home" },
-                { label: "Problem/Complaint", href: "#grievance" },
+                { label: "Arzi", href: "#grievance" },
                 { label: "Financial Help", href: "#red" },
                 { label: "Helplines", href: "/helpline" },
               ].map(item => (
@@ -73,7 +73,7 @@ export default function LandingPage() {
             {/* Actions */}
             <div className="hidden md:flex items-center gap-3">
               <Link href="/complaint/track" className="bg-slate-100 hover:bg-slate-200 text-gov-navy border border-slate-300 px-4 py-2 text-sm font-bold flex items-center gap-2 transition-colors">
-                <span className="material-symbols-outlined text-[18px]">search</span> Track Application
+                <span className="material-symbols-outlined text-[18px]">search</span> Track Arzi
               </Link>
 
               {/* Login dropdown */}
@@ -131,7 +131,7 @@ export default function LandingPage() {
           <div ref={mobileMenuRef} className="lg:hidden absolute top-full left-0 right-0 bg-white border-b border-slate-300 shadow-xl flex flex-col p-4 space-y-1 z-50">
             {[
               { label: "Home", href: "#home" },
-              { label: "Problem/Complaint", href: "#grievance" },
+              { label: "Arzi", href: "#grievance" },
               { label: "Financial Help", href: "#red" },
               { label: "Helplines", href: "/helpline" },
             ].map(item => (
@@ -144,7 +144,7 @@ export default function LandingPage() {
                <Link href="/auth/login?tab=staff" className="bg-gov-navy text-white text-center font-bold py-3 text-sm border border-[#001a40]" onClick={() => setMobileMenuOpen(false)}>Staff Login</Link>
             </div>
             <Link href="/complaint/track" className="bg-slate-100 text-slate-800 border border-slate-300 text-center font-bold py-3 text-sm w-full mt-3 block" onClick={() => setMobileMenuOpen(false)}>
-               Track Application Status
+               Track Arzi Status
             </Link>
           </div>
         )}
@@ -217,19 +217,19 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* ─── PROBLEM/COMPLAINT SECTION ─── */}
+        {/* ─── ARZI SECTION ─── */}
         <section id="grievance" className="py-16 md:py-24 bg-white border-b border-slate-200">
           <div className="max-w-7xl mx-auto px-4 md:px-8">
             <div className="mb-12 border-b-2 border-slate-100 pb-4">
-              <h2 className="text-2xl md:text-3xl font-black text-gov-navy uppercase tracking-tight">Public Problem/Complaint Redressal</h2>
+              <h2 className="text-2xl md:text-3xl font-black text-gov-navy uppercase tracking-tight">Public Arzi (Petition) Redressal</h2>
               <p className="text-slate-600 mt-2 font-medium">Lodge a problem or complaint with the administration securely and track its escalation to the concerned departments.</p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-6">
               {[
                 { step: "Step 1", title: "Citizen Registration", desc: "Create your citizen profile online using your mobile number and an OTP. Aadhaar details are required for identification.", icon: "group_add" },
-                { step: "Step 2", title: "Lodge Problem/Complaint", desc: "Select the respective department, provide a detailed description of the issue, and attach photographic evidence or documents.", icon: "app_registration" },
-                { step: "Step 3", title: "Track & Resolve", desc: "A unique Complaint ID will be generated. Track the resolution process online. Cases exceeding SLAs are automatically escalated.", icon: "troubleshoot" },
+                { step: "Step 2", title: "Lodge Arzi", desc: "Select the respective department, provide a detailed description of the issue, and attach photographic evidence or documents.", icon: "app_registration" },
+                { step: "Step 3", title: "Track & Resolve", desc: "A unique Arzi ID will be generated. Track the resolution process online. Cases exceeding SLAs are automatically escalated.", icon: "troubleshoot" },
               ].map((s, i) => (
                 <div key={i} className="border border-slate-200 bg-slate-50 p-6 md:p-8 hover:border-gov-navy hover:bg-white transition-colors duration-200 group">
                   <div className="flex items-center gap-4 mb-4">
@@ -246,7 +246,7 @@ export default function LandingPage() {
 
             <div className="mt-8">
               <Link href="/auth/login?tab=citizen" className="inline-flex items-center gap-2 bg-gov-navy hover:bg-[#061426] text-white font-bold px-6 py-3 border border-[#061426] text-sm uppercase tracking-wide">
-                Proceed to Problem/Complaint Portal <span className="material-symbols-outlined text-[16px]">chevron_right</span>
+                Proceed to Arzi Portal <span className="material-symbols-outlined text-[16px]">chevron_right</span>
               </Link>
             </div>
           </div>
@@ -275,7 +275,7 @@ export default function LandingPage() {
                 </p>
                 
                 <div className="bg-white border border-slate-200 p-6 mb-8">
-                  <h3 className="font-bold text-slate-800 uppercase tracking-wider mb-4 border-b border-slate-100 pb-2 text-sm">Procedure for Application</h3>
+                  <h3 className="font-bold text-slate-800 uppercase tracking-wider mb-4 border-b border-slate-100 pb-2 text-sm">Procedure for Arzi</h3>
                   <ul className="space-y-4">
                     {[
                       { icon: "assignment_ind", text: "Register an account on the E-Arzi platform and ensure demographic details are fully verified." },
@@ -358,7 +358,7 @@ export default function LandingPage() {
                 <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg" alt="Emblem of India" className="w-full h-full object-contain" />
               </div>
               <p className="text-sm leading-relaxed mb-4 text-slate-400">
-                Official digital portal for public problem/complaint redressal and emergency financial assistance. Designed for transparent and responsive administration in Anantnag District.
+                Official digital portal for public arzi redressal and emergency financial assistance. Designed for transparent and responsive administration in Anantnag District.
               </p>
             </div>
 

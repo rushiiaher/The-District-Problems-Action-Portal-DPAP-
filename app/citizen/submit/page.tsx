@@ -148,17 +148,17 @@ export default function SubmitComplaintPage() {
               <span className="material-symbols-outlined text-gov-green text-4xl">task_alt</span>
             </div>
             <h2 className="text-xl font-black text-slate-900 uppercase tracking-tight mb-2">
-              Complaint Registered!
+              Arzi Registered!
             </h2>
             <p className="text-slate-500 text-sm mb-6 leading-relaxed">
-              Your problem/complaint has been successfully submitted to the District Administration.
+              Your arzi has been successfully submitted to the District Administration.
               You will receive an SMS update at each stage of processing.
             </p>
 
             <div className="bg-gov-navy/5 border border-gov-navy/20 rounded p-5 mb-6">
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Your Complaint ID</p>
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Your Arzi ID</p>
               <p className="font-mono text-2xl font-black text-gov-navy tracking-wider">{submitted.id}</p>
-              <p className="text-[11px] text-slate-400 mt-1">Save this ID to track your complaint status</p>
+              <p className="text-[11px] text-slate-400 mt-1">Save this ID to track your arzi status</p>
             </div>
 
             <div className="flex gap-3">
@@ -203,11 +203,11 @@ export default function SubmitComplaintPage() {
           <div className="mb-8 border-b border-slate-300 pb-4">
             <div className="flex items-center gap-2 mb-2">
               <span className="h-1 w-8 bg-gov-saffron inline-block" />
-              <span className="text-xs font-bold text-gov-saffron uppercase tracking-[0.2em]">New Problem/Complaint</span>
+              <span className="text-xs font-bold text-gov-saffron uppercase tracking-[0.2em]">New Arzi</span>
             </div>
-            <h1 className="text-2xl font-black text-slate-900 uppercase tracking-tight">Submit a Complaint</h1>
+            <h1 className="text-2xl font-black text-slate-900 uppercase tracking-tight">Submit Arzi</h1>
             <p className="text-slate-500 text-sm mt-1">
-              Your complaint will be reviewed and assigned to the concerned department within 24 hours.
+              Your arzi will be reviewed and assigned to the concerned department within 24 hours.
             </p>
           </div>
 
@@ -224,9 +224,9 @@ export default function SubmitComplaintPage() {
             <div className="mb-5 p-4 bg-amber-50 border border-amber-300 rounded flex items-start gap-3">
               <span className="material-symbols-outlined text-amber-500 text-[20px] mt-0.5 flex-shrink-0">warning</span>
               <div>
-                <p className="font-bold text-amber-800 text-sm mb-1">Possible Duplicate Complaint</p>
+                <p className="font-bold text-amber-800 text-sm mb-1">Possible Duplicate Arzi</p>
                 <p className="text-amber-700 text-xs mb-3">
-                  A complaint with the same category and village was filed in the last 7 days. Do you still want to proceed?
+                  An arzi with the same category and village was filed in the last 7 days. Do you still want to proceed?
                 </p>
                 <div className="flex gap-2">
                   <button onClick={() => handleSubmit(true)} className="px-4 py-1.5 bg-gov-saffron text-white text-xs font-bold rounded hover:bg-[#e68a2e]">
@@ -246,7 +246,7 @@ export default function SubmitComplaintPage() {
             <div className="bg-white border border-slate-200 rounded shadow-sm overflow-hidden">
               <div className="px-6 py-4 bg-slate-50 border-b border-slate-200 flex items-center gap-3">
                 <span className="material-symbols-outlined text-gov-navy text-[20px]">description</span>
-                <h2 className="font-bold text-slate-800 text-sm uppercase tracking-wide">Complaint Details</h2>
+                <h2 className="font-bold text-slate-800 text-sm uppercase tracking-wide">Arzi Details</h2>
               </div>
               <div className="p-6 space-y-5">
 
@@ -338,9 +338,9 @@ export default function SubmitComplaintPage() {
             <div className="flex items-start gap-3 p-4 bg-gov-navy/5 border border-gov-navy/15 rounded">
               <span className="material-symbols-outlined text-gov-navy text-[18px] mt-0.5 flex-shrink-0">info</span>
               <p className="text-slate-600 text-xs leading-relaxed">
-                After submission, your complaint will be reviewed by the Sub-Admin and assigned to the relevant department.
-                You will receive an <strong>SMS confirmation</strong> with your unique Complaint ID.
-                Track your complaint anytime at <strong>earzi.jk.gov.in</strong>.
+                After submission, your arzi will be reviewed by the Sub-Admin and assigned to the relevant department.
+                You will receive an <strong>SMS confirmation</strong> with your unique Arzi ID.
+                Track your arzi anytime at <strong>earzi.jk.gov.in</strong>.
               </p>
             </div>
 
@@ -354,7 +354,7 @@ export default function SubmitComplaintPage() {
               {loading ? (
                 <><span className="material-symbols-outlined animate-spin text-[20px]">progress_activity</span> Submitting...</>
               ) : (
-                <><span className="material-symbols-outlined text-[20px]">send</span> Submit Problem/Complaint</>
+                <><span className="material-symbols-outlined text-[20px]">send</span> Submit Arzi</>
               )}
             </button>
 

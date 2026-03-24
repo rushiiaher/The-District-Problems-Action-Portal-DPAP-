@@ -7,7 +7,7 @@ import { AppSidebar, SidebarToggle } from "@/components/app-sidebar"
 import { SidebarProvider } from "@/components/sidebar-context"
 import Link from "next/link"
 
-type Complaint = {
+type Arzi = {
   id: string
   category: string
   description: string
@@ -42,12 +42,12 @@ const STATUS_META: Record<string, { label: string; color: string; dot: string }>
 }
 
 
-export default function AssignComplaintPage() {
+export default function AssignArziPage() {
   const { id } = useParams<{ id: string }>()
   const { user, isLoading } = useAuth()
   const router = useRouter()
 
-  const [complaint, setComplaint] = useState<Complaint | null>(null)
+  const [complaint, setArzi] = useState<Arzi | null>(null)
   const [attachments, setAttachments] = useState<Attachment[]>([])
   const [timeline, setTimeline]   = useState<Timeline[]>([])
   const [citizen, setCitizen]     = useState<any>(null)
@@ -81,7 +81,7 @@ export default function AssignComplaintPage() {
       ])
       const cData = await cRes.json()
       const dData = await dRes.json()
-      if (cData.complaint)   setComplaint(cData.complaint)
+      if (cData.complaint)   setArzi(cData.complaint)
       if (cData.attachments) setAttachments(cData.attachments)
       if (cData.timeline)    setTimeline(cData.timeline)
       if (cData.citizen)     setCitizen(cData.citizen)
@@ -146,7 +146,7 @@ export default function AssignComplaintPage() {
               <span className="material-symbols-outlined text-[20px]">arrow_back</span>
             </Link>
             <p className="text-[10px] font-bold uppercase tracking-widest text-slate-300 hidden sm:block">
-              Sub Admin · Assign Complaint
+              Sub Admin · Assign Arzi
             </p>
           </div>
           {complaint && (
@@ -160,12 +160,12 @@ export default function AssignComplaintPage() {
           </div>
         ) : !complaint ? (
           <div className="flex items-center justify-center h-64 text-slate-400">
-            <p>Complaint not found</p>
+            <p>Arzi not found</p>
           </div>
         ) : (
           <div className="p-8 max-w-[1100px] mx-auto grid grid-cols-1 lg:grid-cols-5 gap-6">
 
-            {/* ── LEFT: Complaint Details ────────────── */}
+            {/* ── LEFT: Arzi Details ────────────── */}
             <div className="lg:col-span-3 space-y-5">
 
               {/* Status banner */}
@@ -177,11 +177,11 @@ export default function AssignComplaintPage() {
                 </div>
               </div>
 
-              {/* Complaint details card */}
+              {/* Arzi details card */}
               <div className="bg-white border border-slate-200 rounded shadow-sm overflow-hidden">
                 <div className="px-6 py-4 bg-slate-50 border-b border-slate-200 flex items-center gap-3">
                   <span className="material-symbols-outlined text-gov-saffron text-[18px]">description</span>
-                  <h2 className="font-bold text-slate-800 text-sm uppercase tracking-wide">Complaint Details</h2>
+                  <h2 className="font-bold text-slate-800 text-sm uppercase tracking-wide">Arzi Details</h2>
                 </div>
                 <div className="p-6 space-y-4">
                   <div>
@@ -358,7 +358,7 @@ export default function AssignComplaintPage() {
                   <div className="px-6 py-4 bg-slate-50 border-b border-slate-200 flex items-center gap-3">
                     <span className="material-symbols-outlined text-gov-saffron text-[18px]">assignment_ind</span>
                     <h2 className="font-bold text-slate-800 text-sm uppercase tracking-wide">
-                      {isAlreadyAssigned ? "Reassign Complaint" : "Assign Complaint"}
+                      {isAlreadyAssigned ? "Reassign Arzi" : "Assign Arzi"}
                     </h2>
                   </div>
                   <div className="p-6 space-y-4">
@@ -445,7 +445,7 @@ export default function AssignComplaintPage() {
               {/* Quick status reference */}
               <div className="bg-white border border-slate-200 rounded shadow-sm overflow-hidden">
                 <div className="px-5 py-3.5 border-b border-slate-100 bg-slate-50">
-                  <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Complaint ID</p>
+                  <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Arzi ID</p>
                   <p className="font-mono font-black text-gov-navy">{complaint.id}</p>
                 </div>
                 <div className="divide-y divide-slate-100">

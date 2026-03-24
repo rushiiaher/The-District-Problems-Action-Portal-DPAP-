@@ -138,7 +138,7 @@ function LoginForm() {
             <nav className="hidden lg:flex items-center space-x-6">
               {[
                 { label: "Home", href: "/" },
-                { label: "Problem/Complaint", href: "/#grievance" },
+                { label: "Arzi", href: "/#grievance" },
                 { label: "Financial Help", href: "/#red" },
                 { label: "Helplines", href: "/helpline" },
               ].map(item => (
@@ -151,7 +151,7 @@ function LoginForm() {
             {/* Actions */}
             <div className="hidden md:flex items-center gap-3">
               <Link href="/complaint/track" className="bg-slate-100 hover:bg-slate-200 text-gov-navy border border-slate-300 px-4 py-2 text-sm font-bold flex items-center gap-2 transition-colors">
-                <span className="material-symbols-outlined text-[18px]">search</span> Track Application
+                <span className="material-symbols-outlined text-[18px]">search</span> Track Arzi
               </Link>
               <Link href="/" className="flex items-center gap-2 px-6 py-2 bg-gov-navy text-white font-bold text-sm hover:bg-[#001a40] transition-colors">
                 <span className="material-symbols-outlined text-[18px]">arrow_back</span> Back to Home
@@ -174,7 +174,7 @@ function LoginForm() {
           <div ref={mobileMenuRef} className="lg:hidden absolute top-full left-0 right-0 bg-white border-b border-slate-300 shadow-xl flex flex-col p-4 space-y-1 z-50">
             {[
               { label: "Home", href: "/" },
-              { label: "Grievance Mechanism", href: "/#grievance" },
+              { label: "Arzi", href: "/#grievance" },
               { label: "Red Cross Society", href: "/#red" },
               { label: "Helplines", href: "/helpline" },
             ].map(item => (
@@ -183,7 +183,7 @@ function LoginForm() {
               </Link>
             ))}
             <Link href="/complaint/track" className="bg-slate-100 text-slate-800 border border-slate-300 text-center font-bold py-3 text-sm w-full mt-3 block" onClick={() => setMobileMenuOpen(false)}>
-              Track Application Status
+              Track Arzi Status
             </Link>
           </div>
         )}
@@ -198,7 +198,7 @@ function LoginForm() {
               <span className="material-symbols-outlined text-white text-3xl">account_balance</span>
             </div>
             <h2 className="text-2xl font-black text-gov-navy">Sign in to E-Arzi</h2>
-            <p className="text-sm text-slate-500 mt-1">Anantnag District Problem/Complaint Portal</p>
+            <p className="text-sm text-slate-500 mt-1">Anantnag District Arzi Portal</p>
           </div>
 
           {/* Tab switcher */}

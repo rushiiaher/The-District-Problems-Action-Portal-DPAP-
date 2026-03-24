@@ -50,7 +50,7 @@ export default function OfficerComplaintDetailPage() {
         })
         const data = await res.json()
         if (data.complaint) { setComplaint(data.complaint); setTimeline(data.timeline || []) }
-        else setError("Complaint not found")
+        else setError("Arzi not found")
       } catch { setError("Failed to load complaint") }
       finally { setLoading(false) }
     }
@@ -112,7 +112,7 @@ export default function OfficerComplaintDetailPage() {
               <span className="material-symbols-outlined text-[20px]">arrow_back</span>
             </Link>
             <p className="text-[10px] font-bold uppercase tracking-widest text-slate-300 hidden sm:block">
-              Officer Portal · Complaint Detail
+              Officer Portal · Arzi Detail
             </p>
           </div>
           {complaint && (
@@ -159,7 +159,7 @@ export default function OfficerComplaintDetailPage() {
               <div className="bg-white border border-slate-200 rounded shadow-sm overflow-hidden">
                 <div className="px-6 py-4 bg-slate-50 border-b border-slate-200 flex items-center gap-3">
                   <span className="material-symbols-outlined text-gov-saffron text-[18px]">description</span>
-                  <h2 className="font-bold text-slate-800 text-sm uppercase tracking-wide">Complaint Details</h2>
+                  <h2 className="font-bold text-slate-800 text-sm uppercase tracking-wide">Arzi Details</h2>
                 </div>
                 <div className="p-6 space-y-4">
                   <div>
@@ -422,7 +422,7 @@ export default function OfficerComplaintDetailPage() {
               {/* Quick reference */}
               <div className="bg-white border border-slate-200 rounded shadow-sm overflow-hidden">
                 <div className="px-5 py-3.5 border-b border-slate-100 bg-slate-50">
-                  <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Complaint Reference</p>
+                  <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Arzi Reference</p>
                   <p className="font-mono font-black text-gov-navy">{complaint?.id}</p>
                 </div>
                 <div className="divide-y divide-slate-100">
