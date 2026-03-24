@@ -131,7 +131,7 @@ export default function BankManagersAdminPage() {
                 <span className="text-xs font-bold text-gov-saffron uppercase tracking-[0.2em]">Administration</span>
               </div>
               <h1 className="text-2xl font-black text-slate-900 uppercase tracking-tight">Bank Managers</h1>
-              <p className="text-slate-500 text-sm mt-1">Manage bank officers responsible for processing Red Cross aid payments</p>
+              <p className="text-slate-500 text-sm mt-1">Manage bank officers responsible for processing emergency financial aid payments</p>
             </div>
             <button onClick={() => { setShowForm(true); setFormError("") }}
               className="flex items-center gap-2 bg-gov-saffron hover:bg-[#e68a2e] text-white font-black text-sm px-5 py-2.5 rounded shadow transition-colors">
@@ -152,7 +152,7 @@ export default function BankManagersAdminPage() {
                 <span className="font-mono font-bold bg-amber-100 px-1.5 py-0.5 rounded">/auth/login</span>
                 {" "}and are automatically redirected to{" "}
                 <span className="font-mono font-bold bg-amber-100 px-1.5 py-0.5 rounded">/bank/dashboard</span>
-                {" "}where they can process Red Cross aid payments.
+                {" "}where they can process emergency financial aid payments.
               </p>
             </div>
           </div>

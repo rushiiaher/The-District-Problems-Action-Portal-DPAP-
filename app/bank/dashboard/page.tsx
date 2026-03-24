@@ -107,8 +107,8 @@ export default function BankDashboardPage() {
             <span className="h-1 w-8 bg-gov-saffron inline-block" />
             <span className="text-xs font-bold text-gov-saffron uppercase tracking-[0.2em]">Bank Officer</span>
           </div>
-          <h1 className="text-xl md:text-2xl font-black text-slate-900 uppercase tracking-tight">Red Cross Payment Dashboard</h1>
-          <p className="text-slate-500 text-sm mt-1">Process approved Red Cross aid disbursements</p>
+          <h1 className="text-xl md:text-2xl font-black text-slate-900 uppercase tracking-tight">Emergency Financial Aid Dashboard</h1>
+          <p className="text-slate-500 text-sm mt-1">Process approved emergency financial aid disbursements</p>
         </div>
 
         {/* Stats */}
@@ -230,7 +230,7 @@ export default function BankDashboardPage() {
         </div>
 
         <p className="text-center text-[11px] text-slate-400 pb-4">
-          District Administration Anantnag · Indian Red Cross Society
+          District Administration Anantnag · Emergency Financial Aid
         </p>
       </main>
 

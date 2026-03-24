@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
       supabase.from("complaints").select("*", { count: "exact", head: true }).in("status", ["SUBMITTED", "ASSIGNED", "IN_PROGRESS", "ESCALATED"]),
       supabase.from("complaints").select("*", { count: "exact", head: true }).eq("status", "ESCALATED"),
       supabase.from("complaints").select("*", { count: "exact", head: true }).in("status", ["RESOLVED", "CLOSED"]).gte("created_at", sevenDaysAgo),
-      supabase.from("departments").select("*", { count: "exact", head: true }).eq("status", "active"),
+      supabase.from("departments").select("*", { count: "exact", head: true }),
       supabase.from("users").select("*", { count: "exact", head: true }).eq("role", "officer"),
       supabase.from("users").select("*", { count: "exact", head: true }).eq("role", "subadmin"),
       supabase.from("feedback").select("rating"),

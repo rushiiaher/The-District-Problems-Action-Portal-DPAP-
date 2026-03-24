@@ -94,12 +94,12 @@ export default function CitizenDashboard() {
               <h1 className="text-3xl font-black text-gov-navy leading-tight">
                 Welcome, {user.name || "Citizen"}
               </h1>
-              <p className="text-slate-500 mt-1 max-w-md">Your centralized portal for grievance reporting and service requests. Ensuring transparency and accountability.</p>
+              <p className="text-slate-500 mt-1 max-w-md">Your centralized portal for reporting problems/complaints and service requests. Ensuring transparency and accountability.</p>
             </div>
             <Link href="/citizen/submit">
               <button className="btn-navy px-5 py-2.5 text-sm flex items-center gap-2">
                 <span className="material-symbols-outlined text-lg">add_circle</span>
-                POST NEW GRIEVANCE
+                POST NEW PROBLEM/COMPLAINT
               </button>
             </Link>
           </section>
@@ -129,7 +129,7 @@ export default function CitizenDashboard() {
             <div className="flex items-center justify-between border-b border-slate-200 pb-4">
               <h2 className="text-lg font-extrabold text-gov-navy flex items-center gap-2">
                 <span className="material-symbols-outlined">analytics</span>
-                ACTIVE GRIEVANCES
+                ACTIVE PROBLEMS/COMPLAINTS
               </h2>
               <div className="flex items-center gap-2 text-xs font-bold text-slate-500">
                 <span>Sort by:</span>
@@ -145,16 +145,16 @@ export default function CitizenDashboard() {
               {fetching ? (
                 <div className="p-12 text-center text-slate-400">
                   <span className="material-symbols-outlined text-4xl animate-spin block mx-auto mb-3">progress_activity</span>
-                  Loading your grievances...
+                  Loading your problems/complaints...
                 </div>
               ) : complaints.length === 0 ? (
                 <div className="p-16 text-center">
                   <span className="material-symbols-outlined text-5xl text-slate-200 block mb-4">inbox</span>
-                  <p className="font-bold text-slate-500">No grievances filed yet</p>
-                  <p className="text-sm text-slate-400 mt-1">Submit your first grievance using the button above.</p>
+                  <p className="font-bold text-slate-500">No problems/complaints filed yet</p>
+                  <p className="text-sm text-slate-400 mt-1">Submit your first problem/complaint using the button above.</p>
                   <Link href="/citizen/submit">
                     <button className="btn-saffron px-6 py-2.5 text-sm mt-6">
-                      Submit New Grievance
+                      Submit New Problem/Complaint
                     </button>
                   </Link>
                 </div>
@@ -199,7 +199,7 @@ export default function CitizenDashboard() {
               <span className="material-symbols-outlined text-gov-navy">verified_user</span>
               <div>
                 <p className="text-sm font-bold text-gov-navy">Secure Transaction Environment</p>
-                <p className="text-xs text-slate-600">Your grievance is protected by end-to-end encryption. Each submission is tracked by a unique Grievance ID for legal compliance.</p>
+                <p className="text-xs text-slate-600">Your problem/complaint is protected by end-to-end encryption. Each submission is tracked by a unique Complaint ID for legal compliance.</p>
               </div>
             </div>
           </section>

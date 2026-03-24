@@ -14,8 +14,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
         reopen_count, has_attachments, sla_deadline, assignment_note, rejection_reason,
         citizen_id, assigned_dept_id, assigned_officer_id,
         departments:assigned_dept_id (name),
-        officers:assigned_officer_id (name, designation),
-        has_feedback
+        officers:assigned_officer_id (name, designation)
       `)
       .eq("id", id)
       .maybeSingle()

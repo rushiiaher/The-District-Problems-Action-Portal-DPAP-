@@ -107,7 +107,7 @@ export default function RedCrossApplicationPage() {
             </div>
           </div>
           <h2 className="text-2xl font-black text-slate-900 uppercase tracking-tight mb-2">Application Submitted!</h2>
-          <p className="text-slate-500 mb-4 text-sm">Your Red Cross aid application has been received and will be reviewed shortly.</p>
+          <p className="text-slate-500 mb-4 text-sm">Your emergency financial aid application has been received and will be reviewed shortly.</p>
           <div className="bg-slate-100 border border-slate-200 rounded p-3 mb-6">
             <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Application ID</p>
             <p className="font-mono font-black text-gov-navy text-sm mt-0.5">{appId}</p>
@@ -141,7 +141,7 @@ export default function RedCrossApplicationPage() {
               </div>
             </div>
             <p className="text-[10px] font-bold uppercase tracking-widest text-red-200">
-              Citizen Portal · Red Cross Application
+              Citizen Portal · Financial Help in Emergency
             </p>
           </div>
           <Link href="/citizen/red-cross/status" className="text-xs font-bold text-red-200 hover:text-white flex items-center gap-1">
@@ -162,15 +162,15 @@ export default function RedCrossApplicationPage() {
               </div>
               <div>
                 <h1 className="text-2xl font-black text-slate-900 uppercase tracking-tight leading-tight">
-                  Red Cross Aid Application
+                  Financial Help in Emergency
                 </h1>
-                <p className="text-slate-500 text-sm">Indian Red Cross Society — District Anantnag</p>
+                <p className="text-slate-500 text-sm">District Administration Anantnag — Emergency Aid</p>
               </div>
             </div>
             <div className="bg-red-50 border border-red-200 rounded p-3 flex items-start gap-2">
               <span className="material-symbols-outlined text-red-600 text-[18px] flex-shrink-0 mt-0.5">info</span>
               <p className="text-xs text-red-800 leading-relaxed">
-                This form is for applying for financial aid from the Indian Red Cross Society, District Anantnag. Applications are reviewed by the District Administration. Please ensure all information and documents are accurate.
+                This form is for applying for emergency financial assistance from the District Administration, Anantnag. Applications are reviewed and approved by the District Administration. Please ensure all information and documents are accurate.
               </p>
             </div>
           </div>
@@ -243,7 +243,7 @@ export default function RedCrossApplicationPage() {
                 <div className="sm:col-span-2">
                   <Field label="Detailed Description of Need" required>
                     <textarea rows={4} value={form.purpose} onChange={e => set("purpose", e.target.value)}
-                      placeholder="Explain your situation and why you need Red Cross assistance. Be specific — mention the incident, date, impact on family, etc."
+                      placeholder="Explain your situation and why you need emergency financial assistance. Be specific — mention the incident, date, impact on family, etc."
                       className={`${inputCls} resize-none`} />
                   </Field>
                 </div>

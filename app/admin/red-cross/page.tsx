@@ -96,7 +96,7 @@ export default function AdminRedCrossPage() {
                 <div className="w-1.5 h-5 bg-white" /><div className="absolute w-5 h-1.5 bg-white" />
               </div>
             </div>
-            <p className="text-[10px] font-bold uppercase tracking-widest text-red-200">Administration · Red Cross Applications</p>
+            <p className="text-[10px] font-bold uppercase tracking-widest text-red-200">Administration · Financial Help in Emergency</p>
           </div>
           <p className="text-xs text-red-200">{apps.length} total</p>
         </header>
@@ -107,7 +107,7 @@ export default function AdminRedCrossPage() {
               <span className="h-1 w-8 bg-red-600 inline-block" />
               <span className="text-xs font-bold text-red-600 uppercase tracking-[0.2em]">Administration</span>
             </div>
-            <h1 className="text-2xl font-black text-slate-900 uppercase tracking-tight">Red Cross Aid Review</h1>
+            <h1 className="text-2xl font-black text-slate-900 uppercase tracking-tight">Financial Help in Emergency — Review</h1>
             <p className="text-slate-500 text-sm mt-1">Review, approve, or reject citizen financial aid applications</p>
           </div>
 

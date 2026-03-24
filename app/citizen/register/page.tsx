@@ -141,7 +141,7 @@ export default function CitizenRegisterPage() {
             <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center border border-slate-200 flex-shrink-0 overflow-hidden p-1.5"><img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg" alt="Emblem of India" className="w-full h-full object-contain"/></div>
             <div className="border-l border-slate-300 pl-4">
               <h1 className="text-xl font-black tracking-tight text-gov-navy uppercase">E-ARZI ANANTNAG</h1>
-              <p className="text-[11px] font-semibold text-gov-green uppercase tracking-wide">District Grievance Redressal Portal</p>
+              <p className="text-[11px] font-semibold text-gov-green uppercase tracking-wide">District Problem/Complaint Portal</p>
             </div>
           </Link>
           <Link href="/auth/login" className="text-sm font-bold text-slate-600 hover:text-gov-navy flex items-center gap-1">
@@ -188,7 +188,7 @@ export default function CitizenRegisterPage() {
                   <span className="text-[10px] font-bold text-gov-saffron uppercase tracking-[0.2em]">New Account</span>
                 </div>
                 <h2 className="text-xl font-black text-slate-900 uppercase tracking-tight">Citizen Registration</h2>
-                <p className="text-slate-500 text-sm mt-1">Create your profile to submit and track grievances</p>
+                <p className="text-slate-500 text-sm mt-1">Create your profile to submit and track problems/complaints</p>
               </div>
 
               <div className="px-8 py-6 space-y-5">

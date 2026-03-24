@@ -157,7 +157,7 @@ export default function SubmitComplaintPage() {
               Complaint Registered!
             </h2>
             <p className="text-slate-500 text-sm mb-6 leading-relaxed">
-              Your grievance has been successfully submitted to the District Administration.
+              Your problem/complaint has been successfully submitted to the District Administration.
               You will receive an SMS update at each stage of processing.
             </p>
 
@@ -209,7 +209,7 @@ export default function SubmitComplaintPage() {
           <div className="mb-8 border-b border-slate-300 pb-4">
             <div className="flex items-center gap-2 mb-2">
               <span className="h-1 w-8 bg-gov-saffron inline-block" />
-              <span className="text-xs font-bold text-gov-saffron uppercase tracking-[0.2em]">New Grievance</span>
+              <span className="text-xs font-bold text-gov-saffron uppercase tracking-[0.2em]">New Problem/Complaint</span>
             </div>
             <h1 className="text-2xl font-black text-slate-900 uppercase tracking-tight">Submit a Complaint</h1>
             <p className="text-slate-500 text-sm mt-1">
@@ -379,7 +379,7 @@ export default function SubmitComplaintPage() {
               {loading ? (
                 <><span className="material-symbols-outlined animate-spin text-[20px]">progress_activity</span> Submitting...</>
               ) : (
-                <><span className="material-symbols-outlined text-[20px]">send</span> Submit Grievance</>
+                <><span className="material-symbols-outlined text-[20px]">send</span> Submit Problem/Complaint</>
               )}
             </button>
 

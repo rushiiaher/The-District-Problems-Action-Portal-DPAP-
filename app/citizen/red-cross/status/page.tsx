@@ -59,7 +59,7 @@ export default function RedCrossStatusPage() {
       <main className="flex-1 overflow-y-auto">
         {/* Header */}
         <header className="h-14 flex items-center justify-between px-8 bg-red-700 text-white sticky top-0 z-10">
-          <p className="text-[10px] font-bold uppercase tracking-widest text-red-200">Citizen Portal · Red Cross Status</p>
+          <p className="text-[10px] font-bold uppercase tracking-widest text-red-200">Citizen Portal · Financial Help Status</p>
           <Link href="/citizen/red-cross"
             className="flex items-center gap-1.5 bg-white text-red-700 font-black text-xs px-3 py-1.5 rounded hover:bg-red-50 transition-colors">
             <span className="material-symbols-outlined text-[16px]">add</span> New Application
@@ -69,7 +69,7 @@ export default function RedCrossStatusPage() {
         <div className="p-8 max-w-3xl mx-auto space-y-5">
           {/* Title */}
           <div className="border-b border-slate-200 pb-4">
-            <h1 className="text-2xl font-black text-slate-900 uppercase tracking-tight">My Red Cross Applications</h1>
+            <h1 className="text-2xl font-black text-slate-900 uppercase tracking-tight">My Financial Help Applications</h1>
             <p className="text-slate-500 text-sm mt-1">Track the status of your financial aid applications</p>
           </div>
 
@@ -87,7 +87,7 @@ export default function RedCrossStatusPage() {
                 </div>
               </div>
               <p className="font-bold text-slate-400 mb-1">No applications yet</p>
-              <p className="text-sm text-slate-300 mb-4">Submit your first Red Cross aid application</p>
+              <p className="text-sm text-slate-300 mb-4">Submit your first financial help application</p>
               <Link href="/citizen/red-cross"
                 className="inline-flex items-center gap-2 bg-red-600 text-white font-bold px-5 py-2.5 rounded text-sm hover:bg-red-700 transition-colors">
                 <span className="material-symbols-outlined text-[18px]">add</span> Apply Now

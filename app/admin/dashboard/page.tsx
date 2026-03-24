@@ -83,7 +83,7 @@ export default function AdminDashboard() {
               <h1 className="text-2xl md:text-4xl font-black text-slate-900 uppercase tracking-tight leading-tight">
                 Executive Oversight Dashboard
               </h1>
-              <p className="text-slate-500 mt-2 text-sm">Real-time Performance Metrics &amp; Citizen Grievance Analytics</p>
+              <p className="text-slate-500 mt-2 text-sm">Real-time Performance Metrics &amp; Citizen Problem/Complaint Analytics</p>
               <div className="flex items-center gap-3 mt-3">
                 <span className="text-[11px] font-bold px-2 py-1 bg-slate-200 text-slate-700 uppercase tracking-wider rounded">Classified Access</span>
               </div>

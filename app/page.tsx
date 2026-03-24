@@ -58,9 +58,14 @@ export default function LandingPage() {
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center space-x-6">
-              {["Home", "Grievance Mechanism", "Red Cross Society", "Helplines"].map(item => (
-                <a key={item} href={item === "Helplines" ? "/helpline" : `#${item.split(' ')[0].toLowerCase()}`} className="text-sm font-bold text-slate-700 hover:text-gov-navy transition-colors border-b-2 border-transparent hover:border-gov-navy py-1 uppercase tracking-wider">
-                  {item}
+              {[
+                { label: "Home", href: "#home" },
+                { label: "Problem/Complaint", href: "#grievance" },
+                { label: "Financial Help", href: "#red" },
+                { label: "Helplines", href: "/helpline" },
+              ].map(item => (
+                <a key={item.label} href={item.href} className="text-sm font-bold text-slate-700 hover:text-gov-navy transition-colors border-b-2 border-transparent hover:border-gov-navy py-1 uppercase tracking-wider">
+                  {item.label}
                 </a>
               ))}
             </nav>
@@ -124,9 +129,14 @@ export default function LandingPage() {
         {/* Mobile Menu */}
         {mobileMenuOpen && (
           <div ref={mobileMenuRef} className="lg:hidden absolute top-full left-0 right-0 bg-white border-b border-slate-300 shadow-xl flex flex-col p-4 space-y-1 z-50">
-            {["Home", "Grievance Mechanism", "Red Cross Society", "Helplines"].map(item => (
-              <a key={item} href={item === "Helplines" ? "/helpline" : `#${item.split(' ')[0].toLowerCase()}`} className="text-sm font-bold text-slate-700 p-3 hover:bg-slate-50 uppercase tracking-wide border-b border-slate-100 block" onClick={() => setMobileMenuOpen(false)}>
-                {item}
+            {[
+              { label: "Home", href: "#home" },
+              { label: "Problem/Complaint", href: "#grievance" },
+              { label: "Financial Help", href: "#red" },
+              { label: "Helplines", href: "/helpline" },
+            ].map(item => (
+              <a key={item.label} href={item.href} className="text-sm font-bold text-slate-700 p-3 hover:bg-slate-50 uppercase tracking-wide border-b border-slate-100 block" onClick={() => setMobileMenuOpen(false)}>
+                {item.label}
               </a>
             ))}
             <div className="grid grid-cols-2 gap-3 pt-4">
@@ -181,7 +191,7 @@ export default function LandingPage() {
                 <span className="text-yellow-300">Accelerating Relief.</span>
               </h2>
               <p className="text-lg md:text-xl text-slate-300 leading-relaxed font-medium">
-                The unified portal for registering grievances with local departments and applying for emergency financial aid from the District Red Cross Society.
+                The unified portal for registering problems/complaints with local departments and applying for emergency financial assistance from the District Administration.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
@@ -207,19 +217,19 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* ─── GRIEVANCE MECHANISM SECTION ─── */}
+        {/* ─── PROBLEM/COMPLAINT SECTION ─── */}
         <section id="grievance" className="py-16 md:py-24 bg-white border-b border-slate-200">
           <div className="max-w-7xl mx-auto px-4 md:px-8">
             <div className="mb-12 border-b-2 border-slate-100 pb-4">
-              <h2 className="text-2xl md:text-3xl font-black text-gov-navy uppercase tracking-tight">Public Grievance Redressal</h2>
-              <p className="text-slate-600 mt-2 font-medium">Lodge an administrative complaint securely and track its escalation to the concerned departments.</p>
+              <h2 className="text-2xl md:text-3xl font-black text-gov-navy uppercase tracking-tight">Public Problem/Complaint Redressal</h2>
+              <p className="text-slate-600 mt-2 font-medium">Lodge a problem or complaint with the administration securely and track its escalation to the concerned departments.</p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-6">
               {[
                 { step: "Step 1", title: "Citizen Registration", desc: "Create your citizen profile online using your mobile number and an OTP. Aadhaar details are required for identification.", icon: "group_add" },
-                { step: "Step 2", title: "Lodge Complaint", desc: "Select the respective department, provide a detailed description of the issue, and attach photographic evidence or documents.", icon: "app_registration" },
-                { step: "Step 3", title: "Track & Resolve", desc: "A unique Grievance ID will be generated. Track the resolution process online. Cases exceeding SLAs are automatically escalated.", icon: "troubleshoot" },
+                { step: "Step 2", title: "Lodge Problem/Complaint", desc: "Select the respective department, provide a detailed description of the issue, and attach photographic evidence or documents.", icon: "app_registration" },
+                { step: "Step 3", title: "Track & Resolve", desc: "A unique Complaint ID will be generated. Track the resolution process online. Cases exceeding SLAs are automatically escalated.", icon: "troubleshoot" },
               ].map((s, i) => (
                 <div key={i} className="border border-slate-200 bg-slate-50 p-6 md:p-8 hover:border-gov-navy hover:bg-white transition-colors duration-200 group">
                   <div className="flex items-center gap-4 mb-4">
@@ -236,13 +246,13 @@ export default function LandingPage() {
 
             <div className="mt-8">
               <Link href="/auth/login?tab=citizen" className="inline-flex items-center gap-2 bg-gov-navy hover:bg-[#061426] text-white font-bold px-6 py-3 border border-[#061426] text-sm uppercase tracking-wide">
-                Proceed to Grievance Portal <span className="material-symbols-outlined text-[16px]">chevron_right</span>
+                Proceed to Problem/Complaint Portal <span className="material-symbols-outlined text-[16px]">chevron_right</span>
               </Link>
             </div>
           </div>
         </section>
 
-        {/* ─── RED CROSS SOCIETY SECTION ─── */}
+        {/* ─── FINANCIAL HELP IN EMERGENCY SECTION ─── */}
         <section id="red" className="py-16 md:py-24 bg-slate-50 border-b border-slate-200">
           <div className="max-w-7xl mx-auto px-4 md:px-8">
             <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
@@ -255,13 +265,13 @@ export default function LandingPage() {
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[60%] w-[20%] bg-white rounded-sm" />
                   </div>
                   <div>
-                    <h2 className="text-2xl md:text-3xl font-black text-slate-900 uppercase tracking-tight">District Red Cross Aid</h2>
+                    <h2 className="text-2xl md:text-3xl font-black text-slate-900 uppercase tracking-tight">Financial Help in Emergency</h2>
                     <p className="text-slate-600 text-sm font-bold uppercase tracking-widest mt-1 text-red-700">Financial Assistance for Distressed Citizens</p>
                   </div>
                 </div>
 
                 <p className="text-slate-700 text-base leading-relaxed mb-6">
-                  The District Red Cross Society provides direct emergency financial assistance to citizens facing catastrophic events. Aid is formally sanctioned for medical emergencies, natural disasters, fire incidents, and severe accidents.
+                  The District Administration provides direct emergency financial assistance to citizens facing catastrophic events. Aid is formally sanctioned for medical emergencies, natural disasters, fire incidents, and severe accidents.
                 </p>
                 
                 <div className="bg-white border border-slate-200 p-6 mb-8">
@@ -348,7 +358,7 @@ export default function LandingPage() {
                 <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg" alt="Emblem of India" className="w-full h-full object-contain" />
               </div>
               <p className="text-sm leading-relaxed mb-4 text-slate-400">
-                Official digital portal for public grievance redressal and public assistance. Designed for transparent and responsive administration in Anantnag District.
+                Official digital portal for public problem/complaint redressal and emergency financial assistance. Designed for transparent and responsive administration in Anantnag District.
               </p>
             </div>
 

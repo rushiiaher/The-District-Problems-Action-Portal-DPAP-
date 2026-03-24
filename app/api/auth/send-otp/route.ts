@@ -14,10 +14,10 @@ export async function POST(request: NextRequest) {
 
     if (!result.success) {
       // Dev fallback — store OTP 123456 directly
-      const otp = "123456"
+      const otp = "1234"
       const expiresAt = new Date(Date.now() + 5 * 60 * 1000).toISOString()
       await supabase.from("otps").upsert({ mobile, otp, expires_at: expiresAt, created_at: new Date().toISOString() })
-      return NextResponse.json({ success: true, dev: true, message: "Dev OTP: 123456" })
+      return NextResponse.json({ success: true, dev: true, message: "Dev OTP: 1234" })
     }
 
     return NextResponse.json({ success: true })

@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, Suspense } from "react"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useSearchParams } from "next/navigation"
 
 export const dynamic = "force-dynamic"
 import Link from "next/link"
@@ -33,7 +33,6 @@ export default function TrackPage() {
 
 function TrackForm() {
   const searchParams = useSearchParams()
-  const router = useRouter()
   const [complaintId, setComplaintId] = useState(searchParams.get("id") || "")
   const [complaint, setComplaint] = useState<any>(null)
   const [timeline, setTimeline] = useState<any[]>([])
@@ -61,33 +60,25 @@ function TrackForm() {
 
   return (
     <div className="flex flex-col min-h-screen bg-[#f4f7f9] font-inter">
-      {/* Tricolor */}
-      <div className="gov-banner" />
-
-      {/* Gov strip */}
-      <div className="bg-slate-100 border-b border-slate-200 text-[11px] py-1.5">
-        <div className="max-w-7xl mx-auto px-4 flex justify-between items-center">
-          <span className="text-slate-600 font-medium">GOVERNMENT OF JAMMU &amp; KASHMIR</span>
-        </div>
-      </div>
-
       {/* Header */}
-      <header className="bg-white shadow-sm tricolor-border sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-20">
+      <header className="bg-white border-b border-black shadow-sm sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between h-[88px]">
           <Link href="/" className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center border border-slate-200 flex-shrink-0 overflow-hidden p-1.5"><img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg" alt="Emblem of India" className="w-full h-full object-contain"/></div>
-            <div className="border-l border-slate-300 pl-4">
-              <h1 className="text-xl font-black tracking-tight text-gov-navy uppercase">E-ARZI ANANTNAG</h1>
-              <p className="text-[11px] font-semibold text-gov-green uppercase tracking-wide">District Grievance Redressal Portal</p>
+            <div className="w-12 h-12 md:w-16 md:h-16 flex items-center justify-center flex-shrink-0">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg" alt="Emblem of India" className="w-full h-full object-contain mix-blend-multiply" />
+            </div>
+            <div>
+              <h1 className="text-xl md:text-2xl font-black text-black leading-tight uppercase tracking-tight">E-ARZI ANANTNAG</h1>
+              <p className="text-[10px] md:text-[11px] font-bold text-black uppercase tracking-widest mt-0.5">District Public Service Portal</p>
             </div>
           </Link>
-          <div className="flex items-center gap-4">
-            <Link href="/" className="text-sm font-bold text-slate-600 hover:text-gov-navy flex items-center gap-1">
+          <div className="flex items-center gap-3">
+            <Link href="/" className="hidden md:flex items-center gap-1 text-sm font-bold text-slate-600 hover:text-gov-navy">
               <span className="material-symbols-outlined text-base">arrow_back</span> Back to Home
             </Link>
             <Link href="/auth/login">
-              <button className="btn-gov-green px-4 py-2 text-sm flex items-center gap-2">
-                <span className="material-symbols-outlined text-base">add_task</span> Submit Grievance
+              <button className="btn-navy px-4 py-2 text-sm flex items-center gap-2">
+                <span className="material-symbols-outlined text-base">add_task</span> Submit Problem/Complaint
               </button>
             </Link>
           </div>
@@ -223,7 +214,7 @@ function TrackForm() {
             <div className="mt-4 bg-gov-navy/5 border border-gov-navy/10 p-4 rounded flex items-start gap-3">
               <span className="material-symbols-outlined text-gov-navy text-[18px] mt-0.5">verified_user</span>
               <p className="text-xs text-slate-600">
-                This information is real-time data from the E-ARZI Grievance System. For queries, contact the District Informatics Center at <span className="font-bold">01932-222333</span>.
+                This information is real-time data from the E-ARZI Problem/Complaint System. For queries, contact the District Informatics Center at <span className="font-bold">01932-222333</span>.
               </p>
             </div>
           </div>

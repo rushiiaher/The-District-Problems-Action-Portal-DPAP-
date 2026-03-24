@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useSearchParams } from "next/navigation"
 import { useAuth } from "@/components/providers/auth-provider"
 import { useSidebar } from "@/components/sidebar-context"
 
@@ -21,10 +21,10 @@ export function SidebarToggle() {
 const NAV = {
   citizen: [
     { label: "Dashboard",           href: "/citizen/dashboard",        icon: "dashboard" },
-    { label: "Submit Grievance",    href: "/citizen/submit",           icon: "add_task" },
+    { label: "Submit Problem/Complaint", href: "/citizen/submit",       icon: "add_task" },
     { label: "Track Status",        href: "/complaint/track",          icon: "find_in_page" },
     { label: "My Profile",          href: "/citizen/profile",          icon: "manage_accounts" },
-    { label: "Red Cross Application", href: "/citizen/red-cross",      icon: "volunteer_activism", accent: "text-red-600" },
+    { label: "Financial Help in Emergency", href: "/citizen/red-cross", icon: "volunteer_activism", accent: "text-red-600" },
     { label: "Aid Status",          href: "/citizen/red-cross/status", icon: "track_changes", accent: "text-red-600" },
     { label: "Helpdesk",            href: "/helpline",                         icon: "support_agent" },
   ],
@@ -61,8 +61,8 @@ const NAV = {
       { label: "Citizens",          href: "/admin/citizens",       icon: "group" },
       { label: "System Settings",   href: "/admin/settings",       icon: "admin_panel_settings" },
     ]},
-    { group: "Red Cross", items: [
-      { label: "Aid Applications",  href: "/admin/red-cross",      icon: "volunteer_activism", accent: "text-red-600" },
+    { group: "Financial Help", items: [
+      { label: "Emergency Aid Applications", href: "/admin/red-cross", icon: "volunteer_activism", accent: "text-red-600" },
     ]},
     { group: "Bank", items: [
       { label: "Bank Managers",     href: "/admin/bank-managers",  icon: "account_balance",    accent: "text-gov-saffron" },
@@ -76,11 +76,23 @@ const NAV = {
 export function AppSidebar() {
   const { user, logout } = useAuth()
   const pathname = usePathname()
+  const searchParams = useSearchParams()
   const { open: mobileOpen, setOpen: setMobileOpen } = useSidebar()
 
   if (!user) return null
   const role = user.role as keyof typeof NAV
   const navConfig = NAV[role] || []
+
+  const isActive = (href: string) => {
+    if (href === "#") return false
+    const [hrefPath, hrefQS] = href.split("?")
+    if (hrefQS) {
+      const expectedTab = new URLSearchParams(hrefQS).get("tab")
+      return pathname === hrefPath && searchParams.get("tab") === expectedTab
+    }
+    if (pathname === hrefPath) return !searchParams.get("tab")
+    return !!pathname?.startsWith(hrefPath + "/")
+  }
 
   const renderItems = (items: any[]) =>
     items.map(item => (
@@ -88,7 +100,7 @@ export function AppSidebar() {
         key={item.href}
         href={item.href}
         onClick={() => setMobileOpen(false)}
-        className={`gov-sidebar-item ${pathname === item.href || (pathname?.startsWith(item.href.split("?")[0]) && item.href !== "#") ? "active" : ""}`}
+        className={`gov-sidebar-item ${isActive(item.href) ? "active" : ""}`}
       >
         <span className={`material-symbols-outlined text-[20px] ${item.accent || ""}`}>{item.icon}</span>
         <span className="flex-1">{item.label}</span>

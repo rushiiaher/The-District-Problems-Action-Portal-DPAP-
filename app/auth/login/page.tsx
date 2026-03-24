@@ -68,7 +68,7 @@ function LoginForm() {
       const data = await res.json()
       if (data.success) {
         setOtpSent(true)
-        setInfo(data.dev ? "Dev mode: use OTP 123456" : "OTP sent to your mobile number")
+        setInfo(data.dev ? "Dev mode: use OTP 1234" : "OTP sent to your mobile number")
       } else {
         setError(data.error || "Failed to send OTP")
       }
@@ -138,8 +138,8 @@ function LoginForm() {
             <nav className="hidden lg:flex items-center space-x-6">
               {[
                 { label: "Home", href: "/" },
-                { label: "Grievance Mechanism", href: "/#grievance" },
-                { label: "Red Cross Society", href: "/#red" },
+                { label: "Problem/Complaint", href: "/#grievance" },
+                { label: "Financial Help", href: "/#red" },
                 { label: "Helplines", href: "/helpline" },
               ].map(item => (
                 <Link key={item.label} href={item.href} className="text-sm font-bold text-slate-700 hover:text-gov-navy transition-colors border-b-2 border-transparent hover:border-gov-navy py-1 uppercase tracking-wider">
@@ -198,7 +198,7 @@ function LoginForm() {
               <span className="material-symbols-outlined text-white text-3xl">account_balance</span>
             </div>
             <h2 className="text-2xl font-black text-gov-navy">Sign in to E-Arzi</h2>
-            <p className="text-sm text-slate-500 mt-1">Anantnag District Grievance Portal</p>
+            <p className="text-sm text-slate-500 mt-1">Anantnag District Problem/Complaint Portal</p>
           </div>
 
           {/* Tab switcher */}
@@ -261,8 +261,8 @@ function LoginForm() {
                     <div>
                       <label className="text-xs font-bold text-slate-500 uppercase block mb-1.5">Enter OTP</label>
                       <input
-                        type="text" maxLength={6}
-                        placeholder="6-digit OTP"
+                        type="text" maxLength={4}
+                        placeholder="4-digit OTP"
                         value={otp} onChange={e => setOtp(e.target.value)}
                         className="w-full border border-slate-300 px-3 py-2.5 text-sm rounded focus:outline-none focus:border-gov-saffron text-center tracking-widest font-bold text-lg"
                       />

@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
 import { useAuth } from "@/components/providers/auth-provider"
-import { AppSidebar } from "@/components/app-sidebar"
+import { AppSidebar, SidebarToggle } from "@/components/app-sidebar"
+import { SidebarProvider } from "@/components/sidebar-context"
 import Link from "next/link"
 
 type Complaint = {
@@ -140,17 +141,19 @@ export default function AssignComplaintPage() {
   const isAlreadyAssigned = complaint?.status === "ASSIGNED" || complaint?.status === "IN_PROGRESS"
 
   return (
+    <SidebarProvider>
     <div className="flex h-screen overflow-hidden bg-[#f4f7f9] font-inter">
       <AppSidebar />
 
       <main className="flex-1 overflow-y-auto">
         {/* Header */}
-        <header className="h-14 flex items-center justify-between px-8 bg-gov-navy text-white sticky top-0 z-10">
-          <div className="flex items-center gap-3">
+        <header className="h-14 flex items-center justify-between px-4 md:px-8 bg-gov-navy text-white sticky top-0 z-10">
+          <div className="flex items-center gap-2">
+            <SidebarToggle />
             <Link href="/subadmin/queue" className="text-slate-400 hover:text-white transition-colors">
               <span className="material-symbols-outlined text-[20px]">arrow_back</span>
             </Link>
-            <p className="text-[10px] font-bold uppercase tracking-widest text-slate-300">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-slate-300 hidden sm:block">
               Sub Admin · Assign Complaint
             </p>
           </div>
@@ -526,5 +529,6 @@ export default function AssignComplaintPage() {
         </div>
       )}
     </div>
+    </SidebarProvider>
   )
 }
