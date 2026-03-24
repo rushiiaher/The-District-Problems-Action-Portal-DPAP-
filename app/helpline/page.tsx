@@ -13,7 +13,6 @@ const emergencyServices = [
   { service: "CA&PD", number: "1967" },
   { service: "PDD Bills", number: "1912" },
   { service: "Amarnath Ji Shrine Board", number: "14464" },
-  { service: "Covid Control Room", number: "Consult Local Administration" },
 ]
 
 const utilityServices = [
@@ -171,18 +170,6 @@ export default function HelplinePage() {
           <p className="text-slate-600 font-medium max-w-2xl mx-auto">
             Official emergency and public utility contact numbers for the citizens of District Anantnag. These lines are monitored by the respective departments.
           </p>
-        </div>
-
-        {/* Covid Banner */}
-        <div className="bg-red-50 border-l-4 border-red-600 p-6 mb-12 shadow-sm">
-          <div className="flex items-start gap-4">
-            <span className="material-symbols-outlined text-red-600 text-3xl">coronavirus</span>
-            <div>
-              <h3 className="text-red-900 font-bold uppercase tracking-wider text-sm mb-1">Covid-19 Support</h3>
-              <p className="text-red-800 text-lg font-black tracking-tight">Covid-19 Control Room Numbers</p>
-              <p className="text-red-700 text-sm mt-1">Please contact the Covid Control Room for any pandemic related emergencies.</p>
-            </div>
-          </div>
         </div>
 
         {/* Emergency Services Table */}
