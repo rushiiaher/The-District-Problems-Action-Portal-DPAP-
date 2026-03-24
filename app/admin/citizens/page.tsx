@@ -5,6 +5,7 @@ import { useAuth } from "@/components/providers/auth-provider"
 import { useRouter } from "next/navigation"
 import { AppSidebar } from "@/components/app-sidebar"
 import { DISTRICTS, getBlocks } from "@/lib/location-data"
+import Link from "next/link"
 
 type Citizen = {
   id: string
@@ -454,7 +455,7 @@ export default function AdminCitizensPage() {
                         {citizenArzis.map(a => {
                           const sm = ARZI_STATUS[a.status] || ARZI_STATUS["SUBMITTED"]
                           return (
-                            <div key={a.id} className="px-6 py-4">
+                            <div key={a.id} className="px-6 py-4 hover:bg-slate-50 transition-colors">
                               <div className="flex items-start justify-between gap-3 mb-2">
                                 <div>
                                   <p className="font-mono text-[11px] font-bold text-gov-navy">{a.id}</p>
@@ -466,6 +467,11 @@ export default function AdminCitizensPage() {
                                   <span className="text-[10px] text-slate-400">
                                     {new Date(a.created_at).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" })}
                                   </span>
+                                  <Link href={`/admin/arzi/${a.id}`} target="_blank"
+                                    className="flex items-center gap-1 text-[10px] font-bold text-gov-navy hover:text-gov-saffron transition-colors">
+                                    <span className="material-symbols-outlined text-[13px]">open_in_new</span>
+                                    View Full Details
+                                  </Link>
                                 </div>
                               </div>
                               {a.description && (
@@ -490,7 +496,7 @@ export default function AdminCitizensPage() {
                         {citizenRC.map(r => {
                           const sm = RC_STATUS[r.status] || RC_STATUS["PENDING"]
                           return (
-                            <div key={r.id} className="px-6 py-4">
+                            <div key={r.id} className="px-6 py-4 hover:bg-slate-50 transition-colors">
                               <div className="flex items-start justify-between gap-3 mb-2">
                                 <div>
                                   <p className="font-mono text-[11px] font-bold text-red-700">{r.id}</p>
@@ -509,6 +515,11 @@ export default function AdminCitizensPage() {
                                   <span className="text-[10px] text-slate-400">
                                     {new Date(r.created_at).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" })}
                                   </span>
+                                  <Link href={`/admin/red-cross/${r.id}`} target="_blank"
+                                    className="flex items-center gap-1 text-[10px] font-bold text-red-700 hover:text-red-900 transition-colors">
+                                    <span className="material-symbols-outlined text-[13px]">open_in_new</span>
+                                    View Full Details
+                                  </Link>
                                 </div>
                               </div>
                               {r.purpose && (
