@@ -199,7 +199,7 @@ export default function RedCrossApplicationPage() {
                 <Field label="Gender" required>
                   <select value={form.gender} onChange={e => set("gender", e.target.value)} className={inputCls}>
                     <option value="">— Select —</option>
-                    <option>Male</option><option>Female</option><option>Transgender</option>
+                    <option>Male</option><option>Female</option><option>Other</option>
                   </select>
                 </Field>
                 <Field label="Aadhaar Number">

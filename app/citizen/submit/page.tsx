@@ -20,6 +20,9 @@ const CATEGORIES = [
   "Public Works",
   "Environment",
   "Law & Order (Non-Emergency)",
+  "Grievance",
+  "Cancer Disease",
+  "Other than Cancer",
   "Other",
 ]
 

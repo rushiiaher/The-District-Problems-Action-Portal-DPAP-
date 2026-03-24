@@ -139,7 +139,7 @@ function LoginForm() {
               {[
                 { label: "Home", href: "/" },
                 { label: "Arzi", href: "/#grievance" },
-                { label: "Financial Help", href: "/#red" },
+                { label: "Red Cross", href: "/#red" },
                 { label: "Helplines", href: "/helpline" },
               ].map(item => (
                 <Link key={item.label} href={item.href} className="text-sm font-bold text-slate-700 hover:text-gov-navy transition-colors border-b-2 border-transparent hover:border-gov-navy py-1 uppercase tracking-wider">

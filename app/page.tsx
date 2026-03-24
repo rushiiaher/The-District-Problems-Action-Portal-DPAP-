@@ -61,7 +61,7 @@ export default function LandingPage() {
               {[
                 { label: "Home", href: "#home" },
                 { label: "Arzi", href: "#grievance" },
-                { label: "Financial Help", href: "#red" },
+                { label: "Red Cross", href: "#red" },
                 { label: "Helplines", href: "/helpline" },
               ].map(item => (
                 <a key={item.label} href={item.href} className="text-sm font-bold text-slate-700 hover:text-gov-navy transition-colors border-b-2 border-transparent hover:border-gov-navy py-1 uppercase tracking-wider">
@@ -132,7 +132,7 @@ export default function LandingPage() {
             {[
               { label: "Home", href: "#home" },
               { label: "Arzi", href: "#grievance" },
-              { label: "Financial Help", href: "#red" },
+              { label: "Red Cross", href: "#red" },
               { label: "Helplines", href: "/helpline" },
             ].map(item => (
               <a key={item.label} href={item.href} className="text-sm font-bold text-slate-700 p-3 hover:bg-slate-50 uppercase tracking-wide border-b border-slate-100 block" onClick={() => setMobileMenuOpen(false)}>

@@ -39,7 +39,7 @@ const CATEGORIES = [
   "Water Supply & Sanitation", "Road Repair & Maintenance", "Electricity / Power Supply",
   "Drainage & Sewage", "Public Health", "Education", "Agriculture",
   "Revenue & Land Records", "Social Welfare", "Public Works", "Environment",
-  "Law & Order (Non-Emergency)", "Other",
+  "Law & Order (Non-Emergency)", "Grievance", "Cancer Disease", "Other than Cancer", "Other",
 ]
 
 export default function SubAdminQueuePage() {
