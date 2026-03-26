@@ -10,7 +10,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
     const { data: complaint, error } = await supabase
       .from("complaints")
       .select(
-        "id, category, status, priority, created_at, block, village, district, description, " +
+        "id, category, status, priority, created_at, block, village, description, " +
         "reopen_count, has_attachments, sla_deadline, assignment_note, rejection_reason, " +
         "citizen_id, assigned_dept_id, assigned_officer_id"
       )
