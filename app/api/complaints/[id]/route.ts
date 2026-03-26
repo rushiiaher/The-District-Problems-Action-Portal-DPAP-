@@ -9,12 +9,11 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
 
     const { data: complaint, error } = await supabase
       .from("complaints")
-      .select(`
-        id, category, status, priority, created_at, block, village, district, description,
-        reopen_count, has_attachments, sla_deadline, assignment_note, rejection_reason,
-        citizen_id, assigned_dept_id, assigned_officer_id,
-        departments:assigned_dept_id (name)
-      `)
+      .select(
+        "id, category, status, priority, created_at, block, village, district, description, " +
+        "reopen_count, has_attachments, sla_deadline, assignment_note, rejection_reason, " +
+        "citizen_id, assigned_dept_id, assigned_officer_id"
+      )
       .eq("id", id)
       .maybeSingle()
 
@@ -25,7 +24,18 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
       return NextResponse.json({ success: false, error: "Complaint not found" }, { status: 404 })
     }
 
-    // Fetch officer details separately to avoid PostgREST join ambiguity
+    // Fetch department name separately
+    let assignedDeptName: string | null = null
+    if ((complaint as any).assigned_dept_id) {
+      const { data: dept } = await supabase
+        .from("departments")
+        .select("name")
+        .eq("id", (complaint as any).assigned_dept_id)
+        .maybeSingle()
+      assignedDeptName = dept?.name || null
+    }
+
+    // Fetch officer details separately
     let assignedOfficerName: string | null = null
     let assignedOfficerDesignation: string | null = null
     if ((complaint as any).assigned_officer_id) {
@@ -38,12 +48,11 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
       assignedOfficerDesignation = officer?.designation || null
     }
 
-    const sanitized = {
-      ...complaint,
-      assigned_dept_name:           (complaint as any).departments?.name,
+    const sanitized: any = {
+      ...(complaint as any),
+      assigned_dept_name:           assignedDeptName,
       assigned_officer_name:        assignedOfficerName,
       assigned_officer_designation: assignedOfficerDesignation,
-      departments: undefined,
       ...(isPublic ? { citizen_id: undefined } : {}),
     }
 
