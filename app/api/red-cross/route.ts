@@ -16,7 +16,8 @@ export async function GET(request: NextRequest) {
       .select(`
         id, full_name, purpose, purpose_category, amount_requested, approved_amount,
         status, admin_remarks, payment_ref, created_at, reviewed_at, paid_at,
-        district, block, village, mobile, documents,
+        district, block, village, mobile, documents, health_documents,
+        bank_account_no, bank_name, ifsc_code, bank_branch,
         citizen_id
       `)
       .order("created_at", { ascending: false })
@@ -63,33 +64,49 @@ export async function POST(request: NextRequest) {
     const purpose          = formData.get("purpose") as string
     const purpose_category = formData.get("purpose_category") as string
     const amount_requested = formData.get("amount_requested") as string
+    const bank_account_no  = formData.get("bank_account_no") as string
+    const bank_name        = formData.get("bank_name") as string
+    const ifsc_code        = formData.get("ifsc_code") as string
+    const bank_branch      = formData.get("bank_branch") as string
 
     if (!full_name?.trim()) return NextResponse.json({ success: false, error: "Full name is required" }, { status: 400 })
     if (!mobile?.trim())    return NextResponse.json({ success: false, error: "Mobile is required" }, { status: 400 })
     if (!address?.trim())   return NextResponse.json({ success: false, error: "Address is required" }, { status: 400 })
     if (!purpose?.trim())   return NextResponse.json({ success: false, error: "Purpose of aid is required" }, { status: 400 })
 
-    // Upload documents to Supabase Storage
-    const files = formData.getAll("documents") as File[]
-    const docUrls: string[] = []
-
-    for (const file of files.slice(0, 5)) {
-      if (file.size > 5 * 1024 * 1024) continue
+    // Upload helper
+    const uploadFile = async (file: File, folder: string): Promise<string | null> => {
+      if (!file?.size) return null
       const allowed = ["image/jpeg", "image/png", "application/pdf"]
-      if (!allowed.includes(file.type)) continue
-
+      if (!allowed.includes(file.type)) return null
+      if (file.size > 5 * 1024 * 1024) return null
       const ext  = file.name.split(".").pop()
-      const path = `${citizenId}/${Date.now()}-${crypto.randomUUID().slice(0,8)}.${ext}`
+      const path = `${citizenId}/${folder}/${Date.now()}-${crypto.randomUUID().slice(0,8)}.${ext}`
       const ab   = await file.arrayBuffer()
-
       const { data: up, error: upErr } = await supabase.storage
         .from("red-cross-docs")
         .upload(path, ab, { contentType: file.type, upsert: false })
-
       if (!upErr && up) {
         const { data: { publicUrl } } = supabase.storage.from("red-cross-docs").getPublicUrl(path)
-        docUrls.push(publicUrl)
+        return publicUrl
       }
+      return null
+    }
+
+    // Upload supporting documents
+    const files = formData.getAll("documents") as File[]
+    const docUrls: string[] = []
+    for (const file of files.slice(0, 5)) {
+      const url = await uploadFile(file, "docs")
+      if (url) docUrls.push(url)
+    }
+
+    // Upload health/medical documents
+    const healthFiles = formData.getAll("health_documents") as File[]
+    const healthDocUrls: string[] = []
+    for (const file of healthFiles.slice(0, 5)) {
+      const url = await uploadFile(file, "health")
+      if (url) healthDocUrls.push(url)
     }
 
     const { data, error } = await supabase
@@ -110,6 +127,11 @@ export async function POST(request: NextRequest) {
         purpose_category: purpose_category || null,
         amount_requested: amount_requested ? parseFloat(amount_requested) : null,
         documents:        docUrls.length > 0 ? docUrls : null,
+        health_documents: healthDocUrls.length > 0 ? healthDocUrls : null,
+        bank_account_no:  bank_account_no?.trim() || null,
+        bank_name:        bank_name?.trim() || null,
+        ifsc_code:        ifsc_code?.trim() || null,
+        bank_branch:      bank_branch?.trim() || null,
         status:           "PENDING",
         created_at:       new Date().toISOString(),
       })

@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
 import { useAuth } from "@/components/providers/auth-provider"
 import { AppSidebar, SidebarToggle } from "@/components/app-sidebar"
@@ -27,8 +27,10 @@ export default function AdminComplaintDetailPage() {
   const [timeline,     setTimeline]     = useState<any[]>([])
   const [attachments,  setAttachments]  = useState<any[]>([])
   const [citizen,      setCitizen]      = useState<any>(null)
+  const [messages,     setMessages]     = useState<any[]>([])
   const [loading,      setLoading]      = useState(true)
   const [error,        setError]        = useState("")
+  const [previewUrl,   setPreviewUrl]   = useState<string | null>(null)
 
   useEffect(() => {
     if (!isLoading && (!user || !["superadmin", "subadmin"].includes(user.role)))
@@ -39,10 +41,12 @@ export default function AdminComplaintDetailPage() {
     if (!id || !user) return
     const load = async () => {
       try {
-        const res = await fetch(`/api/complaints/${id}`, {
-          headers: { "x-user-id": user.id, "x-user-role": user.role },
-        })
-        const data = await res.json()
+        const [cRes, mRes] = await Promise.all([
+          fetch(`/api/complaints/${id}`, { headers: { "x-user-id": user.id, "x-user-role": user.role } }),
+          fetch(`/api/complaints/${id}/messages`, { headers: { "x-user-id": user.id, "x-user-role": user.role } }),
+        ])
+        const data  = await cRes.json()
+        const mData = await mRes.json()
         if (data.success) {
           setComplaint(data.complaint)
           setTimeline(data.timeline || [])
@@ -51,6 +55,7 @@ export default function AdminComplaintDetailPage() {
         } else {
           setError("Arzi not found")
         }
+        if (mData.messages) setMessages(mData.messages)
       } catch { setError("Failed to load arzi") }
       finally { setLoading(false) }
     }
@@ -208,6 +213,64 @@ export default function AdminComplaintDetailPage() {
                 </div>
               )}
 
+              {/* Messaging Thread (read-only) */}
+              {messages.length > 0 && (
+                <div className="bg-white border border-slate-200 rounded shadow-sm overflow-hidden">
+                  <div className="px-6 py-4 bg-slate-50 border-b border-slate-200 flex items-center gap-3">
+                    <span className="material-symbols-outlined text-gov-navy text-[18px]">forum</span>
+                    <h2 className="font-bold text-slate-800 text-sm uppercase tracking-wide">Officer–Citizen Communication</h2>
+                    <span className="ml-auto text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                      {messages.length} message{messages.length !== 1 ? "s" : ""}
+                    </span>
+                  </div>
+                  <div className="p-4 space-y-3 max-h-96 overflow-y-auto">
+                    {messages.map(msg => {
+                      const isOfficer = msg.sender_role === "officer"
+                      return (
+                        <div key={msg.id} className={`flex flex-col ${isOfficer ? "items-end" : "items-start"}`}>
+                          {msg.is_request && (
+                            <div className="flex items-center gap-1 mb-1 px-2 py-0.5 bg-amber-100 border border-amber-200 rounded-full">
+                              <span className="material-symbols-outlined text-amber-600 text-[12px]">upload_file</span>
+                              <span className="text-[10px] font-bold text-amber-700 uppercase tracking-widest">Document Request</span>
+                            </div>
+                          )}
+                          <div className={`max-w-[80%] rounded-xl px-4 py-2.5 shadow-sm ${
+                            isOfficer ? "bg-gov-navy text-white rounded-tr-none" : "bg-slate-100 text-slate-800 rounded-tl-none"
+                          }`}>
+                            <p className={`text-[10px] font-bold uppercase tracking-widest mb-1 ${isOfficer ? "text-slate-300" : "text-slate-500"}`}>
+                              {msg.sender_name} · {msg.sender_role}
+                            </p>
+                            <p className="text-sm leading-relaxed">{msg.message}</p>
+                            {msg.document_urls && msg.document_urls.length > 0 && (
+                              <div className="flex flex-wrap gap-1.5 mt-2">
+                                {msg.document_urls.map((url: string, i: number) => {
+                                  const isImg = /\.(jpg|jpeg|png|webp)$/i.test(url)
+                                  return (
+                                    <button key={i} onClick={() => setPreviewUrl(url)}
+                                      className={`flex items-center gap-1 text-[10px] font-bold px-2 py-1 rounded border transition-all ${
+                                        isOfficer ? "border-white/20 bg-white/10 text-white hover:bg-white/20" : "border-slate-200 bg-white text-slate-600 hover:border-gov-navy"
+                                      }`}>
+                                      <span className="material-symbols-outlined text-[12px]">{isImg ? "image" : "picture_as_pdf"}</span>
+                                      Doc {i + 1}
+                                    </button>
+                                  )
+                                })}
+                              </div>
+                            )}
+                          </div>
+                          <span className="text-[9px] text-slate-400 mt-1 px-1">
+                            {new Date(msg.created_at).toLocaleString("en-IN", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" })}
+                          </span>
+                        </div>
+                      )
+                    })}
+                  </div>
+                  <div className="border-t border-slate-100 px-4 py-2 bg-slate-50">
+                    <p className="text-[10px] text-slate-400 text-center">Read-only view · Admins cannot send messages</p>
+                  </div>
+                </div>
+              )}
+
               {/* Timeline */}
               {timeline.length > 0 && (
                 <div className="bg-white border border-slate-200 rounded shadow-sm overflow-hidden">
@@ -342,6 +405,30 @@ export default function AdminComplaintDetailPage() {
           </div>
         )}
       </main>
+
+      {/* Document preview overlay */}
+      {previewUrl && (
+        <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4" onClick={() => setPreviewUrl(null)}>
+          <div className="relative max-w-2xl w-full" onClick={e => e.stopPropagation()}>
+            <div className="flex items-center justify-between bg-gov-navy px-4 py-3 rounded-t">
+              <p className="text-white text-sm font-bold">Document Preview</p>
+              <div className="flex gap-3">
+                <a href={previewUrl} target="_blank" rel="noopener noreferrer" className="text-slate-300 hover:text-white text-xs font-bold flex items-center gap-1">
+                  <span className="material-symbols-outlined text-[16px]">open_in_new</span>Open
+                </a>
+                <button onClick={() => setPreviewUrl(null)} className="text-slate-300 hover:text-white">
+                  <span className="material-symbols-outlined">close</span>
+                </button>
+              </div>
+            </div>
+            <div className="bg-white rounded-b p-4 flex items-center justify-center min-h-[300px]">
+              {/\.(jpg|jpeg|png|webp)$/i.test(previewUrl)
+                ? <img src={previewUrl} alt="Preview" className="max-w-full max-h-[65vh] object-contain rounded" />
+                : <iframe src={previewUrl} className="w-full h-[65vh] rounded" title="Doc" />}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
     </SidebarProvider>
   )

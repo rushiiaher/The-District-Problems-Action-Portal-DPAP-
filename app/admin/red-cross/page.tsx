@@ -19,6 +19,11 @@ type Application = {
   mobile?: string
   district?: string; block?: string; village?: string
   documents?: string[]
+  health_documents?: string[]
+  bank_account_no?: string
+  bank_name?: string
+  ifsc_code?: string
+  bank_branch?: string
   created_at: string; reviewed_at?: string; paid_at?: string
   citizen_id: string
 }
@@ -384,7 +389,7 @@ export default function AdminRedCrossPage() {
               <div className="flex-1 bg-gov-saffron" /><div className="flex-1 bg-white border-y" /><div className="flex-1 bg-gov-green" />
             </div>
 
-            <div className="divide-y divide-slate-100 max-h-[40vh] overflow-y-auto">
+            <div className="divide-y divide-slate-100 max-h-[60vh] overflow-y-auto">
               {[
                 { label: "Mobile",           value: selected.mobile ? `+91 ${selected.mobile}` : null },
                 { label: "Location",         value: [selected.village, selected.block, selected.district].filter(Boolean).join(", ") || null },
@@ -402,9 +407,30 @@ export default function AdminRedCrossPage() {
                 </div>
               ))}
 
+              {/* Bank Details */}
+              {(selected.bank_account_no || selected.bank_name || selected.ifsc_code) && (
+                <div className="px-6 py-3">
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Bank Details</p>
+                  <div className="grid grid-cols-2 gap-x-6 gap-y-2">
+                    {[
+                      { label: "Account No.",  value: selected.bank_account_no },
+                      { label: "Bank Name",    value: selected.bank_name },
+                      { label: "IFSC Code",    value: selected.ifsc_code },
+                      { label: "Branch",       value: selected.bank_branch },
+                    ].filter(f => f.value).map(f => (
+                      <div key={f.label}>
+                        <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">{f.label}</p>
+                        <p className="text-sm font-mono font-semibold text-slate-800">{f.value}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Supporting Documents */}
               {selected.documents && selected.documents.length > 0 && (
                 <div className="px-6 py-3">
-                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Documents</p>
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Supporting Documents</p>
                   <div className="grid grid-cols-4 gap-2">
                     {selected.documents.map((url, i) => {
                       const isImg = /\.(jpg|jpeg|png|webp)$/i.test(url)
@@ -413,6 +439,29 @@ export default function AdminRedCrossPage() {
                           className="group relative aspect-square rounded border border-slate-200 overflow-hidden bg-slate-50 hover:border-red-400 transition-all">
                           {isImg
                             ? <img src={url} alt="doc" className="w-full h-full object-cover" />
+                            : <span className="material-symbols-outlined text-3xl text-slate-300 block my-3 mx-auto">picture_as_pdf</span>}
+                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all flex items-center justify-center">
+                            <span className="material-symbols-outlined text-white text-2xl opacity-0 group-hover:opacity-100">open_in_full</span>
+                          </div>
+                        </button>
+                      )
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {/* Health / Medical Documents */}
+              {selected.health_documents && selected.health_documents.length > 0 && (
+                <div className="px-6 py-3">
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Health / Medical Documents</p>
+                  <div className="grid grid-cols-4 gap-2">
+                    {selected.health_documents.map((url, i) => {
+                      const isImg = /\.(jpg|jpeg|png|webp)$/i.test(url)
+                      return (
+                        <button key={i} onClick={() => setPreview(url)}
+                          className="group relative aspect-square rounded border border-slate-200 overflow-hidden bg-slate-50 hover:border-red-400 transition-all">
+                          {isImg
+                            ? <img src={url} alt="health doc" className="w-full h-full object-cover" />
                             : <span className="material-symbols-outlined text-3xl text-slate-300 block my-3 mx-auto">picture_as_pdf</span>}
                           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all flex items-center justify-center">
                             <span className="material-symbols-outlined text-white text-2xl opacity-0 group-hover:opacity-100">open_in_full</span>

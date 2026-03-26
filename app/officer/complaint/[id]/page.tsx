@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
 import { useAuth } from "@/components/providers/auth-provider"
 import { AppSidebar, SidebarToggle } from "@/components/app-sidebar"
@@ -17,6 +17,17 @@ const STATUS_META: Record<string, { label: string; color: string; dot: string }>
   ESCALATED:   { label: "Escalated",   color: "bg-purple-50 text-purple-700 border-purple-200", dot: "bg-purple-500" },
 }
 
+type Message = {
+  id: string
+  sender_id: string
+  sender_role: string
+  sender_name: string
+  message: string
+  document_urls?: string[] | null
+  is_request: boolean
+  created_at: string
+}
+
 export default function OfficerComplaintDetailPage() {
   const { id } = useParams<{ id: string }>()
   const { user, isLoading } = useAuth()
@@ -28,14 +39,25 @@ export default function OfficerComplaintDetailPage() {
   const [error, setError]         = useState("")
 
   // Action form state
-  const [expectedDate, setExpectedDate]     = useState("")
+  const [expectedDate, setExpectedDate]       = useState("")
   const [rejectionReason, setRejectionReason] = useState("")
-  const [resolutionNote, setResolutionNote] = useState("")
-  const [remarks, setRemarks]               = useState("")
-  const [submitting, setSubmitting]         = useState<string | null>(null)
-  const [showRejectForm, setShowRejectForm] = useState(false)
+  const [resolutionNote, setResolutionNote]   = useState("")
+  const [remarks, setRemarks]                 = useState("")
+  const [submitting, setSubmitting]           = useState<string | null>(null)
+  const [showRejectForm, setShowRejectForm]   = useState(false)
   const [showResolveForm, setShowResolveForm] = useState(false)
-  const [actionSuccess, setActionSuccess]   = useState("")
+  const [actionSuccess, setActionSuccess]     = useState("")
+
+  // Messaging state
+  const [messages, setMessages]     = useState<Message[]>([])
+  const [msgText, setMsgText]       = useState("")
+  const [msgIsRequest, setMsgIsRequest] = useState(false)
+  const [msgFiles, setMsgFiles]     = useState<File[]>([])
+  const [sendingMsg, setSendingMsg] = useState(false)
+  const [msgErr, setMsgErr]         = useState("")
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null)
+  const fileInputRef = useRef<HTMLInputElement>(null)
+  const msgEndRef    = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (!isLoading && (!user || user.role !== "officer")) router.push("/auth/login")
@@ -45,17 +67,24 @@ export default function OfficerComplaintDetailPage() {
     if (!id || !user) return
     const load = async () => {
       try {
-        const res = await fetch(`/api/complaints/${id}`, {
-          headers: { "x-user-id": user.id, "x-user-role": user.role },
-        })
-        const data = await res.json()
-        if (data.complaint) { setComplaint(data.complaint); setTimeline(data.timeline || []) }
+        const [cRes, mRes] = await Promise.all([
+          fetch(`/api/complaints/${id}`, { headers: { "x-user-id": user.id, "x-user-role": user.role } }),
+          fetch(`/api/complaints/${id}/messages`, { headers: { "x-user-id": user.id, "x-user-role": user.role } }),
+        ])
+        const cData = await cRes.json()
+        const mData = await mRes.json()
+        if (cData.complaint) { setComplaint(cData.complaint); setTimeline(cData.timeline || []) }
         else setError("Arzi not found")
+        if (mData.messages) setMessages(mData.messages)
       } catch { setError("Failed to load complaint") }
       finally { setLoading(false) }
     }
     load()
   }, [id, user])
+
+  useEffect(() => {
+    msgEndRef.current?.scrollIntoView({ behavior: "smooth" })
+  }, [messages])
 
   const doAction = async (action: string, body: Record<string, any>) => {
     setSubmitting(action)
@@ -63,24 +92,16 @@ export default function OfficerComplaintDetailPage() {
     try {
       const res = await fetch(`/api/complaints/${id}/${action}`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-user-id": user!.id,
-          "x-user-role": user!.role,
-        },
+        headers: { "Content-Type": "application/json", "x-user-id": user!.id, "x-user-role": user!.role },
         body: JSON.stringify(body),
       })
       const data = await res.json()
       if (data.success) {
         setComplaint((c: any) => ({ ...c, status: data.status || c.status }))
-        // Refresh timeline
-        const r2 = await fetch(`/api/complaints/${id}`, {
-          headers: { "x-user-id": user!.id, "x-user-role": user!.role },
-        })
+        const r2 = await fetch(`/api/complaints/${id}`, { headers: { "x-user-id": user!.id, "x-user-role": user!.role } })
         const d2 = await r2.json()
         if (d2.timeline) setTimeline(d2.timeline)
-        setShowRejectForm(false)
-        setShowResolveForm(false)
+        setShowRejectForm(false); setShowResolveForm(false)
         setRemarks(""); setRejectionReason(""); setResolutionNote(""); setExpectedDate("")
         setActionSuccess(action)
         setTimeout(() => setActionSuccess(""), 3000)
@@ -91,12 +112,38 @@ export default function OfficerComplaintDetailPage() {
     finally { setSubmitting(null) }
   }
 
+  const sendMessage = async () => {
+    if (!msgText.trim()) { setMsgErr("Message cannot be empty"); return }
+    setSendingMsg(true); setMsgErr("")
+    try {
+      const fd = new FormData()
+      fd.append("message", msgText.trim())
+      fd.append("is_request", String(msgIsRequest))
+      msgFiles.forEach(f => fd.append("documents", f))
+      const res = await fetch(`/api/complaints/${id}/messages`, {
+        method: "POST",
+        headers: { "x-user-id": user!.id, "x-user-role": user!.role },
+        body: fd,
+      })
+      const data = await res.json()
+      if (data.success) {
+        setMessages(prev => [...prev, data.message])
+        setMsgText(""); setMsgFiles([]); setMsgIsRequest(false)
+        if (fileInputRef.current) fileInputRef.current.value = ""
+      } else {
+        setMsgErr(data.error || "Failed to send message")
+      }
+    } catch { setMsgErr("Network error") }
+    finally { setSendingMsg(false) }
+  }
+
   if (isLoading || !user) return null
 
   const sm = complaint ? (STATUS_META[complaint.status] || STATUS_META["SUBMITTED"]) : null
   const canAccept  = complaint?.status === "ASSIGNED"
   const canUpdate  = complaint?.status === "IN_PROGRESS"
   const canResolve = complaint?.status === "IN_PROGRESS"
+  const canMessage = ["ASSIGNED", "IN_PROGRESS"].includes(complaint?.status)
 
   return (
     <SidebarProvider>
@@ -133,9 +180,9 @@ export default function OfficerComplaintDetailPage() {
             </Link>
           </div>
         ) : (
-          <div className="p-4 md:p-8 max-w-[1000px] mx-auto grid grid-cols-1 lg:grid-cols-5 gap-6">
+          <div className="p-4 md:p-8 max-w-[1100px] mx-auto grid grid-cols-1 lg:grid-cols-5 gap-6">
 
-            {/* ── LEFT: Details + Timeline ─── */}
+            {/* ── LEFT: Details + Timeline + Messaging ─── */}
             <div className="lg:col-span-3 space-y-5">
 
               {/* Status banner */}
@@ -173,7 +220,7 @@ export default function OfficerComplaintDetailPage() {
                   <div className="grid sm:grid-cols-2 gap-4 pt-2 border-t border-slate-100">
                     <div>
                       <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Location</p>
-                      <p className="text-sm text-slate-700">{[complaint.village, complaint.block, complaint.district].filter(Boolean).join(", ")}</p>
+                      <p className="text-sm text-slate-700">{[complaint.village, complaint.block].filter(Boolean).join(", ")}</p>
                     </div>
                     <div>
                       <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Filed On</p>
@@ -190,6 +237,155 @@ export default function OfficerComplaintDetailPage() {
                     </div>
                   )}
                 </div>
+              </div>
+
+              {/* Messaging Thread */}
+              <div className="bg-white border border-slate-200 rounded shadow-sm overflow-hidden">
+                <div className="px-6 py-4 bg-slate-50 border-b border-slate-200 flex items-center gap-3">
+                  <span className="material-symbols-outlined text-gov-navy text-[18px]">forum</span>
+                  <h2 className="font-bold text-slate-800 text-sm uppercase tracking-wide">Citizen Communication</h2>
+                  {messages.length > 0 && (
+                    <span className="ml-auto text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                      {messages.length} message{messages.length !== 1 ? "s" : ""}
+                    </span>
+                  )}
+                </div>
+
+                {/* Thread */}
+                <div className="p-4 space-y-3 max-h-80 overflow-y-auto">
+                  {messages.length === 0 ? (
+                    <div className="text-center py-8">
+                      <span className="material-symbols-outlined text-3xl text-slate-200 block mb-2">chat_bubble_outline</span>
+                      <p className="text-xs text-slate-400">No messages yet. Start by requesting information from the citizen.</p>
+                    </div>
+                  ) : (
+                    messages.map(msg => {
+                      const isOfficer = msg.sender_role === "officer"
+                      return (
+                        <div key={msg.id} className={`flex flex-col ${isOfficer ? "items-end" : "items-start"}`}>
+                          {/* Request badge */}
+                          {msg.is_request && (
+                            <div className="flex items-center gap-1 mb-1 px-2 py-0.5 bg-amber-100 border border-amber-200 rounded-full">
+                              <span className="material-symbols-outlined text-amber-600 text-[12px]">upload_file</span>
+                              <span className="text-[10px] font-bold text-amber-700 uppercase tracking-widest">Document Request</span>
+                            </div>
+                          )}
+                          <div className={`max-w-[80%] rounded-xl px-4 py-2.5 shadow-sm ${
+                            isOfficer
+                              ? "bg-gov-navy text-white rounded-tr-none"
+                              : "bg-slate-100 text-slate-800 rounded-tl-none"
+                          }`}>
+                            <p className={`text-[10px] font-bold uppercase tracking-widest mb-1 ${isOfficer ? "text-slate-300" : "text-slate-500"}`}>
+                              {msg.sender_name}
+                            </p>
+                            <p className="text-sm leading-relaxed">{msg.message}</p>
+                            {/* Attached docs */}
+                            {msg.document_urls && msg.document_urls.length > 0 && (
+                              <div className="flex flex-wrap gap-1.5 mt-2">
+                                {msg.document_urls.map((url, i) => {
+                                  const isImg = /\.(jpg|jpeg|png|webp)$/i.test(url)
+                                  return (
+                                    <button key={i} onClick={() => setPreviewUrl(url)}
+                                      className={`flex items-center gap-1 text-[10px] font-bold px-2 py-1 rounded border transition-all ${
+                                        isOfficer ? "border-white/20 bg-white/10 text-white hover:bg-white/20" : "border-slate-200 bg-white text-slate-600 hover:border-gov-navy"
+                                      }`}>
+                                      <span className="material-symbols-outlined text-[12px]">{isImg ? "image" : "picture_as_pdf"}</span>
+                                      Doc {i + 1}
+                                    </button>
+                                  )
+                                })}
+                              </div>
+                            )}
+                          </div>
+                          <span className="text-[9px] text-slate-400 mt-1 px-1">
+                            {new Date(msg.created_at).toLocaleString("en-IN", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" })}
+                          </span>
+                        </div>
+                      )
+                    })
+                  )}
+                  <div ref={msgEndRef} />
+                </div>
+
+                {/* Compose — officer only when complaint is active */}
+                {canMessage ? (
+                  <div className="border-t border-slate-100 p-4 space-y-3 bg-slate-50">
+                    {msgErr && (
+                      <p className="text-xs text-red-600 flex items-center gap-1">
+                        <span className="material-symbols-outlined text-[14px]">error</span>{msgErr}
+                      </p>
+                    )}
+                    {/* Document request toggle */}
+                    <label className="flex items-center gap-2 cursor-pointer w-fit">
+                      <div
+                        onClick={() => setMsgIsRequest(p => !p)}
+                        className={`w-10 h-5 rounded-full transition-colors relative ${msgIsRequest ? "bg-amber-500" : "bg-slate-300"}`}
+                      >
+                        <span className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-all ${msgIsRequest ? "left-5" : "left-0.5"}`} />
+                      </div>
+                      <span className="text-[11px] font-bold text-slate-600 uppercase tracking-widest">Mark as Document Request</span>
+                    </label>
+
+                    <textarea
+                      rows={2}
+                      value={msgText}
+                      onChange={e => setMsgText(e.target.value)}
+                      placeholder={msgIsRequest ? "Specify what documents or info you need from the citizen…" : "Type your message to the citizen…"}
+                      className="w-full border border-slate-200 px-3 py-2.5 text-sm rounded focus:outline-none focus:border-gov-navy resize-none bg-white"
+                    />
+
+                    {/* File attach */}
+                    <div className="flex items-center gap-3 flex-wrap">
+                      <button
+                        type="button"
+                        onClick={() => fileInputRef.current?.click()}
+                        className="flex items-center gap-1 text-[11px] font-bold text-slate-500 border border-slate-200 rounded px-3 py-1.5 hover:bg-white transition-colors"
+                      >
+                        <span className="material-symbols-outlined text-[14px]">attach_file</span>
+                        Attach Files
+                      </button>
+                      {msgFiles.map((f, i) => (
+                        <span key={i} className="flex items-center gap-1 text-[10px] bg-white border border-slate-200 rounded px-2 py-1 text-slate-600">
+                          <span className="material-symbols-outlined text-[12px]">description</span>
+                          {f.name.length > 16 ? f.name.slice(0, 14) + "…" : f.name}
+                          <button onClick={() => setMsgFiles(p => p.filter((_, j) => j !== i))} className="text-slate-400 hover:text-red-500 ml-0.5">
+                            <span className="material-symbols-outlined text-[12px]">close</span>
+                          </button>
+                        </span>
+                      ))}
+                      <input
+                        ref={fileInputRef}
+                        type="file"
+                        multiple
+                        accept="image/jpeg,image/png,application/pdf"
+                        className="hidden"
+                        onChange={e => {
+                          const picked = Array.from(e.target.files || []).slice(0, 5)
+                          setMsgFiles(p => [...p, ...picked].slice(0, 5))
+                          e.target.value = ""
+                        }}
+                      />
+                      <button
+                        onClick={sendMessage}
+                        disabled={sendingMsg || !msgText.trim()}
+                        className="ml-auto flex items-center gap-2 px-5 py-2 bg-gov-navy text-white text-[12px] font-bold rounded hover:bg-slate-800 disabled:opacity-50 transition-colors"
+                      >
+                        {sendingMsg
+                          ? <span className="material-symbols-outlined animate-spin text-[16px]">progress_activity</span>
+                          : <span className="material-symbols-outlined text-[16px]">send</span>}
+                        Send
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="border-t border-slate-100 px-4 py-3 bg-slate-50">
+                    <p className="text-[11px] text-slate-400 text-center">
+                      {complaint?.status === "RESOLVED" || complaint?.status === "CLOSED"
+                        ? "Complaint is closed — messaging disabled."
+                        : "Accept the complaint to enable messaging."}
+                    </p>
+                  </div>
+                )}
               </div>
 
               {/* Timeline */}
@@ -427,9 +623,9 @@ export default function OfficerComplaintDetailPage() {
                 </div>
                 <div className="divide-y divide-slate-100">
                   {[
-                    { label: "Status",    value: sm?.label },
-                    { label: "Category",  value: complaint?.category },
-                    { label: "Location",  value: complaint ? `${complaint.village}, ${complaint.block}` : "" },
+                    { label: "Status",   value: sm?.label },
+                    { label: "Category", value: complaint?.category },
+                    { label: "Location", value: complaint ? `${complaint.village}, ${complaint.block}` : "" },
                   ].map(row => (
                     <div key={row.label} className="px-5 py-2.5 flex items-center justify-between">
                       <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{row.label}</p>
@@ -442,6 +638,33 @@ export default function OfficerComplaintDetailPage() {
           </div>
         )}
       </main>
+
+      {/* Document preview overlay */}
+      {previewUrl && (
+        <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4" onClick={() => setPreviewUrl(null)}>
+          <div className="relative max-w-2xl w-full" onClick={e => e.stopPropagation()}>
+            <div className="flex items-center justify-between bg-gov-navy px-4 py-3 rounded-t">
+              <p className="text-white text-sm font-bold">Document Preview</p>
+              <div className="flex gap-3">
+                <a href={previewUrl} target="_blank" rel="noopener noreferrer" className="text-slate-300 hover:text-white text-xs font-bold flex items-center gap-1">
+                  <span className="material-symbols-outlined text-[16px]">open_in_new</span>Open
+                </a>
+                <a href={previewUrl} download className="text-slate-300 hover:text-white text-xs font-bold flex items-center gap-1">
+                  <span className="material-symbols-outlined text-[16px]">download</span>Download
+                </a>
+                <button onClick={() => setPreviewUrl(null)} className="text-slate-300 hover:text-white">
+                  <span className="material-symbols-outlined">close</span>
+                </button>
+              </div>
+            </div>
+            <div className="bg-white rounded-b p-4 flex items-center justify-center min-h-[300px]">
+              {/\.(jpg|jpeg|png|webp)$/i.test(previewUrl)
+                ? <img src={previewUrl} alt="Preview" className="max-w-full max-h-[65vh] object-contain rounded" />
+                : <iframe src={previewUrl} className="w-full h-[65vh] rounded" title="Doc" />}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
     </SidebarProvider>
   )
