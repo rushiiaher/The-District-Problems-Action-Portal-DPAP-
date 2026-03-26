@@ -13,23 +13,37 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
         id, category, status, priority, created_at, block, village, district, description,
         reopen_count, has_attachments, sla_deadline, assignment_note, rejection_reason,
         citizen_id, assigned_dept_id, assigned_officer_id,
-        departments:assigned_dept_id (name),
-        officers:assigned_officer_id (name, designation)
+        departments:assigned_dept_id (name)
       `)
       .eq("id", id)
       .maybeSingle()
 
-    if (error || !complaint) {
+    if (error) {
+      return NextResponse.json({ success: false, error: error.message }, { status: 500 })
+    }
+    if (!complaint) {
       return NextResponse.json({ success: false, error: "Complaint not found" }, { status: 404 })
+    }
+
+    // Fetch officer details separately to avoid PostgREST join ambiguity
+    let assignedOfficerName: string | null = null
+    let assignedOfficerDesignation: string | null = null
+    if ((complaint as any).assigned_officer_id) {
+      const { data: officer } = await supabase
+        .from("users")
+        .select("name, designation")
+        .eq("id", (complaint as any).assigned_officer_id)
+        .maybeSingle()
+      assignedOfficerName        = officer?.name || null
+      assignedOfficerDesignation = officer?.designation || null
     }
 
     const sanitized = {
       ...complaint,
-      assigned_dept_name:    (complaint as any).departments?.name,
-      assigned_officer_name: (complaint as any).officers?.name,
-      assigned_officer_designation: (complaint as any).officers?.designation,
+      assigned_dept_name:           (complaint as any).departments?.name,
+      assigned_officer_name:        assignedOfficerName,
+      assigned_officer_designation: assignedOfficerDesignation,
       departments: undefined,
-      officers:    undefined,
       ...(isPublic ? { citizen_id: undefined } : {}),
     }
 
