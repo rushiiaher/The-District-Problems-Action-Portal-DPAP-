@@ -44,7 +44,7 @@ const NAV = {
       { label: "Resolved Cases", href: "/officer/inbox?tab=resolved", icon: "task_alt" },
     ]},
     { group: "Reports", items: [
-      { label: "Performance", href: "#", icon: "analytics" },
+      { label: "Performance", href: "/officer/performance", icon: "analytics" },
     ]},
   ],
   superadmin: [

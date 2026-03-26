@@ -20,6 +20,7 @@ export async function GET(request: NextRequest) {
         reopen_count, has_attachments, sla_deadline,
         assigned_dept_id, assigned_officer_id,
         departments:assigned_dept_id (name),
+        citizen:citizen_id (name, mobile),
         rejection_reason, assignment_note
       `)
       .order("created_at", { ascending: false })
@@ -42,9 +43,12 @@ export async function GET(request: NextRequest) {
 
     const complaints = (data || []).map((c: any) => ({
       ...c,
-      department_name: c.departments?.name,      // unified name used everywhere
-      assigned_dept_name: c.departments?.name,   // keep legacy alias too
+      department_name: c.departments?.name,
+      assigned_dept_name: c.departments?.name,
+      citizen_name: c.citizen?.name || null,
+      citizen_mobile: c.citizen?.mobile || null,
       departments: undefined,
+      citizen: undefined,
     }))
 
     return NextResponse.json({ success: true, complaints })
