@@ -5,18 +5,18 @@ import { useState, useRef, useEffect } from "react"
 
 const SLIDES = [
   {
-    desk: "/Hero/e-Arzi%20Portal%20Website%20Banner.jpg.jpeg",
-    mob:  "/Hero/e-Arzi%20Portal%20Mobile%20Banner.jpg.jpeg",
+    desk: "/Hero/banner-earzi-desk.jpeg",
+    mob:  "/Hero/banner-earzi-mob.jpeg",
     alt:  "e-Arzi Portal — Online Grievance & Assistance",
   },
   {
-    desk: "/Hero/Online%20Grievance%20%20Website%20Banner.jpg.jpeg",
-    mob:  "/Hero/Online%20Grievance%20%20Mobile%20Banner.jpg.jpeg",
+    desk: "/Hero/banner-grievance-desk.jpeg",
+    mob:  "/Hero/banner-grievance-mob.jpeg",
     alt:  "Lodge Grievance Online",
   },
   {
-    desk: "/Hero/Financial%20Assistance%20%20Website%20Banner.jpg.jpeg",
-    mob:  "/Hero/Financial%20Assistance%20%20Mobile%20Banner.jpg.jpeg",
+    desk: "/Hero/banner-redcross-desk.jpeg",
+    mob:  "/Hero/banner-redcross-mob.jpeg",
     alt:  "Red Cross Financial Assistance",
   },
 ]
