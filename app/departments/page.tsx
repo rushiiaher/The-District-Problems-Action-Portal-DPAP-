@@ -45,11 +45,12 @@ const DEPARTMENTS = [
 ]
 
 const NAV_LINKS = [
-  { label: "Home",        href: "/"           },
-  { label: "Arzi",        href: "/#services"  },
-  { label: "Departments", href: "/departments"},
-  { label: "Red Cross",   href: "/#red-cross" },
-  { label: "Helplines",   href: "/helpline"   },
+  { label: "Home",        href: "/"            },
+  { label: "Arzi",        href: "/#services"   },
+  { label: "Departments", href: "/departments" },
+  { label: "About",       href: "/about"       },
+  { label: "Red Cross",   href: "/#red-cross"  },
+  { label: "Helplines",   href: "/helpline"    },
 ]
 
 export default function DepartmentsPage() {

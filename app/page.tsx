@@ -79,6 +79,7 @@ export default function LandingPage() {
                 { label: "Home",        href: "#home" },
                 { label: "Arzi",        href: "#services" },
                 { label: "Departments", href: "/departments" },
+                { label: "About",       href: "/about" },
                 { label: "Red Cross",   href: "#red-cross" },
                 { label: "Helplines",   href: "/helpline" },
               ].map(item => (
@@ -147,6 +148,7 @@ export default function LandingPage() {
               { label: "Home",        href: "#home" },
               { label: "Arzi",        href: "#services" },
               { label: "Departments", href: "/departments" },
+              { label: "About",       href: "/about" },
               { label: "Red Cross",   href: "#red-cross" },
               { label: "Helplines",   href: "/helpline" },
             ].map(item => (
