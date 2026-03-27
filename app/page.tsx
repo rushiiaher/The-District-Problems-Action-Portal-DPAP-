@@ -276,33 +276,27 @@ export default function LandingPage() {
                 </div>
               </div>
 
-              {/* Right: How It Works */}
+              {/* Right: Main Services (vertical) */}
               <div>
-                <div className="flex items-center gap-3 mb-6">
-                  <span className="h-1 w-10 bg-gov-navy inline-block" />
-                  <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-slate-400">Process</span>
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="h-1 w-10 bg-gov-saffron inline-block" />
+                  <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-slate-400">Services</span>
                 </div>
-                <h2 className="text-2xl md:text-3xl font-black text-gov-navy uppercase tracking-tight mb-8">How It Works</h2>
-                <div className="space-y-0">
+                <h2 className="text-2xl md:text-3xl font-black text-gov-navy uppercase tracking-tight mb-6">Main Services</h2>
+                <div className="space-y-3">
                   {[
-                    { n: "01", title: "Citizen Submits Application Online",     desc: "Register on the portal and fill the online grievance or assistance form." },
-                    { n: "02", title: "Application Received at District Office", desc: "The submission is logged at the DC Office, Anantnag with a unique Arzi ID." },
-                    { n: "03", title: "Forwarded to Concerned Department",       desc: "The arzi is reviewed and assigned to the relevant department for action." },
-                    { n: "04", title: "Department Processes the Application",    desc: "The assigned officer investigates and takes necessary steps to resolve." },
-                    { n: "05", title: "Status Updated on the Portal",            desc: "Citizens can track each stage. Resolved cases are marked and closed." },
-                  ].map((step, i, arr) => (
-                    <div key={step.n} className="flex gap-5 relative">
-                      {/* Connector */}
-                      {i < arr.length - 1 && (
-                        <div className="absolute left-[19px] top-10 bottom-0 w-px bg-slate-200" />
-                      )}
-                      {/* Number badge */}
-                      <div className="w-10 h-10 flex-shrink-0 bg-gov-navy text-white flex items-center justify-center font-black text-xs z-10">
-                        {step.n}
-                      </div>
-                      <div className="pb-6 flex-1">
-                        <h4 className="font-bold text-slate-800 text-sm mb-1">{step.title}</h4>
-                        <p className="text-xs text-slate-500 leading-relaxed">{step.desc}</p>
+                    { icon: "app_registration",  title: "Lodge Grievance / Submit Arzi",    desc: "Submit your grievance or application online to the concerned department",    href: "/auth/login?tab=citizen", label: "Submit Arzi", accent: "border-gov-saffron" },
+                    { icon: "track_changes",      title: "Track Grievance Status",            desc: "Check the current status and updates on your submitted application",          href: "/complaint/track",         label: "Track Now",   accent: "border-gov-green"   },
+                    { icon: "volunteer_activism", title: "Apply for Red Cross Assistance",   desc: "Apply for financial aid in medical emergencies or eligible cases",            href: "/auth/login?tab=citizen", label: "Apply Now",   accent: "border-red-400"     },
+                  ].map(s => (
+                    <div key={s.title} className={`flex items-start gap-4 px-5 py-5 bg-gov-navy hover:bg-[#001a40] transition-colors border-l-4 ${s.accent} group`}>
+                      <span className="material-symbols-outlined text-white/60 text-[24px] group-hover:text-white transition-colors mt-0.5 flex-shrink-0">{s.icon}</span>
+                      <div className="flex-1">
+                        <h3 className="text-white font-black text-sm uppercase tracking-wide leading-tight mb-1">{s.title}</h3>
+                        <p className="text-slate-400 text-[11px] leading-relaxed mb-2.5">{s.desc}</p>
+                        <Link href={s.href} className="inline-flex items-center gap-1 text-[10px] font-bold text-white border border-white/30 px-2.5 py-1 hover:bg-white hover:text-gov-navy transition-all">
+                          {s.label} <span className="material-symbols-outlined text-[12px]">chevron_right</span>
+                        </Link>
                       </div>
                     </div>
                   ))}
@@ -312,47 +306,47 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* ─── MAIN SERVICES ─── */}
-        <section id="services" className="bg-gov-navy py-0">
+        {/* ─── HOW IT WORKS (horizontal on desktop) ─── */}
+        <section id="services" className="py-14 md:py-20 bg-slate-50 border-b border-slate-200">
           <div className="max-w-7xl mx-auto px-4 md:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/10">
-              {[
-                {
-                  icon:   "app_registration",
-                  title:  "Lodge Grievance / Submit Arzi",
-                  desc:   "Submit your grievance or application online to the concerned department",
-                  href:   "/auth/login?tab=citizen",
-                  label:  "Submit Arzi",
-                  accent: "border-gov-saffron",
-                },
-                {
-                  icon:   "track_changes",
-                  title:  "Track Grievance Status",
-                  desc:   "Check the current status and updates on your submitted application",
-                  href:   "/complaint/track",
-                  label:  "Track Now",
-                  accent: "border-gov-green",
-                },
-                {
-                  icon:   "volunteer_activism",
-                  title:  "Apply for Red Cross Assistance",
-                  desc:   "Apply for financial aid in medical emergencies or eligible cases",
-                  href:   "/auth/login?tab=citizen",
-                  label:  "Apply Now",
-                  accent: "border-red-400",
-                },
-              ].map(s => (
-                <div key={s.title} className={`flex items-start gap-4 px-6 py-6 hover:bg-white/5 transition-colors border-l-4 ${s.accent} group`}>
-                  <span className="material-symbols-outlined text-white/60 text-[28px] group-hover:text-white transition-colors mt-0.5 flex-shrink-0">{s.icon}</span>
-                  <div className="flex-1">
-                    <h3 className="text-white font-black text-sm uppercase tracking-wide leading-tight mb-1">{s.title}</h3>
-                    <p className="text-slate-400 text-[12px] leading-relaxed mb-3">{s.desc}</p>
-                    <Link href={s.href} className="inline-flex items-center gap-1 text-[11px] font-bold text-white border border-white/30 px-3 py-1.5 hover:bg-white hover:text-gov-navy transition-all">
-                      {s.label} <span className="material-symbols-outlined text-[14px]">chevron_right</span>
-                    </Link>
+            <div className="text-center mb-12">
+              <div className="flex items-center justify-center gap-3 mb-3">
+                <span className="h-px w-12 bg-slate-300 inline-block" />
+                <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-slate-400">Process</span>
+                <span className="h-px w-12 bg-slate-300 inline-block" />
+              </div>
+              <h2 className="text-2xl md:text-3xl font-black text-gov-navy uppercase tracking-tight">How It Works</h2>
+            </div>
+
+            {/* Steps — horizontal on desktop, vertical on mobile */}
+            <div className="relative">
+              {/* Desktop connector line behind all badges */}
+              <div className="hidden md:block absolute top-[19px] left-[calc(10%+20px)] right-[calc(10%+20px)] h-px bg-slate-300 z-0" />
+
+              <div className="grid grid-cols-1 md:grid-cols-5 gap-8 md:gap-4">
+                {[
+                  { n: "01", title: "Citizen Submits Application Online",      desc: "Register on the portal and fill the online grievance or assistance form.",         icon: "edit_note"        },
+                  { n: "02", title: "Application Received at District Office", desc: "The submission is logged at the DC Office, Anantnag with a unique Arzi ID.",       icon: "inbox"            },
+                  { n: "03", title: "Forwarded to Concerned Department",       desc: "The arzi is reviewed and assigned to the relevant department for action.",          icon: "forward_to_inbox" },
+                  { n: "04", title: "Department Processes the Application",    desc: "The assigned officer investigates and takes necessary steps to resolve.",            icon: "manage_accounts"  },
+                  { n: "05", title: "Status Updated on the Portal",            desc: "Citizens can track each stage. Resolved cases are marked and closed.",              icon: "task_alt"         },
+                ].map((step, i, arr) => (
+                  <div key={step.n} className="flex md:flex-col items-start md:items-center gap-4 md:gap-0 md:text-center relative">
+                    {/* Mobile vertical connector */}
+                    {i < arr.length - 1 && (
+                      <div className="md:hidden absolute left-[19px] top-10 bottom-[-32px] w-px bg-slate-200" />
+                    )}
+                    {/* Step number badge */}
+                    <div className="w-10 h-10 flex-shrink-0 bg-gov-navy text-white flex items-center justify-center font-black text-xs z-10 md:mb-5">
+                      {step.n}
+                    </div>
+                    <div className="md:px-2">
+                      <h4 className="font-bold text-slate-800 text-sm mb-1.5 leading-tight">{step.title}</h4>
+                      <p className="text-xs text-slate-500 leading-relaxed">{step.desc}</p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </section>
