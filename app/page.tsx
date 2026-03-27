@@ -240,7 +240,7 @@ export default function LandingPage() {
               {/* Left: Welcome + About */}
               <div>
                 {/* Welcome */}
-                <div>
+                <div className="mb-6">
                   <div className="flex items-center gap-3 mb-4">
                     <span className="h-1 w-10 bg-gov-saffron inline-block" />
                     <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-slate-400">Official Portal</span>
@@ -248,10 +248,18 @@ export default function LandingPage() {
                   <h2 className="text-2xl md:text-3xl font-black text-gov-navy uppercase tracking-tight leading-tight mb-4">
                     Welcome to e-Arzi Portal
                   </h2>
-                  <p className="text-slate-700 text-base leading-relaxed mb-4">
-                    An online platform by the <strong>Office of the Deputy Commissioner, Anantnag</strong> for submission of grievances and applications. All submissions are forwarded to the concerned department for necessary action.
+                  <p className="text-slate-700 text-base leading-relaxed mb-3">
+                    An online platform by the <strong>Office of the Deputy Commissioner, Anantnag</strong> for submission of grievances, requests and applications by citizens. All applications are forwarded to the concerned departments for necessary action.
                   </p>
-                  <ul className="space-y-3 mb-6">
+                  <p className="text-slate-600 text-sm italic border-l-4 border-gov-saffron pl-4">
+                    Citizens are advised to submit their grievances through this portal.
+                  </p>
+                </div>
+
+                {/* About */}
+                <div className="bg-slate-50 border border-slate-200 p-5">
+                  <h3 className="text-sm font-black text-gov-navy uppercase tracking-widest mb-3 border-b border-slate-200 pb-2">About the Portal</h3>
+                  <ul className="space-y-2">
                     {[
                       "Submit grievances and applications online",
                       "Track application status in real time",
@@ -263,9 +271,6 @@ export default function LandingPage() {
                       </li>
                     ))}
                   </ul>
-                  <p className="text-slate-600 text-sm italic border-l-4 border-gov-saffron pl-4">
-                    Citizens are advised to submit their grievances through this portal.
-                  </p>
                 </div>
               </div>
 
