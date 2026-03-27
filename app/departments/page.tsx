@@ -81,18 +81,18 @@ export default function DepartmentsPage() {
                 <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg" alt="Emblem of India" className="w-full h-full object-contain mix-blend-multiply" />
               </div>
               <div>
-                <h1 className="text-xl md:text-2xl font-black text-black leading-tight uppercase tracking-tight">E-ARZI ANANTNAG</h1>
-                <p className="text-[10px] md:text-[11px] font-bold text-black uppercase tracking-widest mt-0.5">District Public Service Portal</p>
+                <h1 className="text-base md:text-lg font-black text-black leading-tight uppercase tracking-tight">E-ARZI ANANTNAG</h1>
+                <p className="text-[9px] md:text-[10px] font-bold text-black uppercase tracking-widest mt-0.5">District Public Service Portal</p>
               </div>
             </Link>
 
             {/* Desktop Nav */}
-            <nav className="hidden lg:flex items-center space-x-6">
+            <nav className="hidden lg:flex items-center space-x-4">
               {NAV_LINKS.map(item => (
                 <Link
                   key={item.label}
                   href={item.href}
-                  className={`text-sm font-bold transition-colors border-b-2 py-1 uppercase tracking-wider ${
+                  className={`text-xs font-bold transition-colors border-b-2 py-1 uppercase tracking-wider ${
                     item.label === "Departments"
                       ? "text-gov-navy border-gov-navy"
                       : "text-slate-700 hover:text-gov-navy border-transparent hover:border-gov-navy"

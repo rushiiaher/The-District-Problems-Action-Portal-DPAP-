@@ -68,13 +68,13 @@ export default function LandingPage() {
                 <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg" alt="Emblem of India" className="w-full h-full object-contain mix-blend-multiply" />
               </div>
               <div>
-                <h1 className="text-xl md:text-2xl font-black text-black leading-tight uppercase tracking-tight">E-ARZI ANANTNAG</h1>
-                <p className="text-[10px] md:text-[11px] font-bold text-black uppercase tracking-widest mt-0.5">District Public Service Portal</p>
+                <h1 className="text-base md:text-lg font-black text-black leading-tight uppercase tracking-tight">E-ARZI ANANTNAG</h1>
+                <p className="text-[9px] md:text-[10px] font-bold text-black uppercase tracking-widest mt-0.5">District Public Service Portal</p>
               </div>
             </div>
 
             {/* Desktop Nav */}
-            <nav className="hidden lg:flex items-center space-x-8">
+            <nav className="hidden lg:flex items-center space-x-4">
               {[
                 { label: "Home",        href: "#home" },
                 { label: "Arzi",        href: "#services" },
@@ -83,7 +83,7 @@ export default function LandingPage() {
                 { label: "Red Cross",   href: "#red-cross" },
                 { label: "Helplines",   href: "/helpline" },
               ].map(item => (
-                <a key={item.label} href={item.href} className="text-[15px] font-bold text-slate-700 hover:text-gov-navy transition-colors border-b-2 border-transparent hover:border-gov-navy py-1 uppercase tracking-wider">
+                <a key={item.label} href={item.href} className="text-xs font-bold text-slate-700 hover:text-gov-navy transition-colors border-b-2 border-transparent hover:border-gov-navy py-1 uppercase tracking-wider">
                   {item.label}
                 </a>
               ))}
