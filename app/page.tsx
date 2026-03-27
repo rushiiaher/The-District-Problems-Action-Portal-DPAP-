@@ -259,11 +259,15 @@ export default function LandingPage() {
                 {/* About */}
                 <div className="bg-slate-50 border border-slate-200 p-5">
                   <h3 className="text-sm font-black text-gov-navy uppercase tracking-widest mb-3 border-b border-slate-200 pb-2">About the Portal</h3>
+                  <p className="text-slate-700 text-sm leading-relaxed mb-3">
+                    e-Arzi Portal provides a single system for submission and monitoring of public grievances. All applications submitted through the portal are received at the District Office and forwarded to the concerned department for necessary action.
+                  </p>
                   <ul className="space-y-2">
                     {[
                       "Submit grievances and applications online",
                       "Track application status in real time",
                       "Transparent and accountable redressal of issues",
+                      "Direct forwarding to the concerned department",
                     ].map(item => (
                       <li key={item} className="flex items-start gap-2 text-sm text-slate-700">
                         <span className="material-symbols-outlined text-gov-green text-[16px] flex-shrink-0 mt-0.5">check_circle</span>
