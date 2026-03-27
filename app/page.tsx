@@ -230,51 +230,6 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* ─── MAIN SERVICES ─── */}
-        <section id="services" className="bg-gov-navy py-0">
-          <div className="max-w-7xl mx-auto px-4 md:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/10">
-              {[
-                {
-                  icon:   "app_registration",
-                  title:  "Lodge Grievance / Submit Arzi",
-                  desc:   "Submit your grievance or application online to the concerned department",
-                  href:   "/auth/login?tab=citizen",
-                  label:  "Submit Arzi",
-                  accent: "border-gov-saffron",
-                },
-                {
-                  icon:   "track_changes",
-                  title:  "Track Grievance Status",
-                  desc:   "Check the current status and updates on your submitted application",
-                  href:   "/complaint/track",
-                  label:  "Track Now",
-                  accent: "border-gov-green",
-                },
-                {
-                  icon:   "volunteer_activism",
-                  title:  "Apply for Red Cross Assistance",
-                  desc:   "Apply for financial aid in medical emergencies or eligible cases",
-                  href:   "/auth/login?tab=citizen",
-                  label:  "Apply Now",
-                  accent: "border-red-400",
-                },
-              ].map(s => (
-                <div key={s.title} className={`flex items-start gap-4 px-6 py-6 hover:bg-white/5 transition-colors border-l-4 ${s.accent} group`}>
-                  <span className="material-symbols-outlined text-white/60 text-[28px] group-hover:text-white transition-colors mt-0.5 flex-shrink-0">{s.icon}</span>
-                  <div className="flex-1">
-                    <h3 className="text-white font-black text-sm uppercase tracking-wide leading-tight mb-1">{s.title}</h3>
-                    <p className="text-slate-400 text-[12px] leading-relaxed mb-3">{s.desc}</p>
-                    <Link href={s.href} className="inline-flex items-center gap-1 text-[11px] font-bold text-white border border-white/30 px-3 py-1.5 hover:bg-white hover:text-gov-navy transition-all">
-                      {s.label} <span className="material-symbols-outlined text-[14px]">chevron_right</span>
-                    </Link>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* ─── WELCOME + ABOUT ─── */}
         <section className="py-14 md:py-20 bg-white border-b border-slate-200">
           <div className="max-w-7xl mx-auto px-4 md:px-8">
@@ -353,6 +308,51 @@ export default function LandingPage() {
                   ))}
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ─── MAIN SERVICES ─── */}
+        <section id="services" className="bg-gov-navy py-0">
+          <div className="max-w-7xl mx-auto px-4 md:px-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/10">
+              {[
+                {
+                  icon:   "app_registration",
+                  title:  "Lodge Grievance / Submit Arzi",
+                  desc:   "Submit your grievance or application online to the concerned department",
+                  href:   "/auth/login?tab=citizen",
+                  label:  "Submit Arzi",
+                  accent: "border-gov-saffron",
+                },
+                {
+                  icon:   "track_changes",
+                  title:  "Track Grievance Status",
+                  desc:   "Check the current status and updates on your submitted application",
+                  href:   "/complaint/track",
+                  label:  "Track Now",
+                  accent: "border-gov-green",
+                },
+                {
+                  icon:   "volunteer_activism",
+                  title:  "Apply for Red Cross Assistance",
+                  desc:   "Apply for financial aid in medical emergencies or eligible cases",
+                  href:   "/auth/login?tab=citizen",
+                  label:  "Apply Now",
+                  accent: "border-red-400",
+                },
+              ].map(s => (
+                <div key={s.title} className={`flex items-start gap-4 px-6 py-6 hover:bg-white/5 transition-colors border-l-4 ${s.accent} group`}>
+                  <span className="material-symbols-outlined text-white/60 text-[28px] group-hover:text-white transition-colors mt-0.5 flex-shrink-0">{s.icon}</span>
+                  <div className="flex-1">
+                    <h3 className="text-white font-black text-sm uppercase tracking-wide leading-tight mb-1">{s.title}</h3>
+                    <p className="text-slate-400 text-[12px] leading-relaxed mb-3">{s.desc}</p>
+                    <Link href={s.href} className="inline-flex items-center gap-1 text-[11px] font-bold text-white border border-white/30 px-3 py-1.5 hover:bg-white hover:text-gov-navy transition-all">
+                      {s.label} <span className="material-symbols-outlined text-[14px]">chevron_right</span>
+                    </Link>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
