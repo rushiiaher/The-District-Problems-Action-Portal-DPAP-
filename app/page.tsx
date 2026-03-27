@@ -76,10 +76,11 @@ export default function LandingPage() {
             {/* Desktop Nav */}
             <nav className="hidden lg:flex items-center space-x-6">
               {[
-                { label: "Home",       href: "#home" },
-                { label: "Arzi",       href: "#services" },
-                { label: "Red Cross",  href: "#red-cross" },
-                { label: "Helplines",  href: "/helpline" },
+                { label: "Home",        href: "#home" },
+                { label: "Arzi",        href: "#services" },
+                { label: "Departments", href: "/departments" },
+                { label: "Red Cross",   href: "#red-cross" },
+                { label: "Helplines",   href: "/helpline" },
               ].map(item => (
                 <a key={item.label} href={item.href} className="text-sm font-bold text-slate-700 hover:text-gov-navy transition-colors border-b-2 border-transparent hover:border-gov-navy py-1 uppercase tracking-wider">
                   {item.label}
@@ -143,10 +144,11 @@ export default function LandingPage() {
         {mobileMenuOpen && (
           <div ref={mobileMenuRef} className="lg:hidden absolute top-full left-0 right-0 bg-white border-b border-slate-300 shadow-xl flex flex-col p-4 space-y-1 z-50">
             {[
-              { label: "Home",      href: "#home" },
-              { label: "Arzi",      href: "#services" },
-              { label: "Red Cross", href: "#red-cross" },
-              { label: "Helplines", href: "/helpline" },
+              { label: "Home",        href: "#home" },
+              { label: "Arzi",        href: "#services" },
+              { label: "Departments", href: "/departments" },
+              { label: "Red Cross",   href: "#red-cross" },
+              { label: "Helplines",   href: "/helpline" },
             ].map(item => (
               <a key={item.label} href={item.href} className="text-sm font-bold text-slate-700 p-3 hover:bg-slate-50 uppercase tracking-wide border-b border-slate-100 block" onClick={() => setMobileMenuOpen(false)}>
                 {item.label}
@@ -238,7 +240,7 @@ export default function LandingPage() {
               {/* Left: Welcome + About */}
               <div>
                 {/* Welcome */}
-                <div className="mb-10">
+                <div>
                   <div className="flex items-center gap-3 mb-4">
                     <span className="h-1 w-10 bg-gov-saffron inline-block" />
                     <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-slate-400">Official Portal</span>
@@ -246,25 +248,13 @@ export default function LandingPage() {
                   <h2 className="text-2xl md:text-3xl font-black text-gov-navy uppercase tracking-tight leading-tight mb-4">
                     Welcome to e-Arzi Portal
                   </h2>
-                  <p className="text-slate-700 text-base leading-relaxed">
-                    e-Arzi Portal is an online platform developed by the <strong>Office of the Deputy Commissioner, Anantnag</strong>, for submission of grievances, requests and applications by citizens. All applications received through this portal are forwarded to the concerned departments for necessary action.
+                  <p className="text-slate-700 text-base leading-relaxed mb-4">
+                    An online platform by the <strong>Office of the Deputy Commissioner, Anantnag</strong> for submission of grievances and applications. All submissions are forwarded to the concerned department for necessary action.
                   </p>
-                  <p className="text-slate-600 text-sm mt-3 leading-relaxed italic border-l-4 border-gov-saffron pl-4">
-                    Citizens are advised to submit their grievances through this portal.
-                  </p>
-                </div>
-
-                {/* About */}
-                <div className="bg-slate-50 border border-slate-200 p-6">
-                  <h3 className="text-sm font-black text-gov-navy uppercase tracking-widest mb-4 border-b border-slate-200 pb-3">About the Portal</h3>
-                  <p className="text-slate-700 text-sm leading-relaxed mb-4">
-                    e-Arzi Portal provides a single system for submission and monitoring of public grievances. All applications submitted through the portal are received at the District Office and forwarded to the concerned department for necessary action.
-                  </p>
-                  <p className="text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-3">The Portal Provides:</p>
-                  <ul className="space-y-2">
+                  <ul className="space-y-3 mb-6">
                     {[
-                      "Submission of grievances online",
-                      "Facility to track application status",
+                      "Submit grievances and applications online",
+                      "Track application status in real time",
                       "Transparent and accountable redressal of issues",
                     ].map(item => (
                       <li key={item} className="flex items-start gap-2 text-sm text-slate-700">
@@ -273,6 +263,9 @@ export default function LandingPage() {
                       </li>
                     ))}
                   </ul>
+                  <p className="text-slate-600 text-sm italic border-l-4 border-gov-saffron pl-4">
+                    Citizens are advised to submit their grievances through this portal.
+                  </p>
                 </div>
               </div>
 

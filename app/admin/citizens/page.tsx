@@ -467,9 +467,9 @@ export default function AdminCitizensPage() {
                                   <span className="text-[10px] text-slate-400">
                                     {new Date(a.created_at).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" })}
                                   </span>
-                                  <Link href={`/admin/arzi/${a.id}`} target="_blank"
+                                  <Link href={`/admin/arzi/${a.id}`}
                                     className="flex items-center gap-1 text-[10px] font-bold text-gov-navy hover:text-gov-saffron transition-colors">
-                                    <span className="material-symbols-outlined text-[13px]">open_in_new</span>
+                                    <span className="material-symbols-outlined text-[13px]">arrow_forward</span>
                                     View Full Details
                                   </Link>
                                 </div>
