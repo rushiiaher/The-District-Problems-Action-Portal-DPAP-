@@ -74,7 +74,7 @@ export default function LandingPage() {
             </div>
 
             {/* Desktop Nav */}
-            <nav className="hidden lg:flex items-center space-x-6">
+            <nav className="hidden lg:flex items-center space-x-8">
               {[
                 { label: "Home",        href: "#home" },
                 { label: "Arzi",        href: "#services" },
@@ -83,7 +83,7 @@ export default function LandingPage() {
                 { label: "Red Cross",   href: "#red-cross" },
                 { label: "Helplines",   href: "/helpline" },
               ].map(item => (
-                <a key={item.label} href={item.href} className="text-sm font-bold text-slate-700 hover:text-gov-navy transition-colors border-b-2 border-transparent hover:border-gov-navy py-1 uppercase tracking-wider">
+                <a key={item.label} href={item.href} className="text-[15px] font-bold text-slate-700 hover:text-gov-navy transition-colors border-b-2 border-transparent hover:border-gov-navy py-1 uppercase tracking-wider">
                   {item.label}
                 </a>
               ))}
