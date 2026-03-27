@@ -23,7 +23,7 @@ const DEPARTMENTS = [
   { name: "Sheep Husbandry Department",                           icon: "agriculture"        },
   { name: "Fisheries Department",                                 icon: "set_meal"           },
   { name: "Employment Department",                                icon: "work"               },
-  { name: "Sericulture Department",                               icon: "yarn"               },
+  { name: "Sericulture Department",                               icon: "pest_control"       },
   { name: "Economics & Statistics Department",                    icon: "bar_chart"          },
   { name: "Fire & Emergency Services",                            icon: "local_fire_department" },
   { name: "Forest Department",                                    icon: "forest"             },
