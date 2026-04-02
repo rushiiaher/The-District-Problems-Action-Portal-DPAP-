@@ -227,10 +227,12 @@ export default function DepartmentsPage() {
                 <p className="text-amber-800 text-sm leading-relaxed mb-3">
                   While submitting an application, citizens are required to select the relevant department based on the nature of their grievance or request.
                 </p>
-                <p className="text-amber-800 text-sm leading-relaxed flex items-start gap-2">
+                <div className="text-amber-800 text-sm leading-relaxed flex items-start gap-2">
                   <span className="material-symbols-outlined text-amber-600 text-[16px] flex-shrink-0 mt-0.5">arrow_right</span>
-                  If the concerned department is not known, citizens may select the <strong>"Others"</strong> option. The application will be examined at the District Office and forwarded to the appropriate department for necessary action.
-                </p>
+                  <span>
+                    If the concerned department is not known, citizens may select the <strong>"Others"</strong> option. The application will be examined at the District Office and forwarded to the appropriate department for necessary action.
+                  </span>
+                </div>
               </div>
             </div>
           </section>
