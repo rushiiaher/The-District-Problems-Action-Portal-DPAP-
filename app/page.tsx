@@ -4,21 +4,9 @@ import Link from "next/link"
 import { useState, useRef, useEffect } from "react"
 
 const SLIDES = [
-  {
-    desk: "/Hero/banner-earzi-desk.jpeg",
-    mob:  "/Hero/banner-earzi-mob.jpeg",
-    alt:  "e-Arzi Portal — Online Grievance & Assistance",
-  },
-  {
-    desk: "/Hero/banner-grievance-desk.jpeg",
-    mob:  "/Hero/banner-grievance-mob.jpeg",
-    alt:  "Lodge Grievance Online",
-  },
-  {
-    desk: "/Hero/banner-redcross-desk.jpeg",
-    mob:  "/Hero/banner-redcross-mob.jpeg",
-    alt:  "Red Cross Financial Assistance",
-  },
+  { src: "/Hero/banner-earzi-desk.jpeg",     alt: "e-Arzi Portal — Online Grievance & Assistance" },
+  { src: "/Hero/banner-grievance-desk.jpeg",  alt: "Lodge Grievance Online"                        },
+  { src: "/Hero/banner-redcross-desk.jpeg",   alt: "Red Cross Financial Assistance"                },
 ]
 
 const DEPARTMENTS = [
@@ -172,38 +160,15 @@ export default function LandingPage() {
         {/* ─── HERO BANNER SLIDER ─── */}
         <section className="relative w-full overflow-hidden bg-slate-200">
 
-          {/* Mobile banners (portrait) — hidden on md+ */}
-          <div className="md:hidden relative w-full" style={{ aspectRatio: "2/3" }}>
+          {/* Single carousel — same desktop image on all screen sizes */}
+          <div className="relative w-full" style={{ aspectRatio: "16/5" }}>
             {SLIDES.map((s, i) => (
               <div
                 key={i}
                 className="absolute inset-0 transition-opacity duration-1000"
                 style={{ opacity: i === slideIdx ? 1 : 0 }}
               >
-                <img src={s.mob} alt={s.alt} className="w-full h-full object-cover object-top" />
-              </div>
-            ))}
-            {/* Dots */}
-            <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-10">
-              {SLIDES.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setSlideIdx(i)}
-                  className={`w-2 h-2 rounded-full transition-all ${i === slideIdx ? "bg-white w-6" : "bg-white/50"}`}
-                />
-              ))}
-            </div>
-          </div>
-
-          {/* Desktop banners (landscape 1600×500) — hidden below md */}
-          <div className="hidden md:block relative w-full h-[500px]">
-            {SLIDES.map((s, i) => (
-              <div
-                key={i}
-                className="absolute inset-0 transition-opacity duration-1000"
-                style={{ opacity: i === slideIdx ? 1 : 0 }}
-              >
-                <img src={s.desk} alt={s.alt} className="w-full h-full object-cover object-center" />
+                <img src={s.src} alt={s.alt} className="w-full h-full object-cover object-center" />
               </div>
             ))}
 
