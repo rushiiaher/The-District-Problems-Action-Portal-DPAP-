@@ -12,6 +12,7 @@ CREATE TABLE IF NOT EXISTS hero_banners (
 -- Index for ordered fetching
 CREATE INDEX IF NOT EXISTS hero_banners_sort_order_idx ON hero_banners (sort_order ASC);
 
--- Storage bucket: run this in Supabase dashboard or via API
--- INSERT INTO storage.buckets (id, name, public) VALUES ('hero-banners', 'hero-banners', true)
--- ON CONFLICT (id) DO NOTHING;
+-- Storage bucket (REQUIRED — run this too)
+INSERT INTO storage.buckets (id, name, public)
+VALUES ('hero-banners', 'hero-banners', true)
+ON CONFLICT (id) DO NOTHING;
