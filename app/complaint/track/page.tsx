@@ -70,6 +70,8 @@ function TrackForm() {
             <div>
               <h1 className="text-xl md:text-2xl font-black text-black leading-tight uppercase tracking-tight">E-ARZI ANANTNAG</h1>
               <p className="text-[10px] md:text-[11px] font-bold text-black uppercase tracking-widest mt-0.5">District Public Service Portal</p>
+              <p className="text-[9px] md:text-[10px] font-bold text-black tracking-wide">जिला सार्वजनिक सेवा पोर्टल</p>
+              <p className="text-[9px] md:text-[10px] font-bold text-black tracking-wide" style={{ fontFamily: "serif" }}>ضلعی عوامی خدمات پورٹل</p>
             </div>
           </Link>
           <div className="flex items-center gap-3">
