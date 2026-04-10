@@ -3,7 +3,8 @@
 import Link from "next/link"
 import { useState, useRef, useEffect } from "react"
 
-const SLIDES = [
+// Static fallback slides — used when DB has no active banners yet
+const FALLBACK_slides = [
   { src: "/Hero/banner-earzi-desk.jpeg",     alt: "e-Arzi Portal — Online Grievance & Assistance" },
   { src: "/Hero/banner-grievance-desk.jpeg",  alt: "Lodge Grievance Online"                        },
   { src: "/Hero/banner-redcross-desk.jpeg",   alt: "Red Cross Financial Assistance"                },
@@ -24,14 +25,28 @@ export default function LandingPage() {
   const [loginOpen,      setLoginOpen]      = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [slideIdx,       setSlideIdx]       = useState(0)
+  const [slides,         setSlides]         = useState(FALLBACK_slides)
   const loginRef     = useRef<HTMLDivElement>(null)
   const mobileMenuRef = useRef<HTMLDivElement>(null)
 
+  // Fetch dynamic banners from DB; fall back to static if none
+  useEffect(() => {
+    fetch("/api/hero-banners")
+      .then(r => r.json())
+      .then(data => {
+        if (data.success && data.banners?.length > 0) {
+          setSlides(data.banners.map((b: any) => ({ src: b.image_url, alt: b.alt_text })))
+        }
+      })
+      .catch(() => {}) // silently fall back to static
+  }, [])
+
   // Auto-advance slides
   useEffect(() => {
-    const t = setInterval(() => setSlideIdx(i => (i + 1) % SLIDES.length), 5000)
+    setSlideIdx(0) // reset when slides change
+    const t = setInterval(() => setSlideIdx(i => (i + 1) % slides.length), 5000)
     return () => clearInterval(t)
-  }, [])
+  }, [slides])
 
   // Close dropdowns on outside click
   useEffect(() => {
@@ -162,7 +177,7 @@ export default function LandingPage() {
 
           {/* Single carousel — same desktop image on all screen sizes */}
           <div className="relative w-full" style={{ aspectRatio: "16/5" }}>
-            {SLIDES.map((s, i) => (
+            {slides.map((s, i) => (
               <div
                 key={i}
                 className="absolute inset-0 transition-opacity duration-1000"
@@ -174,13 +189,13 @@ export default function LandingPage() {
 
             {/* Prev / Next arrows */}
             <button
-              onClick={() => setSlideIdx(i => (i - 1 + SLIDES.length) % SLIDES.length)}
+              onClick={() => setSlideIdx(i => (i - 1 + slides.length) % slides.length)}
               className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-black/30 hover:bg-black/50 text-white flex items-center justify-center transition-colors rounded"
             >
               <span className="material-symbols-outlined">chevron_left</span>
             </button>
             <button
-              onClick={() => setSlideIdx(i => (i + 1) % SLIDES.length)}
+              onClick={() => setSlideIdx(i => (i + 1) % slides.length)}
               className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-black/30 hover:bg-black/50 text-white flex items-center justify-center transition-colors rounded"
             >
               <span className="material-symbols-outlined">chevron_right</span>
@@ -188,7 +203,7 @@ export default function LandingPage() {
 
             {/* Dots */}
             <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-10">
-              {SLIDES.map((_, i) => (
+              {slides.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => setSlideIdx(i)}

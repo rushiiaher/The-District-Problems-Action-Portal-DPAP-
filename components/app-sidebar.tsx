@@ -58,6 +58,7 @@ const NAV = {
       { label: "Field Officers",    href: "/admin/officers",       icon: "badge" },
       { label: "Sub-Admins",        href: "/admin/subadmins",      icon: "manage_accounts" },
       { label: "Citizens",          href: "/admin/citizens",       icon: "group" },
+      { label: "Hero Banners",      href: "/admin/hero-banners",   icon: "view_carousel" },
       { label: "System Settings",   href: "/admin/settings",       icon: "admin_panel_settings" },
     ]},
     { group: "Financial Help", items: [
