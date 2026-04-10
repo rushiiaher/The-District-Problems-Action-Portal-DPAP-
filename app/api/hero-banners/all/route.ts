@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
 
     const { data, error } = await supabase
       .from("hero_banners")
-      .select("id, alt_text, image_url, sort_order, is_active, created_at")
+      .select("id, alt_text, image_url, link_url, sort_order, is_active, created_at")
       .order("sort_order", { ascending: true })
 
     // Return empty on table-not-found or any DB error

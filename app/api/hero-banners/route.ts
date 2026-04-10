@@ -17,7 +17,7 @@ export async function GET() {
   try {
     const { data, error } = await supabase
       .from("hero_banners")
-      .select("id, alt_text, image_url, sort_order, is_active, created_at")
+      .select("id, alt_text, image_url, link_url, sort_order, is_active, created_at")
       .eq("is_active", true)
       .order("sort_order", { ascending: true })
 
@@ -41,6 +41,7 @@ export async function POST(request: NextRequest) {
     const formData = await request.formData()
     const file     = formData.get("image") as File | null
     const altText  = (formData.get("alt_text") as string)?.trim() || "Hero Banner"
+    const linkUrl  = (formData.get("link_url") as string)?.trim() || null
 
     if (!file || file.size === 0) {
       return NextResponse.json({ success: false, error: "Image file is required" }, { status: 400 })
@@ -82,7 +83,7 @@ export async function POST(request: NextRequest) {
     // Insert DB record
     const { data, error } = await supabase
       .from("hero_banners")
-      .insert({ alt_text: altText, image_url: imageUrl, storage_path: storagePath, sort_order: nextOrder })
+      .insert({ alt_text: altText, image_url: imageUrl, storage_path: storagePath, link_url: linkUrl, sort_order: nextOrder })
       .select()
       .single()
 

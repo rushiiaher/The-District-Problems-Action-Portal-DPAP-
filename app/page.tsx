@@ -3,8 +3,10 @@
 import Link from "next/link"
 import { useState, useRef, useEffect } from "react"
 
+type Slide = { src: string; alt: string; link?: string | null }
+
 // Static fallback slides — used when DB has no active banners yet
-const FALLBACK_slides = [
+const FALLBACK_slides: Slide[] = [
   { src: "/Hero/banner-earzi-desk.jpeg",     alt: "e-Arzi Portal — Online Grievance & Assistance" },
   { src: "/Hero/banner-grievance-desk.jpeg",  alt: "Lodge Grievance Online"                        },
   { src: "/Hero/banner-redcross-desk.jpeg",   alt: "Red Cross Financial Assistance"                },
@@ -35,7 +37,7 @@ export default function LandingPage() {
       .then(r => r.json())
       .then(data => {
         if (data.success && data.banners?.length > 0) {
-          setSlides(data.banners.map((b: any) => ({ src: b.image_url, alt: b.alt_text })))
+          setSlides(data.banners.map((b: any) => ({ src: b.image_url, alt: b.alt_text, link: b.link_url || null })))
         }
       })
       .catch(() => {}) // silently fall back to static
@@ -183,7 +185,13 @@ export default function LandingPage() {
                 className="absolute inset-0 transition-opacity duration-1000"
                 style={{ opacity: i === slideIdx ? 1 : 0 }}
               >
-                <img src={s.src} alt={s.alt} className="w-full h-full object-cover object-center" />
+                {s.link ? (
+                  <a href={s.link} className="block w-full h-full" target={s.link.startsWith("http") ? "_blank" : "_self"} rel="noopener noreferrer">
+                    <img src={s.src} alt={s.alt} className="w-full h-full object-cover object-center cursor-pointer" />
+                  </a>
+                ) : (
+                  <img src={s.src} alt={s.alt} className="w-full h-full object-cover object-center" />
+                )}
               </div>
             ))}
 

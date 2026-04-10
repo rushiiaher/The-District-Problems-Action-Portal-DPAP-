@@ -10,6 +10,7 @@ type Banner = {
   id: string
   alt_text: string
   image_url: string
+  link_url: string | null
   sort_order: number
   is_active: boolean
   created_at: string
@@ -23,10 +24,12 @@ export default function HeroBannersPage() {
   const [fetching,    setFetching]    = useState(true)
   const [uploading,   setUploading]   = useState(false)
   const [altText,     setAltText]     = useState("")
+  const [linkUrl,     setLinkUrl]     = useState("")
   const [file,        setFile]        = useState<File | null>(null)
   const [preview,     setPreview]     = useState<string | null>(null)
   const [toast,       setToast]       = useState<{ msg: string; ok: boolean } | null>(null)
   const [deleteId,    setDeleteId]    = useState<string | null>(null)
+  const [editingLink, setEditingLink] = useState<{ id: string; val: string } | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -40,11 +43,9 @@ export default function HeroBannersPage() {
     setTimeout(() => setToast(null), 3500)
   }
 
-  // Fetch all banners (active + inactive) for admin view
   const fetchBanners = async () => {
     setFetching(true)
     try {
-      // Use service-level fetch that bypasses is_active filter
       const res  = await fetch("/api/hero-banners/all", { headers })
       const data = await res.json()
       if (data.success) setBanners(data.banners)
@@ -60,23 +61,23 @@ export default function HeroBannersPage() {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0] || null
     setFile(f)
-    if (f) setPreview(URL.createObjectURL(f))
-    else   setPreview(null)
+    setPreview(f ? URL.createObjectURL(f) : null)
   }
 
   const handleUpload = async () => {
-    if (!file) return showToast("Please select an image", false)
+    if (!file)          return showToast("Please select an image", false)
     if (!altText.trim()) return showToast("Please enter alt text", false)
     setUploading(true)
     try {
       const fd = new FormData()
       fd.append("image",    file)
       fd.append("alt_text", altText)
+      if (linkUrl.trim()) fd.append("link_url", linkUrl.trim())
       const res  = await fetch("/api/hero-banners", { method: "POST", headers, body: fd })
       const data = await res.json()
       if (data.success) {
         showToast("Banner uploaded successfully")
-        setFile(null); setAltText(""); setPreview(null)
+        setFile(null); setAltText(""); setLinkUrl(""); setPreview(null)
         if (fileInputRef.current) fileInputRef.current.value = ""
         fetchBanners()
       } else {
@@ -104,14 +105,28 @@ export default function HeroBannersPage() {
     }
   }
 
+  const saveLink = async (id: string, val: string) => {
+    const res  = await fetch(`/api/hero-banners/${id}`, {
+      method: "PATCH",
+      headers: { ...headers, "Content-Type": "application/json" },
+      body: JSON.stringify({ link_url: val.trim() || null }),
+    })
+    const data = await res.json()
+    if (data.success) {
+      setBanners(prev => prev.map(x => x.id === id ? { ...x, link_url: val.trim() || null } : x))
+      showToast("Link updated")
+    } else {
+      showToast(data.error || "Update failed", false)
+    }
+    setEditingLink(null)
+  }
+
   const moveOrder = async (b: Banner, direction: "up" | "down") => {
     const sorted  = [...banners].sort((a, x) => a.sort_order - x.sort_order)
     const idx     = sorted.findIndex(x => x.id === b.id)
     const swapIdx = direction === "up" ? idx - 1 : idx + 1
     if (swapIdx < 0 || swapIdx >= sorted.length) return
-
     const other = sorted[swapIdx]
-    // Swap sort_orders
     await Promise.all([
       fetch(`/api/hero-banners/${b.id}`,     { method: "PATCH", headers: { ...headers, "Content-Type": "application/json" }, body: JSON.stringify({ sort_order: other.sort_order }) }),
       fetch(`/api/hero-banners/${other.id}`, { method: "PATCH", headers: { ...headers, "Content-Type": "application/json" }, body: JSON.stringify({ sort_order: b.sort_order }) }),
@@ -147,7 +162,7 @@ export default function HeroBannersPage() {
           <SidebarToggle />
           <div>
             <h1 className="text-lg font-black uppercase tracking-wide leading-tight">Hero Banners</h1>
-            <p className="text-slate-300 text-xs">Manage homepage carousel images</p>
+            <p className="text-slate-300 text-xs">Manage homepage carousel images and redirect links</p>
           </div>
         </div>
 
@@ -161,6 +176,7 @@ export default function HeroBannersPage() {
             </div>
             <div className="p-6">
               <div className="grid md:grid-cols-2 gap-6">
+
                 {/* File picker */}
                 <div>
                   <label className="block text-xs font-bold text-slate-600 uppercase tracking-widest mb-2">
@@ -178,16 +194,10 @@ export default function HeroBannersPage() {
                     <p className="text-xs text-slate-500">{file ? file.name : "Click to select — JPEG, PNG or WebP"}</p>
                     <p className="text-[10px] text-slate-400 mt-1">Recommended: 1600 × 500 px</p>
                   </div>
-                  <input
-                    ref={fileInputRef}
-                    type="file"
-                    accept="image/jpeg,image/png,image/webp"
-                    className="hidden"
-                    onChange={handleFileChange}
-                  />
+                  <input ref={fileInputRef} type="file" accept="image/jpeg,image/png,image/webp" className="hidden" onChange={handleFileChange} />
                 </div>
 
-                {/* Alt text + submit */}
+                {/* Fields + submit */}
                 <div className="flex flex-col gap-4">
                   <div>
                     <label className="block text-xs font-bold text-slate-600 uppercase tracking-widest mb-2">
@@ -200,12 +210,30 @@ export default function HeroBannersPage() {
                       placeholder="e.g. e-Arzi Portal — Online Grievance"
                       className="w-full border border-slate-300 px-3 py-2.5 text-sm focus:outline-none focus:border-gov-navy"
                     />
-                    <p className="text-[10px] text-slate-400 mt-1">Used for accessibility and slide indicator</p>
+                    <p className="text-[10px] text-slate-400 mt-1">Used for accessibility and slide label</p>
                   </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-slate-600 uppercase tracking-widest mb-2">
+                      Redirect Link <span className="text-slate-400 font-medium normal-case tracking-normal">(optional)</span>
+                    </label>
+                    <div className="relative">
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-slate-400 text-[16px]">link</span>
+                      <input
+                        type="text"
+                        value={linkUrl}
+                        onChange={e => setLinkUrl(e.target.value)}
+                        placeholder="e.g. /about or https://example.com"
+                        className="w-full border border-slate-300 pl-8 pr-3 py-2.5 text-sm focus:outline-none focus:border-gov-navy"
+                      />
+                    </div>
+                    <p className="text-[10px] text-slate-400 mt-1">Citizens will be redirected here when they click the banner</p>
+                  </div>
+
                   <div className="flex-1 flex flex-col justify-end gap-2">
                     <div className="bg-amber-50 border border-amber-200 px-4 py-3 text-xs text-amber-800 flex items-start gap-2">
                       <span className="material-symbols-outlined text-[14px] flex-shrink-0 mt-0.5">info</span>
-                      New banners are added as active and appear last in the carousel. Use the order controls below to rearrange.
+                      New banners are added as active and appear last. Use the order controls below to rearrange.
                     </div>
                     <button
                       onClick={handleUpload}
@@ -260,60 +288,70 @@ export default function HeroBannersPage() {
                       {/* Image */}
                       <div className="relative aspect-[16/5] bg-slate-100 overflow-hidden">
                         <img src={b.image_url} alt={b.alt_text} className="w-full h-full object-cover" />
-                        {/* Order badge */}
                         <div className="absolute top-2 left-2 bg-black/60 text-white text-[10px] font-black px-2 py-0.5 rounded">
                           #{idx + 1}
                         </div>
-                        {/* Status badge */}
                         <div className={`absolute top-2 right-2 text-[10px] font-black px-2 py-0.5 rounded ${b.is_active ? "bg-gov-green text-white" : "bg-slate-500 text-white"}`}>
                           {b.is_active ? "ACTIVE" : "HIDDEN"}
                         </div>
                       </div>
 
                       {/* Info */}
-                      <div className="p-3 bg-white">
-                        <p className="text-xs font-bold text-slate-700 truncate mb-1">{b.alt_text}</p>
-                        <p className="text-[10px] text-slate-400 mb-3">
+                      <div className="p-3 bg-white space-y-2">
+                        <p className="text-xs font-bold text-slate-700 truncate">{b.alt_text}</p>
+
+                        {/* Link URL inline edit */}
+                        {editingLink?.id === b.id ? (
+                          <div className="flex gap-1.5">
+                            <div className="relative flex-1">
+                              <span className="absolute left-2 top-1/2 -translate-y-1/2 material-symbols-outlined text-slate-400 text-[13px]">link</span>
+                              <input
+                                autoFocus
+                                type="text"
+                                value={editingLink.val}
+                                onChange={e => setEditingLink({ id: b.id, val: e.target.value })}
+                                onKeyDown={e => { if (e.key === "Enter") saveLink(b.id, editingLink.val); if (e.key === "Escape") setEditingLink(null) }}
+                                placeholder="/about or https://…"
+                                className="w-full border border-gov-navy pl-6 pr-2 py-1 text-[11px] focus:outline-none"
+                              />
+                            </div>
+                            <button onClick={() => saveLink(b.id, editingLink.val)} className="px-2 py-1 bg-gov-navy text-white text-[10px] font-bold hover:bg-[#001a40]">Save</button>
+                            <button onClick={() => setEditingLink(null)} className="px-2 py-1 border border-slate-300 text-slate-600 text-[10px] font-bold hover:bg-slate-50">✕</button>
+                          </div>
+                        ) : (
+                          <button
+                            onClick={() => setEditingLink({ id: b.id, val: b.link_url || "" })}
+                            className="flex items-center gap-1.5 w-full text-left group"
+                          >
+                            <span className="material-symbols-outlined text-[13px] text-slate-400 group-hover:text-gov-navy flex-shrink-0">link</span>
+                            <span className={`text-[11px] truncate ${b.link_url ? "text-gov-navy font-medium" : "text-slate-400 italic"}`}>
+                              {b.link_url || "No link — click to add"}
+                            </span>
+                            <span className="material-symbols-outlined text-[12px] text-slate-300 group-hover:text-gov-navy ml-auto flex-shrink-0">edit</span>
+                          </button>
+                        )}
+
+                        <p className="text-[10px] text-slate-400">
                           Added {new Date(b.created_at).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" })}
                         </p>
 
                         {/* Actions */}
-                        <div className="flex items-center gap-1.5 flex-wrap">
-                          {/* Move up */}
-                          <button
-                            onClick={() => moveOrder(b, "up")}
-                            disabled={idx === 0}
-                            title="Move up"
-                            className="flex items-center gap-1 px-2 py-1.5 text-[10px] font-bold border border-slate-300 text-slate-600 hover:bg-slate-50 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-                          >
+                        <div className="flex items-center gap-1.5 flex-wrap pt-1">
+                          <button onClick={() => moveOrder(b, "up")} disabled={idx === 0} title="Move up"
+                            className="flex items-center px-2 py-1.5 text-[10px] font-bold border border-slate-300 text-slate-600 hover:bg-slate-50 disabled:opacity-30 disabled:cursor-not-allowed transition-colors">
                             <span className="material-symbols-outlined text-[14px]">arrow_upward</span>
                           </button>
-                          {/* Move down */}
-                          <button
-                            onClick={() => moveOrder(b, "down")}
-                            disabled={idx === sorted.length - 1}
-                            title="Move down"
-                            className="flex items-center gap-1 px-2 py-1.5 text-[10px] font-bold border border-slate-300 text-slate-600 hover:bg-slate-50 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-                          >
+                          <button onClick={() => moveOrder(b, "down")} disabled={idx === sorted.length - 1} title="Move down"
+                            className="flex items-center px-2 py-1.5 text-[10px] font-bold border border-slate-300 text-slate-600 hover:bg-slate-50 disabled:opacity-30 disabled:cursor-not-allowed transition-colors">
                             <span className="material-symbols-outlined text-[14px]">arrow_downward</span>
                           </button>
-                          {/* Toggle active */}
-                          <button
-                            onClick={() => toggleActive(b)}
-                            className={`flex items-center gap-1 px-2 py-1.5 text-[10px] font-bold border transition-colors ${
-                              b.is_active
-                                ? "border-amber-300 text-amber-700 hover:bg-amber-50"
-                                : "border-gov-green/40 text-gov-green hover:bg-green-50"
-                            }`}
-                          >
+                          <button onClick={() => toggleActive(b)}
+                            className={`flex items-center gap-1 px-2 py-1.5 text-[10px] font-bold border transition-colors ${b.is_active ? "border-amber-300 text-amber-700 hover:bg-amber-50" : "border-gov-green/40 text-gov-green hover:bg-green-50"}`}>
                             <span className="material-symbols-outlined text-[14px]">{b.is_active ? "visibility_off" : "visibility"}</span>
                             {b.is_active ? "Hide" : "Show"}
                           </button>
-                          {/* Delete */}
-                          <button
-                            onClick={() => setDeleteId(b.id)}
-                            className="flex items-center gap-1 px-2 py-1.5 text-[10px] font-bold border border-red-200 text-red-600 hover:bg-red-50 transition-colors ml-auto"
-                          >
+                          <button onClick={() => setDeleteId(b.id)}
+                            className="flex items-center gap-1 px-2 py-1.5 text-[10px] font-bold border border-red-200 text-red-600 hover:bg-red-50 transition-colors ml-auto">
                             <span className="material-symbols-outlined text-[14px]">delete</span>
                           </button>
                         </div>
@@ -325,16 +363,13 @@ export default function HeroBannersPage() {
             </div>
           </section>
 
-          {/* ── Live Preview Info ── */}
+          {/* Live preview link */}
           <div className="bg-slate-100 border border-slate-200 px-5 py-4 flex items-start gap-3">
             <span className="material-symbols-outlined text-gov-navy text-[18px] flex-shrink-0 mt-0.5">open_in_new</span>
             <div className="text-xs text-slate-600">
               <p className="font-bold text-slate-700 mb-0.5">Live Preview</p>
-              Changes are reflected on the homepage immediately after upload or toggle.
-              Active banners appear in the carousel in the order shown above.{" "}
-              <a href="/" target="_blank" className="text-gov-navy font-bold underline hover:text-gov-saffron">
-                View Homepage →
-              </a>
+              Changes reflect on the homepage immediately. Active banners with a redirect link are clickable for citizens.{" "}
+              <a href="/" target="_blank" className="text-gov-navy font-bold underline hover:text-gov-saffron">View Homepage →</a>
             </div>
           </div>
 
@@ -342,7 +377,7 @@ export default function HeroBannersPage() {
       </main>
     </div>
 
-    {/* ── Delete Confirm Modal ── */}
+    {/* Delete Confirm Modal */}
     {deleteId && (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
         <div className="bg-white shadow-xl border border-slate-200 p-6 max-w-sm w-full mx-4">
@@ -351,27 +386,17 @@ export default function HeroBannersPage() {
             <h3 className="text-base font-black text-slate-800">Delete Banner?</h3>
           </div>
           <p className="text-sm text-slate-600 mb-6">
-            This will permanently delete the banner image and remove it from the homepage carousel. This action cannot be undone.
+            This will permanently delete the banner image and remove it from the homepage carousel. This cannot be undone.
           </p>
           <div className="flex gap-3">
-            <button
-              onClick={() => setDeleteId(null)}
-              className="flex-1 py-2.5 border border-slate-300 text-slate-700 font-bold text-sm hover:bg-slate-50 transition-colors"
-            >
-              Cancel
-            </button>
-            <button
-              onClick={() => handleDelete(deleteId)}
-              className="flex-1 py-2.5 bg-red-600 text-white font-bold text-sm hover:bg-red-700 transition-colors"
-            >
-              Delete
-            </button>
+            <button onClick={() => setDeleteId(null)} className="flex-1 py-2.5 border border-slate-300 text-slate-700 font-bold text-sm hover:bg-slate-50 transition-colors">Cancel</button>
+            <button onClick={() => handleDelete(deleteId)} className="flex-1 py-2.5 bg-red-600 text-white font-bold text-sm hover:bg-red-700 transition-colors">Delete</button>
           </div>
         </div>
       </div>
     )}
 
-    {/* ── Toast ── */}
+    {/* Toast */}
     {toast && (
       <div className={`fixed bottom-6 right-6 z-50 flex items-center gap-3 px-5 py-3 shadow-xl text-sm font-bold text-white ${toast.ok ? "bg-gov-green" : "bg-red-600"}`}>
         <span className="material-symbols-outlined text-[18px]">{toast.ok ? "check_circle" : "error"}</span>

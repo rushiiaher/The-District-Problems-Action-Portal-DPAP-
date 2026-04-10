@@ -13,6 +13,8 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
     const updates: Record<string, any> = {}
 
     if (typeof body.alt_text   === "string")  updates.alt_text   = body.alt_text.trim()
+    if (typeof body.link_url   === "string")  updates.link_url   = body.link_url.trim() || null
+    if (body.link_url === null)               updates.link_url   = null
     if (typeof body.is_active  === "boolean") updates.is_active  = body.is_active
     if (typeof body.sort_order === "number")  updates.sort_order = body.sort_order
 
