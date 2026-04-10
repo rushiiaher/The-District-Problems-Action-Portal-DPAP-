@@ -1,6 +1,17 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { supabase } from "@/lib/supabase"
 
+const BUCKET = "hero-banners"
+
+// Ensure the storage bucket exists (creates it if missing)
+async function ensureBucket() {
+  const { data: buckets } = await supabase.storage.listBuckets()
+  const exists = buckets?.some(b => b.name === BUCKET)
+  if (!exists) {
+    await supabase.storage.createBucket(BUCKET, { public: true })
+  }
+}
+
 // ── GET /api/hero-banners — public, returns active banners ordered by sort_order
 export async function GET() {
   try {
@@ -10,10 +21,12 @@ export async function GET() {
       .eq("is_active", true)
       .order("sort_order", { ascending: true })
 
-    if (error) return NextResponse.json({ success: false, error: error.message }, { status: 500 })
+    // Return empty array on any error (table not yet created, etc.)
+    // so the homepage falls back to static slides gracefully
+    if (error) return NextResponse.json({ success: true, banners: [] })
     return NextResponse.json({ success: true, banners: data || [] })
-  } catch (err: any) {
-    return NextResponse.json({ success: false, error: err.message }, { status: 500 })
+  } catch {
+    return NextResponse.json({ success: true, banners: [] })
   }
 }
 
@@ -33,11 +46,13 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, error: "Image file is required" }, { status: 400 })
     }
 
-    // Validate file type
     const allowed = ["image/jpeg", "image/jpg", "image/png", "image/webp"]
     if (!allowed.includes(file.type)) {
       return NextResponse.json({ success: false, error: "Only JPEG, PNG or WebP images allowed" }, { status: 400 })
     }
+
+    // Auto-create bucket if it doesn't exist
+    await ensureBucket()
 
     // Get next sort_order
     const { data: existing } = await supabase
@@ -54,14 +69,14 @@ export async function POST(request: NextRequest) {
     const arrayBuffer = await file.arrayBuffer()
 
     const { error: uploadError } = await supabase.storage
-      .from("hero-banners")
+      .from(BUCKET)
       .upload(storagePath, arrayBuffer, { contentType: file.type, upsert: false })
 
     if (uploadError) {
       return NextResponse.json({ success: false, error: `Upload failed: ${uploadError.message}` }, { status: 500 })
     }
 
-    const { data: urlData } = supabase.storage.from("hero-banners").getPublicUrl(storagePath)
+    const { data: urlData } = supabase.storage.from(BUCKET).getPublicUrl(storagePath)
     const imageUrl = urlData.publicUrl
 
     // Insert DB record
@@ -72,8 +87,7 @@ export async function POST(request: NextRequest) {
       .single()
 
     if (error) {
-      // Rollback storage upload
-      await supabase.storage.from("hero-banners").remove([storagePath])
+      await supabase.storage.from(BUCKET).remove([storagePath])
       return NextResponse.json({ success: false, error: error.message }, { status: 500 })
     }
 

@@ -14,9 +14,10 @@ export async function GET(request: NextRequest) {
       .select("id, alt_text, image_url, sort_order, is_active, created_at")
       .order("sort_order", { ascending: true })
 
-    if (error) return NextResponse.json({ success: false, error: error.message }, { status: 500 })
+    // Return empty on table-not-found or any DB error
+    if (error) return NextResponse.json({ success: true, banners: [] })
     return NextResponse.json({ success: true, banners: data || [] })
-  } catch (err: any) {
-    return NextResponse.json({ success: false, error: err.message }, { status: 500 })
+  } catch {
+    return NextResponse.json({ success: true, banners: [] })
   }
 }
