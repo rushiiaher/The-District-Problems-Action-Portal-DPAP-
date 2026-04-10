@@ -118,7 +118,7 @@ function LoginForm() {
   return (
     <div className="flex flex-col min-h-screen bg-[#f4f7f9] font-inter">
 
-      {/* ─── HEADER (matches home page) ─── */}
+      {/* ─── HEADER ─── */}
       <header className="bg-white border-b border-black shadow-sm sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <div className="flex items-center justify-between h-[88px]">
@@ -129,20 +129,22 @@ function LoginForm() {
                 <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg" alt="Emblem of India" className="w-full h-full object-contain mix-blend-multiply" />
               </div>
               <div>
-                <h1 className="text-xl md:text-2xl font-black text-black leading-tight uppercase tracking-tight">E-ARZI ANANTNAG</h1>
-                <p className="text-[10px] md:text-[11px] font-bold text-black uppercase tracking-widest mt-0.5">District Public Service Portal</p>
+                <h1 className="text-base md:text-lg font-black text-black leading-tight uppercase tracking-tight">E-ARZI ANANTNAG</h1>
+                <p className="text-[9px] md:text-[10px] font-bold text-black uppercase tracking-widest mt-0.5">District Public Service Portal</p>
               </div>
             </Link>
 
             {/* Desktop Nav */}
-            <nav className="hidden lg:flex items-center space-x-6">
+            <nav className="hidden lg:flex items-center space-x-4">
               {[
-                { label: "Home", href: "/" },
-                { label: "Arzi", href: "/#grievance" },
-                { label: "Red Cross", href: "/#red" },
-                { label: "Helplines", href: "/helpline" },
+                { label: "Home",        href: "/"            },
+                { label: "Arzi",        href: "/#services"   },
+                { label: "Departments", href: "/departments" },
+                { label: "About",       href: "/about"       },
+                { label: "Red Cross",   href: "/#red-cross"  },
+                { label: "Helplines",   href: "/helpline"    },
               ].map(item => (
-                <Link key={item.label} href={item.href} className="text-sm font-bold text-slate-700 hover:text-gov-navy transition-colors border-b-2 border-transparent hover:border-gov-navy py-1 uppercase tracking-wider">
+                <Link key={item.label} href={item.href} className="text-xs font-bold text-slate-700 hover:text-gov-navy transition-colors border-b-2 border-transparent hover:border-gov-navy py-1 uppercase tracking-wider">
                   {item.label}
                 </Link>
               ))}
@@ -154,7 +156,7 @@ function LoginForm() {
                 <span className="material-symbols-outlined text-[18px]">search</span> Track Arzi
               </Link>
               <Link href="/" className="flex items-center gap-2 px-6 py-2 bg-gov-navy text-white font-bold text-sm hover:bg-[#001a40] transition-colors">
-                <span className="material-symbols-outlined text-[18px]">arrow_back</span> Back to Home
+                <span className="material-symbols-outlined text-[18px]">home</span> Home
               </Link>
             </div>
 
@@ -173,18 +175,21 @@ function LoginForm() {
         {mobileMenuOpen && (
           <div ref={mobileMenuRef} className="lg:hidden absolute top-full left-0 right-0 bg-white border-b border-slate-300 shadow-xl flex flex-col p-4 space-y-1 z-50">
             {[
-              { label: "Home", href: "/" },
-              { label: "Arzi", href: "/#grievance" },
-              { label: "Red Cross Society", href: "/#red" },
-              { label: "Helplines", href: "/helpline" },
+              { label: "Home",        href: "/"            },
+              { label: "Arzi",        href: "/#services"   },
+              { label: "Departments", href: "/departments" },
+              { label: "About",       href: "/about"       },
+              { label: "Red Cross",   href: "/#red-cross"  },
+              { label: "Helplines",   href: "/helpline"    },
             ].map(item => (
               <Link key={item.label} href={item.href} className="text-sm font-bold text-slate-700 p-3 hover:bg-slate-50 uppercase tracking-wide border-b border-slate-100 block" onClick={() => setMobileMenuOpen(false)}>
                 {item.label}
               </Link>
             ))}
-            <Link href="/complaint/track" className="bg-slate-100 text-slate-800 border border-slate-300 text-center font-bold py-3 text-sm w-full mt-3 block" onClick={() => setMobileMenuOpen(false)}>
-              Track Arzi Status
-            </Link>
+            <div className="grid grid-cols-2 gap-3 pt-4">
+              <Link href="/complaint/track" className="bg-slate-100 text-gov-navy border border-slate-300 text-center font-bold py-3 text-sm block" onClick={() => setMobileMenuOpen(false)}>Track Arzi</Link>
+              <Link href="/" className="bg-gov-navy text-white text-center font-bold py-3 text-sm block" onClick={() => setMobileMenuOpen(false)}>Home</Link>
+            </div>
           </div>
         )}
       </header>
