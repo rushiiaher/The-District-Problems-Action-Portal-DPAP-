@@ -91,6 +91,17 @@
   background: #138808;
 }
 
+/* =================== GOOGLE TRANSLATE — hide default toolbar =================== */
+
+/* Prevent Google Translate from pushing the page down */
+body { top: 0 !important; }
+.goog-te-banner-frame { display: none !important; }
+.skiptranslate { display: none !important; }
+/* Hide the "Translated by Google" iframe */
+iframe.goog-te-menu-frame { display: none !important; }
+/* Keep font rendering clean after translation */
+font[face] { color: inherit !important; }
+
 /* =================== MATERIAL SYMBOLS =================== */
 
 .material-symbols-outlined {

@@ -61,7 +61,7 @@ function TrackForm() {
   return (
     <div className="flex flex-col min-h-screen bg-[#f4f7f9] font-inter">
       {/* Header */}
-      <header className="bg-white border-b border-black shadow-sm sticky top-0 z-50">
+      <header className="bg-white border-b border-black shadow-sm sticky top-8 z-50">
         <div className="max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between h-[88px]">
           <Link href="/" className="flex items-center gap-4">
             <div className="w-12 h-12 md:w-16 md:h-16 flex items-center justify-center flex-shrink-0">

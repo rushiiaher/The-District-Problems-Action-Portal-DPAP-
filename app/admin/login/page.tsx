@@ -65,7 +65,7 @@ export default function AdminLoginPage() {
     <div className="flex flex-col min-h-screen bg-[#f4f7f9] font-inter">
 
       {/* Header */}
-      <header className="bg-white shadow-sm sticky top-0 z-50 border-b border-black">
+      <header className="bg-white shadow-sm sticky top-8 z-50 border-b border-black">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <div className="flex items-center justify-between h-[88px]">
             {/* Logo */}
