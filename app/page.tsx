@@ -344,31 +344,6 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* ─── IMPORTANT INSTRUCTIONS ─── */}
-        <section className="py-10 bg-amber-50 border-y border-amber-200">
-          <div className="max-w-7xl mx-auto px-4 md:px-8">
-            <div className="flex flex-col md:flex-row gap-6 md:gap-10 items-start">
-              <div className="flex items-center gap-3 flex-shrink-0">
-                <span className="material-symbols-outlined text-amber-600 text-[32px]">warning</span>
-                <h3 className="text-sm font-black text-amber-800 uppercase tracking-widest leading-tight">Important<br />Instructions</h3>
-              </div>
-              <div className="w-px self-stretch bg-amber-200 hidden md:block" />
-              <ul className="grid sm:grid-cols-3 gap-3 flex-1">
-                {[
-                  "All grievances should be submitted through this portal.",
-                  "Anonymous or incomplete applications may not be considered.",
-                  "Matters related to court cases, RTI and service matters are not entertained.",
-                ].map(inst => (
-                  <li key={inst} className="flex items-start gap-2">
-                    <span className="material-symbols-outlined text-amber-600 text-[16px] flex-shrink-0 mt-0.5">info</span>
-                    <p className="text-sm text-amber-900 leading-relaxed">{inst}</p>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </section>
-
         {/* ─── DEPARTMENTS COVERED ─── */}
         <section className="py-14 md:py-20 bg-slate-50 border-b border-slate-200">
           <div className="max-w-7xl mx-auto px-4 md:px-8">
